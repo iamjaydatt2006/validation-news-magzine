@@ -1,0 +1,48 @@
+name: Validate Theme CI
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-theme:
+    name: Lint & Validate Blogger XML Engine
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Python for XML Verification
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install System XML Verification Utilities (xmllint)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxml2-utils
+
+      - name: Lint JavaScript Syntax
+        run: |
+          npm run lint
+
+      - name: Compile Standalone Blogger XML Theme
+        run: |
+          npm run build
+
+      - name: Validate XML Well-Formedness (xmllint)
+        run: |
+          xmllint --noout dist/validation-news-magzine.xml
+
+      - name: Run Blogger XML Engine & Schema Auditor
+        run: |
+          npm run validate

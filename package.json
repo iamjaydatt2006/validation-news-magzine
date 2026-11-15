@@ -1,0 +1,35 @@
+{
+  "name": "validation-news-magzine",
+  "version": "1.0.0",
+  "description": "Validation News Magzine Theme — High-authority, SEO-optimized, minimalist editorial News Magazine template for Blogger (Blogspot).",
+  "main": "dist/validation-news-magzine.xml",
+  "scripts": {
+    "build": "node scripts/build-xml.js",
+    "validate": "node scripts/validate-xml.js",
+    "lint": "node --check assets/js/core.js assets/js/magazine-feeds.js assets/js/article-tools.js scripts/build-xml.js scripts/validate-xml.js",
+    "test": "npm run lint && npm run build && npm run validate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamjaydatt2006/validation-news-magzine.git"
+  },
+  "keywords": [
+    "blogger",
+    "blogspot",
+    "blogger-theme",
+    "news-magazine",
+    "editorial",
+    "newspaper",
+    "layouts-v3",
+    "widgets-v2",
+    "jsdelivr-cdn",
+    "seo-optimized",
+    "schema-org"
+  ],
+  "author": "Jaydatta Khodave",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iamjaydatt2006/validation-news-magzine/issues"
+  },
+  "homepage": "https://github.com/iamjaydatt2006/validation-news-magzine#readme"
+}

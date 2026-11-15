@@ -1,0 +1,3032 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta charset='UTF-8'/>
+  <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+  <meta content='IE=edge' http-equiv='X-UA-Compatible'/>
+
+  <!-- Preconnected High-Authority Typography Stack -->
+  <link href='https://fonts.googleapis.com' rel='preconnect'/>
+  <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,700&amp;display=swap' rel='stylesheet'/>
+
+  <!-- jsDelivr CDN Modular Non-Blocking Stylesheets (v1.0.0 Release) -->
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/css/components.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/css/post.css' rel='stylesheet'/>
+
+  <!-- Dynamic Document Title (Zero b:eval Chaining) -->
+  <title>
+    <b:if cond='data:view.isHomepage'>
+      <data:blog.title/> &#8212; Breaking News, World and Local Newsroom
+    <b:elseif cond='data:view.isError'/>
+      404: Page Not Found &#8212; <data:blog.title/>
+    <b:elseif cond='data:view.isLabelSearch'/>
+      <data:view.search.label/> News &#8212; <data:blog.title/>
+    <b:elseif cond='data:view.isSearch'/>
+      Search: &quot;<data:view.search.query/>&quot; &#8212; <data:blog.title/>
+    <b:elseif cond='data:view.isArchive'/>
+      Archive: <data:view.archive.rangeMessage/> &#8212; <data:blog.title/>
+    <b:else/>
+      <data:view.title.escaped/> &#8212; <data:blog.title/>
+    </b:if>
+  </title>
+
+  <!-- Canonical URL Directive -->
+  <link expr:href='data:view.url.canonical' rel='canonical'/>
+
+  <!-- Dynamic Meta Description -->
+  <b:if cond='data:view.description'>
+    <meta expr:content='data:view.description.escaped' name='description'/>
+  <b:else/>
+    <meta expr:content='data:blog.title + " &#8212; Comprehensive breaking news, analysis, politics, technology, business, and investigative journalism."' name='description'/>
+  </b:if>
+
+  <!-- Robots Crawl Directives -->
+  <b:if cond='data:view.isSearch or data:view.isArchive'>
+    <meta content='noindex,follow' name='robots'/>
+  <b:else/>
+    <meta content='index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1' name='robots'/>
+  </b:if>
+
+  <!-- RSS and Atom Syndication Feeds -->
+  <link expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
+  <link expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
+
+  <!-- Open Graph Protocol -->
+  <meta expr:content='data:blog.title' property='og:site_name'/>
+  <meta expr:content='data:view.url.canonical' property='og:url'/>
+  <b:if cond='data:view.isSingleItem'>
+    <meta content='article' property='og:type'/>
+    <meta expr:content='data:view.title.escaped' property='og:title'/>
+  <b:else/>
+    <meta content='website' property='og:type'/>
+    <meta expr:content='data:blog.title' property='og:title'/>
+  </b:if>
+  <b:if cond='data:view.description'>
+    <meta expr:content='data:view.description.escaped' property='og:description'/>
+  <b:else/>
+    <meta expr:content='data:blog.title + " &#8212; Real-time news dispatches and editorial commentary."' property='og:description'/>
+  </b:if>
+  <b:if cond='data:view.featuredImage'>
+    <meta expr:content='resizeImage(data:view.featuredImage, 1200, "1200:630")' property='og:image'/>
+    <meta content='1200' property='og:image:width'/>
+    <meta content='630' property='og:image:height'/>
+  <b:else/>
+    <meta content='https://resources.blogblog.com/img/blank.gif' property='og:image'/>
+  </b:if>
+
+  <!-- Twitter Card Data -->
+  <meta content='summary_large_image' name='twitter:card'/>
+  <meta expr:content='data:view.title.escaped' name='twitter:title'/>
+  <b:if cond='data:view.description'>
+    <meta expr:content='data:view.description.escaped' name='twitter:description'/>
+  </b:if>
+  <b:if cond='data:view.featuredImage'>
+    <meta expr:content='resizeImage(data:view.featuredImage, 1200, "1200:630")' name='twitter:image'/>
+  </b:if>
+
+  <!-- JSON-LD: NewsMediaOrganization and WebSite Schema (Homepage) -->
+  <b:if cond='data:view.isHomepage'>
+    <script type='application/ld+json'>
+    {
+      &quot;@context&quot;: &quot;https://schema.org&quot;,
+      &quot;@graph&quot;: [
+        {
+          &quot;@type&quot;: &quot;NewsMediaOrganization&quot;,
+          &quot;@id&quot;: &quot;<data:blog.homepageUrl.canonical/>#organization&quot;,
+          &quot;name&quot;: &quot;<data:blog.title.jsonEscaped/>&quot;,
+          &quot;url&quot;: &quot;<data:blog.homepageUrl.canonical/>&quot;,
+          &quot;logo&quot;: {
+            &quot;@type&quot;: &quot;ImageObject&quot;,
+            &quot;url&quot;: &quot;https://resources.blogblog.com/img/blank.gif&quot;
+          }
+        },
+        {
+          &quot;@type&quot;: &quot;WebSite&quot;,
+          &quot;@id&quot;: &quot;<data:blog.homepageUrl.canonical/>#website&quot;,
+          &quot;url&quot;: &quot;<data:blog.homepageUrl.canonical/>&quot;,
+          &quot;name&quot;: &quot;<data:blog.title.jsonEscaped/>&quot;,
+          &quot;publisher&quot;: {
+            &quot;@id&quot;: &quot;<data:blog.homepageUrl.canonical/>#organization&quot;
+          },
+          &quot;potentialAction&quot;: {
+            &quot;@type&quot;: &quot;SearchAction&quot;,
+            &quot;target&quot;: {
+              &quot;@type&quot;: &quot;EntryPoint&quot;,
+              &quot;urlTemplate&quot;: &quot;<data:blog.searchUrl.canonical/>?q={search_term_string}&quot;
+            },
+            &quot;query-input&quot;: &quot;required name=search_term_string&quot;
+          }
+        }
+      ]
+    }
+    </script>
+  </b:if>
+
+  <!-- JSON-LD: BreadcrumbList Schema (Label Archive and Static Pages) -->
+  <b:if cond='data:view.isLabelSearch'>
+    <script type='application/ld+json'>
+    {
+      &quot;@context&quot;: &quot;https://schema.org&quot;,
+      &quot;@type&quot;: &quot;BreadcrumbList&quot;,
+      &quot;itemListElement&quot;: [
+        {
+          &quot;@type&quot;: &quot;ListItem&quot;,
+          &quot;position&quot;: 1,
+          &quot;name&quot;: &quot;Home&quot;,
+          &quot;item&quot;: &quot;<data:blog.homepageUrl.canonical/>&quot;
+        },
+        {
+          &quot;@type&quot;: &quot;ListItem&quot;,
+          &quot;position&quot;: 2,
+          &quot;name&quot;: &quot;<data:view.search.label.jsonEscaped/>&quot;,
+          &quot;item&quot;: &quot;<data:view.url.canonical/>&quot;
+        }
+      ]
+    }
+    </script>
+  </b:if>
+
+  <!-- Inline Critical Above-the-Fold Layout CSS with Standalone Fallback -->
+  <b:skin><![CDATA[
+/* Core Tokens & Reset */
+/**
+ * Validation News Magzine Theme - Core Design Tokens & Scaffolding
+ * @package ValidationNewsMagzine
+ * @version 1.0.0
+ * @author Jaydatta Khodave
+ * @license MIT
+ */
+
+:root {
+  /* Color Palette - Authority Newsroom Editorial */
+  --bg-page: #FFFFFF;
+  --bg-subtle: #F7F7F8;
+  --bg-ad: #F2F3F5;
+  --text-ink: #111111;
+  --text-body: #333333;
+  --text-muted: #666666;
+  --border-hairline: #E2E2E2;
+  --border-strong: #111111;
+  --accent-red: #D9232E;
+  --accent-red-hover: #B71C1C;
+  --accent-blue: #1D4ED8;
+  --accent-blue-hover: #1E40AF;
+
+  /* Typography Tokens */
+  --font-serif: 'Playfair Display', 'Merriweather', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Fluid Responsive Type Scale */
+  --text-masthead: clamp(1.875rem, 4vw, 3.25rem);
+  --text-h1: clamp(1.75rem, 3.2vw, 2.5rem);
+  --text-lead-hero: clamp(1.5rem, 2.5vw, 2.125rem);
+  --text-card-headline: clamp(1.0625rem, 1.4vw, 1.25rem);
+  --text-article-body: clamp(1.0625rem, 1.15vw, 1.125rem);
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Layout Container Dimensions */
+  --site-max-width: 1280px;
+  --article-max-width: 740px;
+  --left-rail-width: 270px;
+  --sidebar-width: 330px;
+  --gap-desktop: 24px;
+
+  /* Micro-interactions & Radii */
+  --transition-fast: 0.15s ease-in-out;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+}
+
+[data-theme='dark'] {
+  --bg-page: #121214;
+  --bg-subtle: #1A1A1E;
+  --bg-ad: #222226;
+  --text-ink: #F5F5F7;
+  --text-body: #D1D1D6;
+  --text-muted: #8E8E93;
+  --border-hairline: #2C2C30;
+  --border-strong: #E5E5EA;
+  --accent-red: #FF453A;
+  --accent-red-hover: #FF6961;
+  --accent-blue: #3B82F6;
+  --accent-blue-hover: #60A5FA;
+}
+
+/* Base CSS Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-red);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button, input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Layout Centering Wrapper */
+.site-wrapper {
+  max-width: var(--site-max-width);
+  margin-inline: auto;
+  padding-inline: 20px;
+  width: 100%;
+}
+
+
+/* Components & Grid System */
+/**
+ * Validation News Magzine Theme - Components & Grid Architecture
+ * @package ValidationNewsMagzine
+ * @version 1.0.0
+ * @author Jaydatta Khodave
+ * @license MIT
+ */
+
+/* ==================================================================
+   1. MULTI-TIER HEADER & NAVIGATION
+   ================================================================== */
+
+/* Top Utility Bar */
+#top-bar {
+  border-bottom: 1px solid var(--border-hairline);
+  background: var(--bg-page);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.top-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 38px;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.edition-badge {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.edition-flag {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #22C55E;
+  border-radius: 50%;
+}
+
+.top-bar-date {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-hairline);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border-strong);
+}
+
+/* Editorial Masthead */
+#masthead {
+  padding: 24px 0 16px;
+  border-bottom: 1px solid var(--border-hairline);
+  text-align: center;
+}
+
+.masthead-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.masthead-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-masthead);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--text-ink);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.masthead-title a {
+  color: inherit;
+}
+
+.masthead-title a:hover {
+  color: var(--text-ink);
+}
+
+.masthead-tagline {
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+/* Primary Sticky Category Navigation */
+#primary-nav-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg-page);
+  border-bottom: 1px solid var(--border-hairline);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.nav-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 46px;
+}
+
+.nav-links-scroll {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-right: 12px;
+}
+
+.nav-links-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-link-item {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-ink);
+  padding: 12px 2px;
+  position: relative;
+  letter-spacing: -0.01em;
+}
+
+.nav-link-item:hover,
+.nav-link-item.active {
+  color: var(--accent-red);
+}
+
+.nav-link-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-red);
+}
+
+.nav-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Red Live Pulse Badge */
+.live-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(217, 35, 46, 0.08);
+  color: var(--accent-red);
+  border: 1px solid rgba(217, 35, 46, 0.25);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.live-pill-btn:hover {
+  background: var(--accent-red);
+  color: #FFFFFF;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--accent-red);
+  border-radius: 50%;
+  animation: pulse-dot 1.4s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+  100% { transform: scale(0.95); opacity: 1; }
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-ink);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.icon-btn:hover {
+  background: var(--bg-subtle);
+}
+
+/* Trending "In The News" Sub-Bar */
+#trending-bar {
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: 0.8125rem;
+}
+
+.trending-inner {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  overflow: hidden;
+}
+
+.trending-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-red);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  padding-right: 14px;
+  border-right: 1px solid var(--border-hairline);
+  flex-shrink: 0;
+}
+
+.trending-list {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-left: 14px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.trending-list::-webkit-scrollbar {
+  display: none;
+}
+
+.trending-item {
+  color: var(--text-body);
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
+
+.trending-item:hover {
+  color: var(--accent-blue);
+  text-decoration: underline;
+}
+
+/* ==================================================================
+   2. HOMEPAGE 3-COLUMN ASYMMETRIC MAGAZINE GRID
+   ================================================================== */
+
+.portal-main-area {
+  padding: 24px 0 48px;
+}
+
+.portal-grid-layout {
+  display: grid;
+  grid-template-columns: var(--left-rail-width) 1fr var(--sidebar-width);
+  gap: var(--gap-desktop);
+  align-items: start;
+}
+
+/* Left Rail - Breaking News & Fast Briefs */
+.portal-left-rail {
+  border-right: 1px solid var(--border-hairline);
+  padding-right: var(--gap-desktop);
+}
+
+.rail-section-header {
+  border-bottom: 2px solid var(--border-strong);
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+}
+
+.rail-section-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-ink);
+}
+
+/* Briefs Stack */
+.brief-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.brief-item:first-of-type {
+  padding-top: 0;
+}
+
+.brief-item:last-child {
+  border-bottom: none;
+}
+
+.brief-thumb-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-subtle);
+  overflow: hidden;
+  border-radius: var(--radius-xs);
+  margin-bottom: 8px;
+}
+
+.brief-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.brief-item:hover .brief-thumb-wrap img {
+  transform: scale(1.03);
+}
+
+.brief-kicker {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent-red);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.brief-headline {
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--text-ink);
+  margin: 0;
+}
+
+.brief-headline a:hover {
+  color: var(--accent-blue);
+}
+
+/* Center Feed - Lead Cover Story & Stream */
+.portal-center-feed {
+  min-width: 0;
+}
+
+/* Lead Cover Story (i == 0) */
+.lead-story-card {
+  border-bottom: 1px solid var(--border-hairline);
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.lead-headline {
+  font-family: var(--font-serif);
+  font-size: var(--text-lead-hero);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--text-ink);
+  margin-bottom: 14px;
+}
+
+.lead-headline a:hover {
+  color: var(--accent-red);
+}
+
+.lead-media-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-subtle);
+  overflow: hidden;
+  border-radius: var(--radius-xs);
+  margin-bottom: 12px;
+}
+
+.lead-media-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.lead-story-card:hover .lead-media-wrap img {
+  transform: scale(1.02);
+}
+
+.lead-deck {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-body);
+  margin-bottom: 10px;
+}
+
+.lead-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.meta-author {
+  font-weight: 600;
+  color: var(--text-ink);
+}
+
+/* Secondary Editorial Cards (i > 0) */
+.editorial-stream-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.news-card-horizontal {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border-hairline);
+  align-items: start;
+}
+
+.news-card-horizontal:last-child {
+  border-bottom: none;
+}
+
+.card-kicker {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent-red);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.card-headline {
+  font-size: var(--text-card-headline);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-ink);
+  margin-bottom: 6px;
+}
+
+.card-headline a:hover {
+  color: var(--accent-blue);
+}
+
+.card-snippet {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.card-meta-line {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-thumb-wrap {
+  aspect-ratio: 16 / 10;
+  background: var(--bg-subtle);
+  overflow: hidden;
+  border-radius: var(--radius-xs);
+}
+
+.card-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.news-card-horizontal:hover .card-thumb-wrap img {
+  transform: scale(1.04);
+}
+
+/* Right Sidebar Column */
+.portal-sidebar {
+  border-left: 1px solid var(--border-hairline);
+  padding-left: var(--gap-desktop);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* 300x250 Fixed Ad Slot (Zero CLS) */
+.news-ad-box {
+  width: 100%;
+  max-width: 300px;
+  min-height: 250px;
+  background: var(--bg-ad);
+  border: 1px solid var(--border-hairline);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  border-radius: var(--radius-xs);
+}
+
+.ad-disclaimer {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.ad-mock-content {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Most Read / Trending Widget */
+.sidebar-box-header {
+  border-bottom: 2px solid var(--border-strong);
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+}
+
+.sidebar-box-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-ink);
+}
+
+.popular-posts-stack {
+  counter-reset: popular-rank;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.popular-post-item {
+  counter-increment: popular-rank;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-hairline);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.popular-post-item:first-child {
+  padding-top: 0;
+}
+
+.popular-post-item:last-child {
+  border-bottom: none;
+}
+
+.popular-post-item::before {
+  content: counter(popular-rank, decimal-leading-zero);
+  font-family: var(--font-serif);
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-red);
+  flex-shrink: 0;
+  min-width: 28px;
+}
+
+.popular-post-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-ink);
+  margin: 0;
+}
+
+.popular-post-title a:hover {
+  color: var(--accent-blue);
+}
+
+/* Featured Videos Block */
+.video-feature-card {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.video-feature-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.video-play-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  background: rgba(217, 35, 46, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.video-play-badge svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 2px;
+}
+
+/* Newsletter Dispatch Box */
+.dispatch-box {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  padding: 18px;
+  border-radius: var(--radius-xs);
+}
+
+.dispatch-title {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-ink);
+  margin-bottom: 6px;
+}
+
+.dispatch-desc {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.dispatch-form {
+  display: flex;
+  gap: 6px;
+}
+
+.dispatch-input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--border-hairline);
+  background: var(--bg-page);
+  color: var(--text-ink);
+  font-size: 0.8125rem;
+  border-radius: var(--radius-xs);
+}
+
+.dispatch-input:focus {
+  outline: none;
+  border-color: var(--border-strong);
+}
+
+.dispatch-btn {
+  background: var(--border-strong);
+  color: var(--bg-page);
+  border: none;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.dispatch-btn:hover {
+  opacity: 0.9;
+}
+
+/* Below-the-fold Category Blocks */
+.modular-news-block {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 2px solid var(--border-strong);
+}
+
+.modular-block-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ==================================================================
+   5. FOOTER ARCHITECTURE
+   ================================================================== */
+
+#site-footer {
+  margin-top: auto;
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--border-hairline);
+  padding: 48px 0 24px;
+}
+
+.footer-top-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.footer-brand-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--text-ink);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.footer-brand-desc {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 320px;
+}
+
+.footer-col-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-ink);
+  margin-bottom: 14px;
+}
+
+.footer-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.8125rem;
+}
+
+.footer-links-list a {
+  color: var(--text-muted);
+}
+
+.footer-links-list a:hover {
+  color: var(--accent-red);
+}
+
+.footer-bottom-bar {
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ==================================================================
+   6. SEARCH MODAL OVERLAY & MOBILE DRAWER
+   ================================================================== */
+
+.search-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 80px;
+  backdrop-filter: blur(2px);
+}
+
+.search-modal-backdrop.is-open {
+  display: flex;
+}
+
+.search-modal-box {
+  background: var(--bg-page);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-sm);
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.search-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.search-box-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-ink);
+}
+
+.search-input-field {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid var(--border-hairline);
+  background: var(--bg-subtle);
+  color: var(--text-ink);
+  border-radius: var(--radius-xs);
+  outline: none;
+}
+
+.search-input-field:focus {
+  border-color: var(--border-strong);
+  background: var(--bg-page);
+}
+
+/* Mobile Slide-Over Drawer */
+.mobile-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2100;
+  display: none;
+}
+
+.mobile-drawer-backdrop.is-open {
+  display: block;
+}
+
+.mobile-drawer-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  background: var(--bg-page);
+  z-index: 2200;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.mobile-drawer-backdrop.is-open + .mobile-drawer-panel,
+.mobile-drawer-panel.is-open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.drawer-links-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* ==================================================================
+   7. RESPONSIVE BREAKPOINTS
+   ================================================================== */
+
+@media (max-width: 1100px) {
+  .portal-grid-layout {
+    grid-template-columns: 230px 1fr 280px;
+    gap: 18px;
+  }
+  .portal-left-rail {
+    padding-right: 18px;
+  }
+  .portal-sidebar {
+    padding-left: 18px;
+  }
+}
+
+@media (max-width: 960px) {
+  .portal-grid-layout {
+    grid-template-columns: 1fr;
+  }
+  .portal-left-rail {
+    border-right: none;
+    border-bottom: 1px solid var(--border-hairline);
+    padding-right: 0;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+  }
+  .portal-sidebar {
+    border-left: none;
+    border-top: 1px solid var(--border-hairline);
+    padding-left: 0;
+    padding-top: 28px;
+    margin-top: 28px;
+  }
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .modular-block-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-bar-inner {
+    font-size: 0.75rem;
+  }
+  .edition-badge {
+    display: none;
+  }
+  .news-card-horizontal {
+    grid-template-columns: 1fr 110px;
+    gap: 12px;
+  }
+  .card-headline {
+    font-size: 0.9375rem;
+  }
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Post & Archive View */
+/**
+ * Validation News Magzine Theme - Article, Archive & Single Page Styles
+ * @package ValidationNewsMagzine
+ * @version 1.0.0
+ * @author Jaydatta Khodave
+ * @license MIT
+ */
+
+/* ==================================================================
+   1. SINGLE ARTICLE VIEW (isPost) & EDITORIAL PAGES
+   ================================================================== */
+
+body.is-post .portal-left-rail,
+body.is-page .portal-left-rail,
+body.is-archive .portal-left-rail,
+body.is-error .portal-left-rail {
+  display: none;
+}
+
+body.is-post .portal-grid-layout,
+body.is-page .portal-grid-layout,
+body.is-archive .portal-grid-layout {
+  grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
+}
+
+/* Article Container */
+.article-reading-col {
+  max-width: var(--article-max-width);
+  margin-inline: auto;
+  width: 100%;
+}
+
+/* Breadcrumbs */
+.editorial-breadcrumbs {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.breadcrumb-sep {
+  color: var(--border-hairline);
+}
+
+.editorial-breadcrumbs a:hover {
+  color: var(--accent-red);
+}
+
+.breadcrumb-current {
+  color: var(--text-ink);
+  font-weight: 600;
+}
+
+/* Article Header */
+.article-header {
+  border-bottom: 1px solid var(--border-hairline);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.article-kicker-desk {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-red);
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.article-main-headline {
+  font-family: var(--font-serif);
+  font-size: var(--text-h1);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--text-ink);
+  margin-bottom: 14px;
+}
+
+.article-subheadline {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-bottom: 18px;
+}
+
+.article-byline-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.byline-author-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.byline-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-subtle);
+  object-fit: cover;
+  border: 1px solid var(--border-hairline);
+}
+
+.author-name-bold {
+  color: var(--text-ink);
+  font-weight: 700;
+}
+
+.byline-timestamps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Social Share Bar */
+.article-share-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  margin-bottom: 24px;
+}
+
+.share-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-right: 6px;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-hairline);
+  border-radius: 50%;
+  color: var(--text-ink);
+  background: var(--bg-page);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.share-btn:hover {
+  background: var(--border-strong);
+  color: var(--bg-page);
+  border-color: var(--border-strong);
+}
+
+/* Article Hero Image */
+.article-hero-media {
+  margin-bottom: 24px;
+}
+
+.article-hero-media img {
+  width: 100%;
+  border-radius: var(--radius-xs);
+}
+
+.media-caption {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* Table of Contents Container */
+#toc-container {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  padding: 16px 20px;
+  border-radius: var(--radius-xs);
+  margin-bottom: 28px;
+  display: none;
+}
+
+.toc-header-toggle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.toc-list {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.875rem;
+}
+
+.toc-list li a {
+  color: var(--text-body);
+  text-decoration: underline;
+  text-decoration-color: var(--border-hairline);
+}
+
+.toc-list li a:hover {
+  color: var(--accent-red);
+}
+
+.toc-list li.toc-h3 {
+  padding-left: 16px;
+  font-size: 0.8125rem;
+}
+
+/* Article Body Typography */
+.article-body-content {
+  font-size: var(--text-article-body);
+  line-height: 1.78;
+  color: var(--text-body);
+}
+
+.article-body-content p {
+  margin-bottom: 1.5rem;
+}
+
+.article-body-content h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.375rem, 2vw, 1.75rem);
+  font-weight: 700;
+  color: var(--text-ink);
+  margin: 2.2rem 0 1rem;
+  line-height: 1.25;
+}
+
+.article-body-content h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-ink);
+  margin: 1.8rem 0 0.8rem;
+  line-height: 1.3;
+}
+
+.article-body-content blockquote {
+  border-left: 3px solid var(--accent-red);
+  padding: 10px 0 10px 20px;
+  margin: 1.8rem 0;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text-ink);
+  line-height: 1.5;
+  background: var(--bg-subtle);
+}
+
+.article-body-content ul,
+.article-body-content ol {
+  margin: 0 0 1.5rem 1.5rem;
+}
+
+.article-body-content li {
+  margin-bottom: 0.5rem;
+}
+
+.article-body-content a {
+  color: var(--accent-blue);
+  text-decoration: underline;
+}
+
+.article-body-content a:hover {
+  color: var(--accent-blue-hover);
+}
+
+/* Article Labels / Tags Row */
+.article-tags-section {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-hairline);
+  margin-top: 36px;
+}
+
+.tags-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.tag-badge {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  transition: all var(--transition-fast);
+}
+
+.tag-badge:hover {
+  background: var(--border-strong);
+  color: var(--bg-page);
+  border-color: var(--border-strong);
+}
+
+/* Previous / Next Article Navigation */
+.post-navigation-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  padding: 18px 0;
+  margin: 28px 0;
+}
+
+.nav-direction-label {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent-red);
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.nav-post-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-ink);
+  display: block;
+}
+
+.nav-post-title:hover {
+  color: var(--accent-blue);
+}
+
+.post-nav-next {
+  text-align: right;
+}
+
+/* Related Coverage Block */
+.related-coverage-block {
+  margin: 36px 0;
+}
+
+.related-block-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--border-strong);
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.related-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.related-thumb-box {
+  aspect-ratio: 16 / 10;
+  background: var(--bg-subtle);
+  overflow: hidden;
+  border-radius: var(--radius-xs);
+  margin-bottom: 8px;
+}
+
+.related-thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.related-card:hover .related-thumb-box img {
+  transform: scale(1.03);
+}
+
+.related-card-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-ink);
+  margin: 0;
+}
+
+.related-card-title a:hover {
+  color: var(--accent-red);
+}
+
+/* Threaded Comments Styling */
+.comments-container {
+  margin-top: 40px;
+  border-top: 2px solid var(--border-strong);
+  padding-top: 20px;
+}
+
+.comments-header-title {
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--text-ink);
+  margin-bottom: 20px;
+}
+
+/* ==================================================================
+   2. ARCHIVE, SEARCH & ERROR VIEWS
+   ================================================================== */
+
+.archive-header-banner {
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-hairline);
+  padding: 32px 0;
+  margin-bottom: 28px;
+}
+
+.archive-kicker {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-red);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.archive-main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text-ink);
+  margin-bottom: 8px;
+}
+
+.archive-subtext {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+}
+
+.search-refine-form {
+  margin-top: 16px;
+  max-width: 500px;
+  display: flex;
+  gap: 8px;
+}
+
+.search-refine-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border-hairline);
+  background: var(--bg-page);
+  color: var(--text-ink);
+  border-radius: var(--radius-xs);
+  font-size: 0.875rem;
+}
+
+.search-refine-btn {
+  background: var(--border-strong);
+  color: var(--bg-page);
+  border: none;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+}
+
+/* Archive Grid of Cards */
+.archive-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* Pagination Controls */
+.blog-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-hairline);
+  margin-top: 32px;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.blog-pager a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-xs);
+  color: var(--text-ink);
+}
+
+.blog-pager a:hover {
+  background: var(--border-strong);
+  color: var(--bg-page);
+  border-color: var(--border-strong);
+}
+
+/* 404 Error Display */
+.error-notice-card {
+  text-align: center;
+  padding: 64px 20px;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.error-code {
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--accent-red);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.error-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-ink);
+  margin-bottom: 10px;
+}
+
+.error-desc {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .archive-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .post-navigation-split {
+    grid-template-columns: 1fr;
+  }
+  .post-nav-next {
+    text-align: left;
+  }
+}
+
+  ]]></b:skin>
+
+  <!-- jsDelivr CDN Deferred JavaScript Modules (v1.0.0 Release) -->
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/js/core.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/js/magazine-feeds.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/js/article-tools.js'></script>
+</head>
+
+<body expr:class='(data:view.isHomepage ? "is-homepage" : "") + (data:view.isPost ? " is-post" : "") + (data:view.isPage ? " is-page" : "") + (data:view.isMultipleItems and not data:view.isHomepage ? " is-archive" : "") + (data:view.isError ? " is-error" : "")'>
+
+  <!-- ==================================================================
+       TOP UTILITY BAR
+       ================================================================== -->
+  <header id='top-bar'>
+    <div class='site-wrapper'>
+      <div class='top-bar-inner'>
+        <div class='top-bar-left'>
+          <span class='edition-badge'><span class='edition-flag'></span> Edition: IN / Global</span>
+          <span class='top-bar-date' id='live-datetime'>Sun, Nov 15, 2026 | Updated Live</span>
+        </div>
+        <div class='top-bar-right'>
+          <b:section id='top-bar-links' maxwidgets='1' name='Top Bar Quick Links' showaddelement='no'>
+            <b:widget id='LinkList1' locked='true' title='Quick Links' type='LinkList' version='2'>
+              <b:widget-settings>
+                <b:widget-setting name='link-0'>https://twitter.com</b:widget-setting>
+                <b:widget-setting name='text-0'>X / Twitter</b:widget-setting>
+                <b:widget-setting name='link-1'>/feeds/posts/default</b:widget-setting>
+                <b:widget-setting name='text-1'>RSS Feed</b:widget-setting>
+              </b:widget-settings>
+              <b:includable id='main'>
+                <div class='top-quick-links' style='display:inline-flex; gap:12px;'>
+                  <b:loop values='data:links' var='link'>
+                    <a expr:href='data:link.target' target='_blank'><data:link.name/></a>
+                  </b:loop>
+                </div>
+              </b:includable>
+            </b:widget>
+          </b:section>
+          <button aria-label='Toggle Dark / Light Theme' class='theme-toggle-btn' id='theme-toggle'>
+            <svg fill='none' height='14' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='14'><circle cx='12' cy='12' r='5'/><path d='M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'/></svg>
+            <span id='theme-label'>Dark Mode</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       EDITORIAL MASTHEAD
+       ================================================================== -->
+  <div id='masthead'>
+    <div class='site-wrapper'>
+      <div class='masthead-inner'>
+        <b:section id='masthead-section' maxwidgets='1' name='Masthead Header' showaddelement='no'>
+          <b:widget id='Header1' locked='true' title='Site Header' type='Header' version='2'>
+            <b:includable id='main'>
+              <b:if cond='data:useImage'>
+                <a expr:href='data:blog.homepageUrl.canonical'>
+                  <img expr:alt='data:title' expr:src='data:image' style='max-height: 80px; margin: 0 auto;'/>
+                </a>
+              <b:else/>
+                <h1 class='masthead-title'>
+                  <a expr:href='data:blog.homepageUrl.canonical'><data:title/></a>
+                </h1>
+                <b:if cond='data:description'>
+                  <div class='masthead-tagline'><data:description/></div>
+                </b:if>
+              </b:if>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       PRIMARY STICKY CATEGORY NAVIGATION BAR
+       ================================================================== -->
+  <nav id='primary-nav-sticky'>
+    <div class='site-wrapper'>
+      <div class='nav-bar-inner'>
+        <!-- Mobile Drawer Toggle Button -->
+        <button aria-label='Open Navigation Drawer' class='icon-btn' id='mobile-menu-btn'>
+          <svg fill='none' height='20' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='20'><path d='M4 6h16M4 12h16M4 18h16'/></svg>
+        </button>
+
+        <!-- Category Links Scroll Area -->
+        <div class='nav-links-scroll'>
+          <b:section id='nav-section' maxwidgets='1' name='Category Navigation' showaddelement='no'>
+            <b:widget id='PageList1' locked='true' title='Pages &amp; Categories' type='PageList' version='2'>
+              <b:widget-settings>
+                <b:widget-setting name='link-0'>/</b:widget-setting>
+                <b:widget-setting name='text-0'>Home</b:widget-setting>
+                <b:widget-setting name='link-1'>/search/label/World</b:widget-setting>
+                <b:widget-setting name='text-1'>World</b:widget-setting>
+                <b:widget-setting name='link-2'>/search/label/Business</b:widget-setting>
+                <b:widget-setting name='text-2'>Business</b:widget-setting>
+                <b:widget-setting name='link-3'>/search/label/Tech</b:widget-setting>
+                <b:widget-setting name='text-3'>Tech</b:widget-setting>
+                <b:widget-setting name='link-4'>/search/label/Sports</b:widget-setting>
+                <b:widget-setting name='text-4'>Sports</b:widget-setting>
+                <b:widget-setting name='link-5'>/search/label/Health</b:widget-setting>
+                <b:widget-setting name='text-5'>Health</b:widget-setting>
+                <b:widget-setting name='link-6'>/search/label/Opinion</b:widget-setting>
+                <b:widget-setting name='text-6'>Opinion</b:widget-setting>
+              </b:widget-settings>
+              <b:includable id='main'>
+                <b:loop values='data:links' var='link'>
+                  <a expr:class='"nav-link-item" + (data:link.isCurrentPage ? " active" : "")' expr:href='data:link.href'><data:link.title/></a>
+                </b:loop>
+              </b:includable>
+            </b:widget>
+          </b:section>
+        </div>
+
+        <!-- Right Side Nav Controls -->
+        <div class='nav-controls-right'>
+          <a class='live-pill-btn' href='/search/label/Live'>
+            <span class='live-dot'></span>
+            <span>Live</span>
+          </a>
+          <button aria-label='Open Global Search' class='icon-btn' id='search-modal-trigger'>
+            <svg fill='none' height='18' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='18'><circle cx='11' cy='11' r='8'/><path d='M21 21l-4.35-4.35'/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================================================================
+       TRENDING "IN THE NEWS" STRIP
+       ================================================================== -->
+  <div id='trending-bar'>
+    <div class='site-wrapper'>
+      <div class='trending-inner'>
+        <span class='trending-badge'>
+          <svg fill='currentColor' height='12' viewBox='0 0 24 24' width='12'><path d='M17.5 12a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0zm1.5 0c0-3.866-3.134-7-7-7a6.97 6.97 0 00-4.95 2.05l-1.414-1.414A8.96 8.96 0 0112 3c4.97 0 9 4.03 9 9s-4.03 9-9 9a8.96 8.96 0 01-6.364-2.636l1.414-1.414A6.97 6.97 0 0012 19c3.866 0 7-3.134 7-7z'/></svg>
+          In The News
+        </span>
+        <b:section id='trending-section' maxwidgets='1' name='Trending Bar Topics' showaddelement='no'>
+          <b:widget id='LinkList2' locked='true' title='Trending Topics' type='LinkList' version='2'>
+            <b:widget-settings>
+              <b:widget-setting name='link-0'>/search/label/Economy</b:widget-setting>
+              <b:widget-setting name='text-0'>Global Economy</b:widget-setting>
+              <b:widget-setting name='link-1'>/search/label/AI</b:widget-setting>
+              <b:widget-setting name='text-1'>AI Revolution</b:widget-setting>
+              <b:widget-setting name='link-2'>/search/label/Climate</b:widget-setting>
+              <b:widget-setting name='text-2'>Climate Summit</b:widget-setting>
+              <b:widget-setting name='link-3'>/search/label/Elections</b:widget-setting>
+              <b:widget-setting name='text-3'>General Elections</b:widget-setting>
+              <b:widget-setting name='link-4'>/search/label/Cricket</b:widget-setting>
+              <b:widget-setting name='text-4'>Cricket World Cup</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='trending-list'>
+                <b:loop values='data:links' var='link'>
+                  <a class='trending-item' expr:href='data:link.target'><data:link.name/></a>
+                </b:loop>
+              </div>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       ARCHIVE / SEARCH / LABEL HERO BANNER (When Not Homepage)
+       ================================================================== -->
+  <b:if cond='data:view.isMultipleItems and not data:view.isHomepage'>
+    <div class='archive-header-banner'>
+      <div class='site-wrapper'>
+        <b:if cond='data:view.isLabelSearch'>
+          <span class='archive-kicker'>News Desk Archive</span>
+          <h1 class='archive-main-title'>Topic: <data:view.search.label/></h1>
+          <p class='archive-subtext'>All reporting, investigative pieces, and editorial dispatches filed under #<data:view.search.label/></p>
+        <b:elseif cond='data:view.isSearch'/>
+          <span class='archive-kicker'>Search Archives</span>
+          <h1 class='archive-main-title'>Search Results for: &quot;<data:view.search.query/>&quot;</h1>
+          <form class='search-refine-form' expr:action='data:blog.searchUrl'>
+            <input class='search-refine-input' expr:value='data:view.search.query' name='q' placeholder='Refine your news search...' type='search'/>
+            <button class='search-refine-btn' type='submit'>Search</button>
+          </form>
+        <b:elseif cond='data:view.isArchive'/>
+          <span class='archive-kicker'>Historical Dispatches</span>
+          <h1 class='archive-main-title'>Newsroom Archive: <data:view.archive.rangeMessage/></h1>
+        </b:if>
+      </div>
+    </div>
+  </b:if>
+
+  <!-- ==================================================================
+       MAIN PORTAL AREA (3-COLUMN ON HOME, 2-COLUMN ON ARTICLE)
+       ================================================================== -->
+  <main class='portal-main-area'>
+    <div class='site-wrapper'>
+      <div class='portal-grid-layout'>
+
+        <!-- ==========================================================
+             LEFT RAIL: FAST BRIEFS and BREAKING STORIES (Homepage Only)
+             ========================================================== -->
+        <aside class='portal-left-rail'>
+          <div class='rail-section-header'>
+            <h3 class='rail-section-title'>Fast Dispatches</h3>
+          </div>
+          <b:section id='left-rail' maxwidgets='2' name='Left Rail Breaking Briefs' showaddelement='yes'>
+            <b:widget id='HTML1' locked='false' title='Editor Briefs' type='HTML' version='2'>
+              <b:includable id='main'>
+                <div class='briefs-container'>
+                  <article class='brief-item'>
+                    <div class='brief-thumb-wrap'>
+                      <img alt='Wildlife conservation report' loading='lazy' src='https://picsum.photos/seed/brief1/400/225'/>
+                    </div>
+                    <span class='brief-kicker'>Environment</span>
+                    <h4 class='brief-headline'><a href='#'>Endangered coastal species reintroduced into native wildlife sanctuary after intensive care</a></h4>
+                  </article>
+                  <article class='brief-item'>
+                    <span class='brief-kicker'>Technology</span>
+                    <h4 class='brief-headline'><a href='#'>Micro-inverter efficiency surges as photovoltaic engineering teams adopt biomimetic structures</a></h4>
+                  </article>
+                  <article class='brief-item'>
+                    <span class='brief-kicker'>Global Health</span>
+                    <h4 class='brief-headline'><a href='#'>Clinical trials validate preventative care protocol reducing metabolic risks in urban centers</a></h4>
+                  </article>
+                  <article class='brief-item'>
+                    <span class='brief-kicker'>Markets</span>
+                    <h4 class='brief-headline'><a href='#'>Central reserves expand liquidity buffer as sovereign bond yields stabilize across major bourses</a></h4>
+                  </article>
+                  <article class='brief-item'>
+                    <span class='brief-kicker'>Space &amp; Defense</span>
+                    <h4 class='brief-headline'><a href='#'>Next-generation optical telemetry satellite prepares for equatorial launch countdown</a></h4>
+                  </article>
+                </div>
+              </b:includable>
+            </b:widget>
+          </b:section>
+        </aside>
+
+        <!-- ==========================================================
+             CENTER COLUMN: BLOG1 (LEAD STORY + EDITORIAL STREAM)
+             ========================================================== -->
+        <section class='portal-center-feed'>
+          <b:section id='main' maxwidgets='1' name='Main Editorial Content' showaddelement='no'>
+            <b:widget id='Blog1' locked='true' title='News Posts' type='Blog' version='2'>
+              <b:includable id='main'>
+
+                <!-- VIEW 1: ERROR 404 VIEW -->
+                <b:if cond='data:view.isError'>
+                  <div class='error-notice-card'>
+                    <div class='error-code'>404</div>
+                    <h1 class='error-title'>Dispatch Not Found</h1>
+                    <p class='error-desc'>The article, report, or page you requested could not be located in our editorial archives. It may have been archived under an updated headline or URL.</p>
+                    <form class='search-refine-form' expr:action='data:blog.searchUrl' style='margin: 0 auto 20px;'>
+                      <input class='search-refine-input' name='q' placeholder='Search archives for topic or name...' type='search'/>
+                      <button class='search-refine-btn' type='submit'>Search</button>
+                    </form>
+                    <a expr:href='data:blog.homepageUrl.canonical' style='color: var(--accent-red); font-weight: 700;'>&#8592; Return to Front Page</a>
+                  </div>
+
+                <!-- VIEW 2: SINGLE POST / ARTICLE VIEW -->
+                <b:elseif cond='data:view.isPost'/>
+                  <b:loop values='data:posts' var='post'>
+                    <article class='article-reading-col' expr:id='"post-" + data:post.id'>
+
+                      <!-- Breadcrumbs -->
+                      <nav aria-label='Breadcrumb' class='editorial-breadcrumbs'>
+                        <a expr:href='data:blog.homepageUrl.canonical'>Home</a>
+                        <span class='breadcrumb-sep'>/</span>
+                        <b:loop index='lblIdx' values='data:post.labels' var='label'>
+                          <b:if cond='data:lblIdx == 0'>
+                            <a expr:href='data:label.url'><data:label.name/></a>
+                            <span class='breadcrumb-sep'>/</span>
+                          </b:if>
+                        </b:loop>
+                        <span class='breadcrumb-current'><data:post.title/></span>
+                      </nav>
+
+                      <!-- Article Header -->
+                      <header class='article-header'>
+                        <b:loop index='lblIdx' values='data:post.labels' var='label'>
+                          <b:if cond='data:lblIdx == 0'>
+                            <span class='article-kicker-desk'><data:label.name/> Desk</span>
+                          </b:if>
+                        </b:loop>
+                        <h1 class='article-main-headline'><data:post.title/></h1>
+                        <b:if cond='data:post.snippet'>
+                          <p class='article-subheadline'><data:post.snippet/></p>
+                        </b:if>
+
+                        <div class='article-byline-bar'>
+                          <div class='byline-author-group'>
+                            <b:if cond='data:post.author.authorPhoto.image'>
+                              <img alt='Author' class='byline-avatar' expr:src='data:post.author.authorPhoto.image'/>
+                            <b:else/>
+                              <div class='byline-avatar' style='display:flex;align-items:center;justify-content:center;font-weight:700;'>N</div>
+                            </b:if>
+                            <div>
+                              <span>By </span>
+                              <span class='author-name-bold'><data:post.author.name/></span>
+                            </div>
+                          </div>
+                          <div class='byline-timestamps'>
+                            <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
+                            <span>&#8226;</span>
+                            <span id='reading-time'>3 min read</span>
+                          </div>
+                        </div>
+                      </header>
+
+                      <!-- Share Strip -->
+                      <div class='article-share-strip'>
+                        <span class='share-label'>Share:</span>
+                        <button aria-label='Share on Twitter' class='share-btn share-tw' expr:data-title='data:post.title' expr:data-url='data:post.url.canonical'>
+                          <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>
+                        </button>
+                        <button aria-label='Share on Facebook' class='share-btn share-fb' expr:data-url='data:post.url.canonical'>
+                          <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg>
+                        </button>
+                        <button aria-label='Share on WhatsApp' class='share-btn share-wa' expr:data-title='data:post.title' expr:data-url='data:post.url.canonical'>
+                          <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z'/></svg>
+                        </button>
+                        <button aria-label='Copy Article Link' class='share-btn share-copy' expr:data-url='data:post.url.canonical' id='copy-link-btn'>
+                          <svg fill='none' height='14' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='14'><path d='M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71'/></svg>
+                        </button>
+                      </div>
+
+                      <!-- Featured Hero Image -->
+                      <b:if cond='data:post.featuredImage'>
+                        <figure class='article-hero-media'>
+                          <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")' fetchpriority='high'/>
+                          <figcaption class='media-caption'>Image: Newsroom Visual Desk / Editorial Archives</figcaption>
+                        </figure>
+                      </b:if>
+
+                      <!-- Auto Table of Contents Container -->
+                      <div id='toc-container'>
+                        <div class='toc-header-toggle' id='toc-toggle'>
+                          <span>Inside This Dispatch</span>
+                          <span id='toc-icon'>&#9660;</span>
+                        </div>
+                        <ul class='toc-list' id='toc-list'></ul>
+                      </div>
+
+                      <!-- Article Content Body -->
+                      <div class='article-body-content' id='article-content'>
+                        <data:post.body/>
+                      </div>
+
+                      <!-- Labels / Tags Row -->
+                      <b:if cond='data:post.labels'>
+                        <div class='article-tags-section'>
+                          <span class='tags-label'>Filed Under:</span>
+                          <b:loop values='data:post.labels' var='label'>
+                            <a class='tag-badge' expr:href='data:label.url'>#<data:label.name/></a>
+                          </b:loop>
+                        </div>
+                      </b:if>
+
+                      <!-- Previous / Next Navigation Split -->
+                      <div class='post-navigation-split'>
+                        <div>
+                          <b:if cond='data:newerPageUrl'>
+                            <span class='nav-direction-label'>&#8592; Previous Dispatch</span>
+                            <a class='nav-post-title' expr:href='data:newerPageUrl'>Return to latest coverage</a>
+                          </b:if>
+                        </div>
+                        <div class='post-nav-next'>
+                          <b:if cond='data:olderPageUrl'>
+                            <span class='nav-direction-label'>Next Story &#8594;</span>
+                            <a class='nav-post-title' expr:href='data:olderPageUrl'>Continue reading archives</a>
+                          </b:if>
+                        </div>
+                      </div>
+
+                      <!-- Related Coverage Grid -->
+                      <div class='related-coverage-block' id='related-coverage'>
+                        <h3 class='related-block-title'>Related Dispatches</h3>
+                        <div class='related-grid' id='related-posts-grid'>
+                          <div class='related-card'>
+                            <div class='related-thumb-box'><img alt='Related Story' loading='lazy' src='https://picsum.photos/seed/rel1/400/250'/></div>
+                            <h4 class='related-card-title'><a href='#'>Diplomatic envoys convene for multilateral regional security dialogue</a></h4>
+                          </div>
+                          <div class='related-card'>
+                            <div class='related-thumb-box'><img alt='Related Story' loading='lazy' src='https://picsum.photos/seed/rel2/400/250'/></div>
+                            <h4 class='related-card-title'><a href='#'>Infrastructure bill allocates strategic capital for transit corridor expansion</a></h4>
+                          </div>
+                          <div class='related-card'>
+                            <div class='related-thumb-box'><img alt='Related Story' loading='lazy' src='https://picsum.photos/seed/rel3/400/250'/></div>
+                            <h4 class='related-card-title'><a href='#'>Quantum computing laboratory demonstrates fault-tolerant qubit coherence</a></h4>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- JSON-LD NewsArticle Structured Data for Post -->
+                      <script type='application/ld+json'>
+                      {
+                        &quot;@context&quot;: &quot;https://schema.org&quot;,
+                        &quot;@type&quot;: &quot;NewsArticle&quot;,
+                        &quot;mainEntityOfPage&quot;: {
+                          &quot;@type&quot;: &quot;WebPage&quot;,
+                          &quot;@id&quot;: &quot;<data:post.url.canonical/>&quot;
+                        },
+                        &quot;headline&quot;: &quot;<data:post.title.jsonEscaped/>&quot;,
+                        &quot;description&quot;: &quot;<b:if cond='data:post.snippet'><data:post.snippet.jsonEscaped/><b:else/><data:post.title.jsonEscaped/></b:if>&quot;,
+                        <b:if cond='data:post.featuredImage'>
+                        &quot;image&quot;: [
+                          &quot;<data:post.featuredImage/>&quot;
+                        ],
+                        </b:if>
+                        &quot;datePublished&quot;: &quot;<data:post.date.iso8601/>&quot;,
+                        &quot;dateModified&quot;: &quot;<b:if cond='data:post.lastUpdated'><data:post.lastUpdated.iso8601/><b:else/><data:post.date.iso8601/></b:if>&quot;,
+                        &quot;author&quot;: {
+                          &quot;@type&quot;: &quot;Person&quot;,
+                          &quot;name&quot;: &quot;<data:post.author.name.jsonEscaped/>&quot;
+                        },
+                        &quot;publisher&quot;: {
+                          &quot;@type&quot;: &quot;NewsMediaOrganization&quot;,
+                          &quot;name&quot;: &quot;<data:blog.title.jsonEscaped/>&quot;,
+                          &quot;logo&quot;: {
+                            &quot;@type&quot;: &quot;ImageObject&quot;,
+                            &quot;url&quot;: &quot;https://resources.blogblog.com/img/blank.gif&quot;
+                          }
+                        }
+                      }
+                      </script>
+
+                      <!-- Native Threaded Comments -->
+                      <section class='comments-container'>
+                        <h3 class='comments-header-title'>Reader Editorial Commentary</h3>
+                        <b:include data='post' name='comments'/>
+                      </section>
+
+                    </article>
+                  </b:loop>
+
+                <!-- VIEW 3: STATIC PAGE VIEW (isPage) -->
+                <b:elseif cond='data:view.isPage'/>
+                  <b:loop values='data:posts' var='post'>
+                    <article class='article-reading-col' expr:id='"page-" + data:post.id'>
+                      <header class='article-header'>
+                        <h1 class='article-main-headline'><data:post.title/></h1>
+                      </header>
+                      <div class='article-body-content'>
+                        <data:post.body/>
+                      </div>
+                    </article>
+                  </b:loop>
+
+                <!-- VIEW 4: HOMEPAGE (isHomepage) -->
+                <b:elseif cond='data:view.isHomepage'/>
+                  <!-- LEAD COVER STORY (i == 0) -->
+                  <b:loop index='i' values='data:posts' var='post'>
+                    <b:if cond='data:i == 0'>
+                      <article class='lead-story-card' expr:id='"lead-" + data:post.id'>
+                        <h2 class='lead-headline'>
+                          <a expr:href='data:post.url'><data:post.title/></a>
+                        </h2>
+                        <div class='lead-media-wrap'>
+                          <a expr:href='data:post.url'>
+                            <b:if cond='data:post.featuredImage'>
+                              <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")' fetchpriority='high'/>
+                            <b:else/>
+                              <img alt='Newsroom Lead Story' fetchpriority='high' src='https://picsum.photos/seed/leadnews/1200/675'/>
+                            </b:if>
+                          </a>
+                        </div>
+                        <b:if cond='data:post.snippet'>
+                          <p class='lead-deck'><data:post.snippet/></p>
+                        </b:if>
+                        <div class='lead-meta'>
+                          <span class='meta-author'>By <data:post.author.name/></span>
+                          <span>&#8226;</span>
+                          <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
+                        </div>
+                      </article>
+                    </b:if>
+                  </b:loop>
+
+                  <!-- EDITORIAL HORIZONTAL STREAM (i > 0) -->
+                  <div class='editorial-stream-grid'>
+                    <b:loop index='i' values='data:posts' var='post'>
+                      <b:if cond='data:i &gt; 0'>
+                        <article class='news-card-horizontal' expr:id='"stream-" + data:post.id'>
+                          <div>
+                            <b:loop index='lblIdx' values='data:post.labels' var='label'>
+                              <b:if cond='data:lblIdx == 0'>
+                                <span class='card-kicker'><data:label.name/></span>
+                              </b:if>
+                            </b:loop>
+                            <h3 class='card-headline'>
+                              <a expr:href='data:post.url'><data:post.title/></a>
+                            </h3>
+                            <b:if cond='data:post.snippet'>
+                              <p class='card-snippet'><data:post.snippet/></p>
+                            </b:if>
+                            <div class='card-meta-line'>
+                              <span><data:post.author.name/></span>
+                              <span>&#8226;</span>
+                              <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
+                            </div>
+                          </div>
+                          <div class='card-thumb-wrap'>
+                            <a expr:href='data:post.url'>
+                              <b:if cond='data:post.featuredImage'>
+                                <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 400, "16:10")' loading='lazy'/>
+                              <b:else/>
+                                <img alt='Story' loading='lazy' src='https://picsum.photos/seed/newsstream/400/250'/>
+                              </b:if>
+                            </a>
+                          </div>
+                        </article>
+                      </b:if>
+                    </b:loop>
+                  </div>
+
+                  <!-- Homepage Pagination -->
+                  <div class='blog-pager'>
+                    <b:if cond='data:newerPageUrl'>
+                      <a expr:href='data:newerPageUrl'>&#8592; Newer Dispatches</a>
+                    </b:if>
+                    <b:if cond='data:olderPageUrl'>
+                      <a expr:href='data:olderPageUrl'>Older Dispatches &#8594;</a>
+                    </b:if>
+                  </div>
+
+                <!-- VIEW 5: ARCHIVE / SEARCH / LABEL MULTIPLE ITEMS -->
+                <b:else/>
+                  <div class='archive-cards-grid'>
+                    <b:loop values='data:posts' var='post'>
+                      <article class='brief-item' style='padding: 16px; background: var(--bg-subtle); border-radius: var(--radius-xs);'>
+                        <div class='brief-thumb-wrap'>
+                          <a expr:href='data:post.url'>
+                            <b:if cond='data:post.featuredImage'>
+                              <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 500, "16:9")' loading='lazy'/>
+                            <b:else/>
+                              <img alt='Archive Story' loading='lazy' src='https://picsum.photos/seed/arch/500/280'/>
+                            </b:if>
+                          </a>
+                        </div>
+                        <b:loop index='lblIdx' values='data:post.labels' var='label'>
+                          <b:if cond='data:lblIdx == 0'>
+                            <span class='brief-kicker'><data:label.name/></span>
+                          </b:if>
+                        </b:loop>
+                        <h3 class='card-headline'>
+                          <a expr:href='data:post.url'><data:post.title/></a>
+                        </h3>
+                        <b:if cond='data:post.snippet'>
+                          <p class='card-snippet'><data:post.snippet/></p>
+                        </b:if>
+                        <div class='card-meta-line' style='margin-top: 8px;'>
+                          <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
+                        </div>
+                      </article>
+                    </b:loop>
+                  </div>
+
+                  <!-- Archive Pagination -->
+                  <div class='blog-pager'>
+                    <b:if cond='data:newerPageUrl'>
+                      <a expr:href='data:newerPageUrl'>&#8592; Newer Coverage</a>
+                    </b:if>
+                    <b:if cond='data:olderPageUrl'>
+                      <a expr:href='data:olderPageUrl'>Older Coverage &#8594;</a>
+                    </b:if>
+                  </div>
+                </b:if>
+
+              </b:includable>
+            </b:widget>
+          </b:section>
+        </section>
+
+        <!-- ==========================================================
+             RIGHT SIDEBAR: AD CONTAINER + POPULAR POSTS + VIDEOS
+             ========================================================== -->
+        <aside class='portal-sidebar'>
+          <b:section id='sidebar' maxwidgets='4' name='Right Editorial Sidebar' showaddelement='yes'>
+
+            <!-- Widget 1: 300x250 Fixed Ad Slot (Zero CLS) -->
+            <b:widget id='HTML2' locked='false' title='Sponsor Ad Slot' type='HTML' version='2'>
+              <b:includable id='main'>
+                <div class='news-ad-box'>
+                  <span class='ad-disclaimer'>Advertisement</span>
+                  <div class='ad-mock-content'>
+                    <strong>300 &#215; 250 Premium Ad Slot</strong>
+                    <p style='font-size:0.75rem; margin-top:4px;'>Google AdSense or Direct Sponsorship Partner</p>
+                  </div>
+                </div>
+              </b:includable>
+            </b:widget>
+
+            <!-- Widget 2: Most Read / Trending (Valid ALL_TIME settings) -->
+            <b:widget id='PopularPosts1' locked='false' title='Most Read Dispatches' type='PopularPosts' version='2'>
+              <b:widget-settings>
+                <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
+                <b:widget-setting name='showThumbnails'>false</b:widget-setting>
+                <b:widget-setting name='showSnippets'>false</b:widget-setting>
+                <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
+              </b:widget-settings>
+              <b:includable id='main'>
+                <div>
+                  <div class='sidebar-box-header'>
+                    <h3 class='sidebar-box-title'>Most Read</h3>
+                  </div>
+                  <ol class='popular-posts-stack'>
+                    <b:loop values='data:posts' var='post'>
+                      <li class='popular-post-item'>
+                        <h4 class='popular-post-title'>
+                          <a expr:href='data:post.href'><data:post.title/></a>
+                        </h4>
+                      </li>
+                    </b:loop>
+                  </ol>
+                </div>
+              </b:includable>
+            </b:widget>
+
+            <!-- Widget 3: Featured Videos / Multimedia Showcase -->
+            <b:widget id='HTML3' locked='false' title='Featured Videos' type='HTML' version='2'>
+              <b:includable id='main'>
+                <div>
+                  <div class='sidebar-box-header'>
+                    <h3 class='sidebar-box-title' style='color: var(--accent-red);'>Featured Videos &#9656;</h3>
+                  </div>
+                  <div class='video-feature-card'>
+                    <img alt='Video cover' loading='lazy' src='https://picsum.photos/seed/video1/400/225'/>
+                    <div class='video-play-badge'>
+                      <svg fill='currentColor' viewBox='0 0 24 24'><path d='M8 5v14l11-7z'/></svg>
+                    </div>
+                  </div>
+                  <h4 style='font-size: 0.875rem; font-weight: 700; line-height: 1.35; margin-bottom: 12px;'>
+                    <a href='#'>Special Report: Autonomous transport tests expand to metropolitan freight arteries</a>
+                  </h4>
+                </div>
+              </b:includable>
+            </b:widget>
+
+            <!-- Widget 4: Newsletter Morning Dispatch -->
+            <b:widget id='HTML4' locked='false' title='Morning Dispatch' type='HTML' version='2'>
+              <b:includable id='main'>
+                <div class='dispatch-box'>
+                  <h4 class='dispatch-title'>The Morning Edition</h4>
+                  <p class='dispatch-desc'>Get essential investigative reporting and executive news briefs delivered to your inbox every morning at 7:00 AM.</p>
+                  <form class='dispatch-form' onsubmit='event.preventDefault(); alert("Thank you for subscribing to the morning dispatch!");'>
+                    <input class='dispatch-input' placeholder='name@company.com' required='required' type='email'/>
+                    <button class='dispatch-btn' type='submit'>Join</button>
+                  </form>
+                </div>
+              </b:includable>
+            </b:widget>
+
+          </b:section>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================================================================
+       MODULAR HOMEPAGE CATEGORY BLOCKS (Below The Fold)
+       ================================================================== -->
+  <b:if cond='data:view.isHomepage'>
+    <section class='site-wrapper' id='home-sections'>
+      <b:section id='home-category-blocks' maxwidgets='2' name='Homepage Modular Category Blocks' showaddelement='yes'>
+        <b:widget id='HTML5' locked='false' title='Business and Markets Desk' type='HTML' version='2'>
+          <b:includable id='main'>
+            <div class='modular-news-block'>
+              <div class='sidebar-box-header'>
+                <h3 class='sidebar-box-title'><data:title/></h3>
+              </div>
+              <div class='modular-block-grid'>
+                <article class='modular-card'>
+                  <div class='brief-thumb-wrap'><img alt='Market news' loading='lazy' src='https://picsum.photos/seed/biz1/400/225'/></div>
+                  <span class='brief-kicker'>Central Banking</span>
+                  <h4 class='brief-headline'><a href='#'>Global monetary authorities signal coordinated benchmark interest adjustments</a></h4>
+                </article>
+                <article class='modular-card'>
+                  <div class='brief-thumb-wrap'><img alt='Energy news' loading='lazy' src='https://picsum.photos/seed/biz2/400/225'/></div>
+                  <span class='brief-kicker'>Energy Transition</span>
+                  <h4 class='brief-headline'><a href='#'>Offshore wind farms surpass projected generation milestones for consecutive quarters</a></h4>
+                </article>
+                <article class='modular-card'>
+                  <div class='brief-thumb-wrap'><img alt='Tech news' loading='lazy' src='https://picsum.photos/seed/biz3/400/225'/></div>
+                  <span class='brief-kicker'>Venture Ecosystem</span>
+                  <h4 class='brief-headline'><a href='#'>Early-stage deeptech funding rebounds with focus on silicon manufacturing</a></h4>
+                </article>
+              </div>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </section>
+  </b:if>
+
+  <!-- ==================================================================
+       FOOTER ARCHITECTURE
+       ================================================================== -->
+  <footer id='site-footer'>
+    <div class='site-wrapper'>
+      <div class='footer-top-grid'>
+
+        <!-- Col 1: Publication Info and Brand Section -->
+        <b:section id='footer-brand' maxwidgets='1' name='Footer Brand &amp; Mission' showaddelement='no'>
+          <b:widget id='Text1' locked='true' title='About Publication' type='Text' version='2'>
+            <b:includable id='main'>
+              <div>
+                <div class='footer-brand-title'><data:blog.title/></div>
+                <p class='footer-brand-desc'>Independent digital newspaper and editorial portal dedicated to fearless reporting, investigative journalism, and insightful analysis.</p>
+              </div>
+            </b:includable>
+          </b:widget>
+        </b:section>
+
+        <!-- Col 2: Categories / News Desks Section -->
+        <b:section id='footer-categories' maxwidgets='1' name='Footer News Desks' showaddelement='no'>
+          <b:widget id='Label1' locked='true' title='News Desks' type='Label' version='2'>
+            <b:includable id='main'>
+              <div>
+                <h4 class='footer-col-title'><data:title/></h4>
+                <ul class='footer-links-list'>
+                  <b:loop values='data:labels' var='label'>
+                    <li><a expr:href='data:label.url'><data:label.name/></a></li>
+                  </b:loop>
+                </ul>
+              </div>
+            </b:includable>
+          </b:widget>
+        </b:section>
+
+        <!-- Col 3: Legal and Newsroom Links Section -->
+        <b:section id='footer-links' maxwidgets='1' name='Footer Editorial Links' showaddelement='no'>
+          <b:widget id='LinkList3' locked='true' title='Newsroom &amp; Legal' type='LinkList' version='2'>
+            <b:widget-settings>
+              <b:widget-setting name='link-0'>/p/about.html</b:widget-setting>
+              <b:widget-setting name='text-0'>About Our Newsroom</b:widget-setting>
+              <b:widget-setting name='link-1'>/p/standards.html</b:widget-setting>
+              <b:widget-setting name='text-1'>Standards and Ethics</b:widget-setting>
+              <b:widget-setting name='link-2'>/p/privacy.html</b:widget-setting>
+              <b:widget-setting name='text-2'>Privacy Policy</b:widget-setting>
+              <b:widget-setting name='link-3'>/p/terms.html</b:widget-setting>
+              <b:widget-setting name='text-3'>Terms of Service</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div>
+                <h4 class='footer-col-title'>Editorial and Policies</h4>
+                <ul class='footer-links-list'>
+                  <b:loop values='data:links' var='link'>
+                    <li><a expr:href='data:link.target'><data:link.name/></a></li>
+                  </b:loop>
+                </ul>
+              </div>
+            </b:includable>
+          </b:widget>
+        </b:section>
+
+      </div>
+
+      <div class='footer-bottom-bar'>
+        <div>
+          &amp;copy; <span id='copyright-year'>2026</span> <data:blog.title/>. All rights reserved.
+        </div>
+        <div>
+          Published on Google Blogger (Layout v3 / Widget v2) &#8212; High-Performance News Theme
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================================================================
+       GLOBAL SEARCH MODAL OVERLAY
+       ================================================================== -->
+  <div class='search-modal-backdrop' id='search-modal'>
+    <div class='search-modal-box'>
+      <div class='search-box-header'>
+        <span class='search-box-title'>Search Newsroom Archives</span>
+        <button aria-label='Close search' class='icon-btn' id='search-modal-close'>
+          <svg fill='none' height='18' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='18'><path d='M18 6L6 18M6 6l12 12'/></svg>
+        </button>
+      </div>
+      <form expr:action='data:blog.searchUrl' method='get'>
+        <input autocomplete='off' class='search-input-field' id='search-input' name='q' placeholder='Type search terms and hit Enter (e.g. Economy, AI, Space)...' type='search'/>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       MOBILE SLIDE-OVER DRAWER
+       ================================================================== -->
+  <div class='mobile-drawer-backdrop' id='mobile-drawer-backdrop'></div>
+  <aside class='mobile-drawer-panel' id='mobile-drawer'>
+    <div class='drawer-header'>
+      <span style='font-family: var(--font-serif); font-size: 1.25rem; font-weight: 900;'><data:blog.title/></span>
+      <button aria-label='Close drawer' class='icon-btn' id='drawer-close-btn'>
+        <svg fill='none' height='20' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='20'><path d='M18 6L6 18M6 6l12 12'/></svg>
+      </button>
+    </div>
+    <ul class='drawer-links-stack'>
+      <li><a href='/'>Home</a></li>
+      <li><a href='/search/label/World'>World News</a></li>
+      <li><a href='/search/label/Business'>Business and Finance</a></li>
+      <li><a href='/search/label/Tech'>Technology</a></li>
+      <li><a href='/search/label/Sports'>Sports</a></li>
+      <li><a href='/search/label/Health'>Health and Wellness</a></li>
+      <li><a href='/search/label/Opinion'>Opinion and Columns</a></li>
+      <li><a href='/search/label/Live' style='color: var(--accent-red);'>Live Coverage</a></li>
+    </ul>
+    <div style='margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border-hairline);'>
+      <p style='font-size: 0.75rem; color: var(--text-muted);'>Independent News Portal &#8212; Real-Time Dispatches</p>
+    </div>
+  </aside>
+
+  <!-- ==================================================================
+       INLINE STANDALONE FALLBACK JAVASCRIPT SYSTEM
+       ================================================================== -->
+  <script type='text/javascript'>
+  //<![CDATA[
+// Core Interactions
+/**
+ * Validation News Magzine Theme - Core UI & Interaction Controller
+ * @package ValidationNewsMagzine
+ * @version 1.0.0
+ * @author Jaydatta Khodave
+ * @license MIT
+ */
+
+(function() {
+  'use strict';
+
+  function initCore() {
+    // 1. Live Date & Time Formatter
+    const dateEl = document.getElementById('live-datetime');
+    if (dateEl) {
+      const now = new Date();
+      const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+      dateEl.textContent = now.toLocaleDateString('en-US', options) + ' | Updated Live';
+    }
+
+    const yearEl = document.getElementById('copyright-year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+
+    // 2. Persistent Dark / Light Theme Toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    const themeLabel = document.getElementById('theme-label');
+    const STORAGE_KEY = 'validation_news_theme_mode';
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        if (themeLabel) themeLabel.textContent = 'Light Mode';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        if (themeLabel) themeLabel.textContent = 'Dark Mode';
+      }
+    }
+
+    const savedTheme = localStorage.getItem(STORAGE_KEY);
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      applyTheme(true);
+    } else {
+      applyTheme(false);
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function() {
+        const isCurrentDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const newDark = !isCurrentDark;
+        applyTheme(newDark);
+        localStorage.setItem(STORAGE_KEY, newDark ? 'dark' : 'light');
+      });
+    }
+
+    // 3. Search Modal Overlay (Click + Ctrl/Cmd + K)
+    const searchModal = document.getElementById('search-modal');
+    const searchTrigger = document.getElementById('search-modal-trigger');
+    const searchClose = document.getElementById('search-modal-close');
+    const searchInput = document.getElementById('search-input');
+
+    function openSearch() {
+      if (searchModal) {
+        searchModal.classList.add('is-open');
+        if (searchInput) {
+          setTimeout(function() { searchInput.focus(); }, 100);
+        }
+      }
+    }
+
+    function closeSearch() {
+      if (searchModal) {
+        searchModal.classList.remove('is-open');
+      }
+    }
+
+    if (searchTrigger) searchTrigger.addEventListener('click', openSearch);
+    if (searchClose) searchClose.addEventListener('click', closeSearch);
+
+    if (searchModal) {
+      searchModal.addEventListener('click', function(e) {
+        if (e.target === searchModal) closeSearch();
+      });
+    }
+
+    // 4. Mobile Slide-Over Navigation Drawer
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    const drawerBackdrop = document.getElementById('mobile-drawer-backdrop');
+    const drawerClose = document.getElementById('drawer-close-btn');
+
+    function openDrawer() {
+      if (drawer && drawerBackdrop) {
+        drawer.classList.add('is-open');
+        drawerBackdrop.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeDrawer() {
+      if (drawer && drawerBackdrop) {
+        drawer.classList.remove('is-open');
+        drawerBackdrop.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (mobileBtn) mobileBtn.addEventListener('click', openDrawer);
+    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+    if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+
+    // Global Keyboard Shortcuts
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openSearch();
+      }
+      if (e.key === 'Escape') {
+        closeSearch();
+        closeDrawer();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCore);
+  } else {
+    initCore();
+  }
+})();
+
+
+// Magazine Feeds
+/**
+ * Validation News Magzine Theme - Blogger JSON Feed API Loader
+ * @package ValidationNewsMagzine
+ * @version 1.0.0
+ * @author Jaydatta Khodave
+ * @license MIT
+ */
+
+(function() {
+  'use strict';
+
+  function initMagazineFeeds() {
+    // 1. Dynamic Related Coverage Loader on Single Post
+    const relatedGrid = document.getElementById('related-posts-grid');
+    const firstTagLink = document.querySelector('.article-tags-section .tag-badge');
+
+    if (relatedGrid && firstTagLink) {
+      const label = firstTagLink.textContent.replace('#', '').trim();
+      const currentUrl = window.location.pathname;
+      const feedUrl = '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=4';
+
+      fetch(feedUrl)
+        .then(function(res) {
+          if (!res.ok) throw new Error('Network response not ok');
+          return res.json();
+        })
+        .then(function(data) {
+          if (data && data.feed && data.feed.entry && data.feed.entry.length > 0) {
+            const entries = data.feed.entry;
+            let count = 0;
+            let html = '';
+
+            for (let i = 0; i < entries.length; i++) {
+              const entry = entries[i];
+              let postHref = '';
+              for (let j = 0; j < entry.link.length; j++) {
+                if (entry.link[j].rel === 'alternate') {
+                  postHref = entry.link[j].href;
+                  break;
+                }
+              }
+
+              if (postHref && postHref.indexOf(currentUrl) === -1 && count < 3) {
+                const title = entry.title.$t;
+                let thumb = 'https://picsum.photos/seed/' + i + '/400/250';
+                if (entry.media$thumbnail) {
+                  thumb = entry.media$thumbnail.url.replace('/s72-c/', '/w400-h250-c/');
+                }
+
+                html += '<div class="related-card">' +
+                  '<div class="related-thumb-box"><a href="' + postHref + '"><img src="' + thumb + '" alt="' + title.replace(/"/g, '&quot;') + '" loading="lazy"/></a></div>' +
+                  '<h4 class="related-card-title"><a href="' + postHref + '">' + title + '</a></h4>' +
+                  '</div>';
+                count++;
+              }
+            }
+
+            if (count > 0) {
+              relatedGrid.innerHTML = html;
+            }
+          }
+        })
+        .catch(function() {
+          // Keep static editorial dispatches as fallback on local preview or network disruption
+        });
+    }
+
+    // 2. Optional Left Rail Dynamic Hydration via data-rail-label
+    const leftRailFeed = document.querySelector('[data-rail-label]');
+    if (leftRailFeed) {
+      const railLabel = leftRailFeed.getAttribute('data-rail-label');
+      if (railLabel) {
+        const railFeedUrl = '/feeds/posts/default/-/' + encodeURIComponent(railLabel) + '?alt=json&max-results=5';
+        fetch(railFeedUrl)
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            if (data && data.feed && data.feed.entry && data.feed.entry.length > 0) {
+              const entries = data.feed.entry;
+              let railHtml = '';
+              entries.forEach(function(entry, idx) {
+                let link = '';
+                for (let k = 0; k < entry.link.length; k++) {
+                  if (entry.link[k].rel === 'alternate') {
+                    link = entry.link[k].href;
+                    break;
+                  }
+                }
+                const title = entry.title.$t;
+                let thumb = '';
+                if (entry.media$thumbnail) {
+                  thumb = entry.media$thumbnail.url.replace('/s72-c/', '/w400-h225-c/');
+                }
+
+                railHtml += '<article class="brief-item">';
+                if (idx === 0 && thumb) {
+                  railHtml += '<div class="brief-thumb-wrap"><img src="' + thumb + '" alt="' + title.replace(/"/g, '&quot;') + '" loading="lazy"/></div>';
+                }
+                railHtml += '<span class="brief-kicker">' + railLabel + '</span>' +
+                  '<h4 class="brief-headline"><a href="' + link + '">' + title + '</a></h4>' +
+                  '</article>';
+              });
+              leftRailFeed.innerHTML = railHtml;
+            }
+          })
+          .catch(function() {});
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMagazineFeeds);
+  } else {
+    initMagazineFeeds();
+  }
+})();
+
+
+// Article Tools
+/**
+ * Validation News Magzine Theme - Article Editorial Tools (TOC, Reading Time, Share)
+ * @package ValidationNewsMagzine
+ * @version 1.0.0
+ * @author Jaydatta Khodave
+ * @license MIT
+ */
+
+(function() {
+  'use strict';
+
+  function initArticleTools() {
+    const articleBody = document.getElementById('article-content');
+
+    // 1. Estimated Reading Time Calculator
+    const readingTimeEl = document.getElementById('reading-time');
+    if (articleBody && readingTimeEl) {
+      const words = articleBody.innerText.trim().split(/\s+/).filter(Boolean).length;
+      const readMinutes = Math.max(1, Math.ceil(words / 200));
+      readingTimeEl.textContent = readMinutes + ' min read';
+    }
+
+    // 2. Auto Table of Contents Generator
+    const tocContainer = document.getElementById('toc-container');
+    const tocList = document.getElementById('toc-list');
+    const tocToggle = document.getElementById('toc-toggle');
+    const tocIcon = document.getElementById('toc-icon');
+
+    if (articleBody && tocContainer && tocList) {
+      const headings = articleBody.querySelectorAll('h2, h3');
+      if (headings.length >= 2) {
+        tocContainer.style.display = 'block';
+        headings.forEach(function(h, idx) {
+          if (!h.id) {
+            h.id = 'section-node-' + idx;
+          }
+          const li = document.createElement('li');
+          if (h.tagName.toLowerCase() === 'h3') {
+            li.className = 'toc-h3';
+          }
+          const a = document.createElement('a');
+          a.href = '#' + h.id;
+          a.textContent = h.textContent.trim();
+          li.appendChild(a);
+          tocList.appendChild(li);
+        });
+
+        if (tocToggle && tocIcon) {
+          tocToggle.addEventListener('click', function() {
+            if (tocList.style.display === 'none') {
+              tocList.style.display = 'flex';
+              tocIcon.innerHTML = '&#9660;';
+            } else {
+              tocList.style.display = 'none';
+              tocIcon.innerHTML = '&#9654;';
+            }
+          });
+        }
+      }
+    }
+
+    // 3. Social Share Actions & Clipboard Copy
+    const copyBtn = document.getElementById('copy-link-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function() {
+        const url = copyBtn.getAttribute('data-url') || window.location.href;
+        navigator.clipboard.writeText(url).then(function() {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '<span style="font-size:11px;font-weight:700;">OK!</span>';
+          setTimeout(function() { copyBtn.innerHTML = original; }, 2000);
+        });
+      });
+    }
+
+    document.querySelectorAll('.share-tw').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const u = encodeURIComponent(btn.getAttribute('data-url') || window.location.href);
+        const t = encodeURIComponent(btn.getAttribute('data-title') || document.title);
+        window.open('https://twitter.com/intent/tweet?url=' + u + '&text=' + t, '_blank', 'width=600,height=400');
+      });
+    });
+
+    document.querySelectorAll('.share-fb').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const u = encodeURIComponent(btn.getAttribute('data-url') || window.location.href);
+        window.open('https://www.facebook.com/sharer/sharer.php?u=' + u, '_blank', 'width=600,height=400');
+      });
+    });
+
+    document.querySelectorAll('.share-wa').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const u = encodeURIComponent(btn.getAttribute('data-url') || window.location.href);
+        const t = encodeURIComponent(btn.getAttribute('data-title') || document.title);
+        window.open('https://api.whatsapp.com/send?text=' + t + '%20' + u, '_blank');
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initArticleTools);
+  } else {
+    initArticleTools();
+  }
+})();
+
+  //]]>
+  </script>
+
+</body>
+</html>
