@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.1] - 2026-11-16
+
+### Critical Bug Fixes & Native Widget Restoration
+- **Resolved Theme Restore Widget Stripping (All 18 Widgets Restored):**
+  - Explicitly added `version='2' visible='true'` to all `<b:widget>` definitions across the theme (`LinkList1`, `Header1`, `PageList1`, `Label1`, `HTML0`, `HTML1`, `Blog1`, `HTML2`, `PopularPosts1`, `Label2`, `HTML3`, `HTML4`, `HTML5`, `HTML6`, `Text1`, `Label3`, `LinkList3`, `HTML7`).
+  - Added complete, official `<b:widget-settings>` to `Header1`, `PageList1`, `Blog1`, `PopularPosts1`, and `HTML` widgets, preventing Blogger's Layout engine from dropping gadgets during **Theme → Restore**.
+  - Aligned section IDs with standard Blogger conventions (`id='masthead'`, `id='primary-nav'`, `id='trending-bar'`, `id='breaking-bar'`, `id='left-rail'`, `id='main'`, `id='sidebar'`, `id='home-category-blocks'`, `id='footer-brand'`, `id='footer-categories'`, `id='footer-links'`, `id='footer-newsletter'`).
+
+- **Blogger Expression Syntax Fix (`.any` Property Removal):**
+  - Replaced invalid `.any` property checks (`data:posts.any`, `data:links.any`, `data:labels.any`, `data:post.labels.any`) with canonical Blogger boolean conditions (`!data:posts.empty`, `data:links`, `data:labels`, `data:post.labels`). This resolves the blank page issue where posts, links, and tags failed to evaluate and render.
+
+- **Blogger Layout Wireframe Grid (`<b:template-skin>` Upgrade):**
+  - Upgraded `body#layout` CSS in `<b:template-skin>` to strictly enforce the newsroom layout: full-width Top Bar, Masthead, Nav, Trending Strip, and Breaking News Bar; 3-column asymmetric layout (`[Left Rail 25% | Center Main 50% | Right Sidebar 25%]`); and 4-column footer (`25%` each), ensuring gadget cards render clearly with functional Edit controls.
+
+- **Resilient Multi-Tier Feed Fallback in `magazine-feeds.js`:**
+  - Fixed JavaScript syntax error (unexpected token `}`) at the end of `magazine-feeds.js`.
+  - Implemented automatic two-tier fallback: Breaking News ticker, Left Rail ("Fast Dispatches"), Related Posts, and Category Blocks now query the primary label first; if empty or failing, they immediately query `/feeds/posts/default?alt=json&max-results=6` so fresh blogs populate with real posts out of the box.
+  - Inlined critical fallback CSS and JS directly in `dist/validation-news-magzine.xml` to eliminate reliance on external CDN cache delays.
+
+---
+
 ## [1.2.0] - 2026-11-15
 
 ### Architectural Standards & Official Documentation Compliance

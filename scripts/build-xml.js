@@ -3,7 +3,7 @@
  * Compiles the standalone Blogger XML theme with Critical CSS + Layout Wireframe + jsDelivr CDN integration.
  * Adheres strictly to Blogger Layout v3 and Widget v2 specifications.
  * @package ValidationNewsMagzine
- * @version 1.2.0
+ * @version 1.2.1
  * @author Jaydatta Khodave
  * @license MIT
  */
@@ -33,22 +33,24 @@ const combinedJs = `// Core Interactions\n${coreJs}\n\n// Magazine Feeds\n${feed
 
 const layoutSkinCss = `
 /* ==================================================================
-   BLOGGER LAYOUT DASHBOARD WIREFRAME STYLES (v1.2.0)
-   Styles body#layout into a clean visual newspaper wireframe.
+   BLOGGER LAYOUT DASHBOARD WIREFRAME STYLES (v1.2.1)
+   Wireframes body#layout into a clean visual newspaper wireframe.
    ================================================================== */
 body#layout {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f1f3f5;
-  color: #212529;
-  margin: 0;
-  padding: 24px;
-  line-height: 1.5;
+  min-width: 1000px !important;
+  max-width: 1240px !important;
+  margin: 20px auto !important;
+  padding: 24px !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  line-height: 1.5 !important;
 }
 
 body#layout .site-wrapper {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
 }
 
 /* Hide interactive frontend overlays & buttons in layout editor */
@@ -73,120 +75,168 @@ body#layout .article-reading-tools {
 
 /* Layout Section Containers */
 body#layout .section {
-  background: #ffffff;
-  border: 2px dashed #cbd5e1;
-  border-radius: 6px;
-  padding: 16px;
-  margin-bottom: 18px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  position: relative;
-  transition: border-color 0.15s ease;
-}
-
-body#layout .section:hover {
-  border-color: #94a3b8;
+  display: block !important;
+  background: #ffffff !important;
+  border: 2px dashed #94a3b8 !important;
+  border-radius: 6px !important;
+  padding: 16px !important;
+  margin-bottom: 16px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+  position: relative !important;
+  box-sizing: border-box !important;
 }
 
 body#layout .section::before {
   content: attr(name);
-  display: block;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #64748b;
-  margin-bottom: 12px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #f1f5f9;
+  display: block !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #475569 !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 6px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
 }
 
 /* Gadget Card Styling in Layout Editor */
 body#layout .widget {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-  display: block;
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 4px !important;
+  padding: 12px 14px !important;
+  margin-bottom: 10px !important;
+  display: block !important;
 }
 
 body#layout .widget:hover {
-  background: #ffffff;
-  border-color: #cbd5e1;
+  background: #ffffff !important;
+  border-color: #3b82f6 !important;
 }
 
-/* Top Rows */
-body#layout header#top-bar {
-  display: block;
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-body#layout div#masthead {
-  display: block;
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-body#layout nav#primary-nav-sticky {
-  display: block;
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-body#layout div#trending-bar {
-  display: block;
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-body#layout #breaking-news-bar {
+/* Full-width Stacked Bars */
+body#layout header#top-bar,
+body#layout header#top-bar .top-bar-inner,
+body#layout header#top-bar .top-bar-right,
+body#layout header#top-bar .section {
   display: block !important;
-  width: 100%;
-  margin-bottom: 20px;
+  width: 100% !important;
+  float: none !important;
+  clear: both !important;
+  margin-bottom: 12px !important;
 }
 
-body#layout .portal-main-area {
-  display: block;
-  width: 100%;
-  margin-bottom: 24px;
+body#layout header#masthead,
+body#layout header#masthead .masthead-inner,
+body#layout header#masthead .section {
+  display: block !important;
+  width: 100% !important;
+  float: none !important;
+  clear: both !important;
+  margin-bottom: 12px !important;
 }
 
-/* 3-Column Magazine Grid in Layout Editor */
+body#layout nav#primary-nav-sticky,
+body#layout nav#primary-nav-sticky .nav-bar-inner,
+body#layout nav#primary-nav-sticky .nav-links-scroll,
+body#layout nav#primary-nav-sticky .section {
+  display: block !important;
+  width: 100% !important;
+  float: none !important;
+  clear: both !important;
+  margin-bottom: 12px !important;
+}
+
+body#layout div#trending-bar,
+body#layout div#trending-bar .trending-inner,
+body#layout div#trending-bar .section {
+  display: block !important;
+  width: 100% !important;
+  float: none !important;
+  clear: both !important;
+  margin-bottom: 12px !important;
+}
+
+body#layout div#breaking-news-bar,
+body#layout div#breaking-news-bar .breaking-news-inner,
+body#layout div#breaking-news-bar .breaking-ticker-track,
+body#layout div#breaking-news-bar .section {
+  display: block !important;
+  width: 100% !important;
+  float: none !important;
+  clear: both !important;
+  margin-bottom: 16px !important;
+}
+
+/* 3-COLUMN ASYMMETRIC GRID: Left Rail (25%) | Center Main (50%) | Right Sidebar (25%) */
 body#layout .portal-grid-layout {
-  display: grid !important;
-  grid-template-columns: 280px minmax(0, 1fr) 300px !important;
-  gap: 20px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 16px !important;
   width: 100% !important;
-  align-items: start !important;
+  clear: both !important;
+  align-items: flex-start !important;
+  margin-bottom: 20px !important;
 }
 
-body#layout .portal-left-rail,
-body#layout .portal-center-feed,
+body#layout .portal-left-rail {
+  width: 25% !important;
+  flex: 0 0 25% !important;
+  max-width: 25% !important;
+  display: block !important;
+  float: none !important;
+}
+
+body#layout .portal-center-feed {
+  width: 50% !important;
+  flex: 0 0 50% !important;
+  max-width: 50% !important;
+  display: block !important;
+  float: none !important;
+}
+
 body#layout .portal-sidebar {
+  width: 25% !important;
+  flex: 0 0 25% !important;
+  max-width: 25% !important;
+  display: block !important;
+  float: none !important;
+}
+
+/* Homepage Category Blocks */
+body#layout section#home-sections {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  margin-bottom: 20px !important;
+}
+
+body#layout section#home-sections .section {
   display: block !important;
   width: 100% !important;
 }
 
-body#layout #home-sections {
-  display: block;
-  width: 100%;
-  margin-bottom: 24px;
-}
-
-/* 4-Column Footer Architecture in Layout Editor */
-body#layout #site-footer {
-  display: block;
-  width: 100%;
-  padding-top: 24px;
-  border-top: 2px solid #e2e8f0;
-}
-
-body#layout .footer-top-grid {
-  display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 18px !important;
+/* 4-Column Footer Columns Wireframe */
+body#layout footer#site-footer {
+  display: block !important;
   width: 100% !important;
+  clear: both !important;
+  border-top: 2px solid #cbd5e1 !important;
+  padding-top: 20px !important;
+}
+
+body#layout footer#site-footer .footer-top-grid {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 16px !important;
+  width: 100% !important;
+}
+
+body#layout footer#site-footer .section {
+  flex: 1 1 25% !important;
+  width: 25% !important;
+  max-width: 25% !important;
+  display: block !important;
 }
 `;
 
@@ -204,8 +254,8 @@ const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,700&amp;display=swap' rel='stylesheet'/>
 
   <!-- jsDelivr CDN Modular Non-Blocking Stylesheets (v1.2.0 Release) -->
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/css/components.css' rel='stylesheet'/>
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/css/post.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/css/components.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/css/post.css' rel='stylesheet'/>
 
   <!-- Dynamic Document Title (Zero b:eval Chaining) -->
   <title>
@@ -389,9 +439,9 @@ ${layoutSkinCss}
   </b:defaultmarkups>
 
   <!-- jsDelivr CDN Deferred JavaScript Modules (v1.2.0 Release) -->
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/js/core.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/js/magazine-feeds.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/js/article-tools.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/js/core.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/js/magazine-feeds.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/js/article-tools.js'></script>
 </head>
 
 <body expr:class='(data:view.isHomepage ? "is-homepage" : "") + (data:view.isPost ? " is-post" : "") + (data:view.isPage ? " is-page" : "") + (data:view.isMultipleItems and not data:view.isHomepage ? " is-archive" : "") + (data:view.isError ? " is-error" : "")' itemscope='itemscope' itemtype='http://schema.org/WebPage'>
@@ -413,10 +463,10 @@ ${layoutSkinCss}
         </div>
         <div class='top-bar-right'>
           <b:section class='top-bar-links' id='top-bar-links' maxwidgets='5' name='Top Bar Quick Links' showaddelement='yes'>
-            <b:widget id='LinkList1' locked='false' title='Quick Links' type='LinkList' version='2'>
+            <b:widget id='LinkList1' locked='false' title='Quick Links' type='LinkList' version='2' visible='true'>
               <b:includable id='main'>
                 <div class='top-quick-links' style='display:inline-flex; gap:12px;'>
-                  <b:if cond='data:links.any'>
+                  <b:if cond='data:links'>
                     <b:loop values='data:links' var='link'>
                       <a class='top-bar-link' expr:href='data:link.target' target='_blank'>
                         <b:class cond='data:link.isCurrentPage' name='active'/>
@@ -446,8 +496,17 @@ ${layoutSkinCss}
   <header id='masthead' itemscope='itemscope' itemtype='http://schema.org/WPHeader'>
     <div class='site-wrapper'>
       <div class='masthead-inner'>
-        <b:section class='header' id='masthead-section' maxwidgets='5' name='Masthead Header' showaddelement='yes'>
-          <b:widget id='Header1' locked='true' title='Site Header' type='Header' version='2'>
+        <b:section class='header' id='masthead' maxwidgets='1' name='Masthead Header' showaddelement='yes'>
+          <b:widget id='Header1' locked='true' title='Masthead Header' type='Header' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='displayUrl'/>
+              <b:widget-setting name='displayHeight'>0</b:widget-setting>
+              <b:widget-setting name='sectionWidth'>1200</b:widget-setting>
+              <b:widget-setting name='useImage'>false</b:widget-setting>
+              <b:widget-setting name='shrinkToFit'>false</b:widget-setting>
+              <b:widget-setting name='imagePlacement'>BEHIND</b:widget-setting>
+              <b:widget-setting name='displayWidth'>0</b:widget-setting>
+            </b:widget-settings>
             <b:includable id='main'>
               <b:if cond='data:useImage'>
                 <a expr:href='data:blog.homepageUrl.canonical'>
@@ -489,14 +548,14 @@ ${layoutSkinCss}
 
         <!-- Category Links Scroll Area -->
         <div class='nav-links-scroll'>
-          <b:section class='nav' id='nav-section' maxwidgets='5' name='Category Navigation' showaddelement='yes'>
-            <b:widget id='PageList1' locked='false' title='Pages &amp; Categories' type='PageList' version='2'>
+          <b:section class='nav' id='primary-nav' maxwidgets='5' name='Main Navigation' showaddelement='yes'>
+            <b:widget id='PageList1' locked='false' title='Main Navigation' type='PageList' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='pageListJson'><![CDATA[{}]]></b:widget-setting>
                 <b:widget-setting name='homeTitle'>Home</b:widget-setting>
               </b:widget-settings>
               <b:includable id='main'>
-                <b:if cond='data:links.any'>
+                <b:if cond='data:links'>
                   <b:loop values='data:links' var='link'>
                     <a class='nav-link-item' expr:href='data:link.href'>
                       <b:class cond='data:link.isCurrentPage' name='active'/>
@@ -541,23 +600,22 @@ ${layoutSkinCss}
           <svg fill='currentColor' height='12' viewBox='0 0 24 24' width='12'><path d='M17.5 12a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0zm1.5 0c0-3.866-3.134-7-7-7a6.97 6.97 0 00-4.95 2.05l-1.414-1.414A8.96 8.96 0 0112 3c4.97 0 9 4.03 9 9s-4.03 9-9 9a8.96 8.96 0 01-6.364-2.636l1.414-1.414A6.97 6.97 0 0012 19c3.866 0 7-3.134 7-7z'/></svg>
           In The News
         </span>
-        <b:section class='trending' id='trending-section' maxwidgets='5' name='Trending Bar Topics' showaddelement='yes'>
-          <b:widget id='LinkList2' locked='false' title='Trending Topics' type='LinkList' version='2'>
+        <b:section class='trending' id='trending-bar' maxwidgets='5' name='Trending Topics' showaddelement='yes'>
+          <b:widget id='Label1' locked='false' title='Trending Topics' type='Label' version='2' visible='true'>
             <b:includable id='main'>
               <div class='trending-list'>
-                <b:if cond='data:links.any'>
-                  <b:loop values='data:links' var='link'>
-                    <a class='trending-item' expr:href='data:link.target'>
-                      <b:class cond='data:link.isCurrentPage' name='active'/>
-                      <data:link.name/>
+                <b:if cond='data:labels'>
+                  <b:loop values='data:labels' var='label'>
+                    <a class='trending-item' expr:href='data:label.url'>
+                      <span class='hash'>#</span><data:label.name/>
                     </a>
                   </b:loop>
                 <b:else/>
-                  <a class='trending-item' href='/search/label/Economy'>Global Economy</a>
-                  <a class='trending-item' href='/search/label/AI'>AI Revolution</a>
-                  <a class='trending-item' href='/search/label/Climate'>Climate Summit</a>
-                  <a class='trending-item' href='/search/label/Elections'>General Elections</a>
-                  <a class='trending-item' href='/search/label/Cricket'>Cricket World Cup</a>
+                  <a class='trending-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Breaking"'><span class='hash'>#</span>BreakingNews</a>
+                  <a class='trending-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Economy"'><span class='hash'>#</span>GlobalEconomy</a>
+                  <a class='trending-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Tech"'><span class='hash'>#</span>AI-Tech</a>
+                  <a class='trending-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Markets"'><span class='hash'>#</span>Markets</a>
+                  <a class='trending-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Geopolitics"'><span class='hash'>#</span>Geopolitics</a>
                 </b:if>
               </div>
             </b:includable>
@@ -578,8 +636,8 @@ ${layoutSkinCss}
           Breaking News
         </span>
         <div class='breaking-ticker-track'>
-          <b:section class='breaking-news' id='breaking-news-section' maxwidgets='2' name='Breaking News Live Ticker' showaddelement='yes'>
-            <b:widget id='HTML0' locked='false' title='Breaking News Ticker' type='HTML' version='2'>
+          <b:section class='breaking-news' id='breaking-bar' maxwidgets='2' name='Breaking News Bar' showaddelement='yes'>
+            <b:widget id='HTML0' locked='false' title='Breaking News Ticker' type='HTML' version='2' visible='true'>
               <b:includable id='main'>
                 <div class='breaking-ticker-content' id='breaking-ticker-content'>
                   <b:if cond='data:content'>
@@ -643,10 +701,10 @@ ${layoutSkinCss}
           <div class='rail-section-header'>
             <h3 class='rail-section-title'>Fast Dispatches</h3>
           </div>
-          <b:section class='left-rail' id='left-rail' maxwidgets='5' name='Left Rail Breaking Briefs' showaddelement='yes'>
-            <b:widget id='HTML1' locked='false' title='Editor Briefs' type='HTML' version='2'>
+          <b:section class='left-rail' id='left-rail' maxwidgets='5' name='Left Rail Fast Dispatches' showaddelement='yes'>
+            <b:widget id='HTML1' locked='false' title='Fast Dispatches' type='HTML' version='2' visible='true'>
               <b:includable id='main'>
-                <div class='briefs-container' data-label='Briefs' data-rail-label='Briefs' id='rail-briefs-stream'>
+                <div class='briefs-container' data-label='latest' data-rail-label='latest' id='rail-briefs-stream'>
                   <b:if cond='data:content'>
                     <data:content/>
                   <b:else/>
@@ -684,8 +742,33 @@ ${layoutSkinCss}
              CENTER COLUMN: BLOG1 (LEAD STORY + EDITORIAL STREAM)
              ========================================================== -->
         <section class='portal-center-feed'>
-          <b:section class='main' id='main' maxwidgets='5' name='Main Editorial Content' showaddelement='yes'>
-            <b:widget id='Blog1' locked='true' title='News Posts' type='Blog' version='2'>
+          <b:section class='main' id='main' maxwidgets='1' name='Main Editorial Content' showaddelement='yes'>
+            <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
+              <b:widget-settings>
+                <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+                <b:widget-setting name='style.textcolor'>#111111</b:widget-setting>
+                <b:widget-setting name='showShareButtons'>true</b:widget-setting>
+                <b:widget-setting name='authorLabel'>By</b:widget-setting>
+                <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+                <b:widget-setting name='style.urlcolor'>#1d4ed8</b:widget-setting>
+                <b:widget-setting name='showAuthor'>true</b:widget-setting>
+                <b:widget-setting name='style.linkcolor'>#1d4ed8</b:widget-setting>
+                <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+                <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+                <b:widget-setting name='timestampLabel'>Published</b:widget-setting>
+                <b:widget-setting name='reactionsLabel'/>
+                <b:widget-setting name='showAuthorProfile'>true</b:widget-setting>
+                <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+                <b:widget-setting name='showLabels'>true</b:widget-setting>
+                <b:widget-setting name='showLocation'>false</b:widget-setting>
+                <b:widget-setting name='postLabelsLabel'>Desk</b:widget-setting>
+                <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+                <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+                <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+                <b:widget-setting name='style.bordercolor'>#e2e2e2</b:widget-setting>
+                <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+                <b:widget-setting name='showReactions'>false</b:widget-setting>
+              </b:widget-settings>
 
               <!-- ==========================================================
                    MODULAR BLOG1 ARCHITECTURE (15+ INCLUDABLES)
@@ -711,7 +794,7 @@ ${layoutSkinCss}
 
                 <!-- VIEW 4: HOMEPAGE (isHomepage) -->
                 <b:elseif cond='data:view.isHomepage'/>
-                  <b:if cond='data:posts.any'>
+                  <b:if cond='!data:posts.empty'>
                     <!-- Lead Cover Story (i == 0) -->
                     <b:loop index='i' values='data:posts' var='post'>
                       <b:if cond='data:i == 0'>
@@ -736,7 +819,7 @@ ${layoutSkinCss}
                 <!-- VIEW 5: ARCHIVE / SEARCH / LABEL MULTIPLE ITEMS -->
                 <b:else/>
                   <b:include name='archiveHeader'/>
-                  <b:if cond='data:posts.any'>
+                  <b:if cond='!data:posts.empty'>
                     <div class='archive-cards-grid'>
                       <b:loop values='data:posts' var='post'>
                         <b:include data='post' name='postCard'/>
@@ -1039,7 +1122,7 @@ ${layoutSkinCss}
 
               <!-- Includable 10: postLabels -->
               <b:includable id='postLabels' var='post'>
-                <b:if cond='data:post.labels.any'>
+                <b:if cond='data:post.labels'>
                   <div class='article-tags-section'>
                     <span class='tags-label'>Filed Under:</span>
                     <b:loop values='data:post.labels' var='label'>
@@ -1180,7 +1263,10 @@ ${layoutSkinCss}
           <b:section class='sidebar' id='sidebar' maxwidgets='10' name='Right Editorial Sidebar' showaddelement='yes'>
 
             <!-- Widget 1: 300x250 Fixed Ad Slot (Zero CLS) -->
-            <b:widget id='HTML2' locked='false' title='Sponsor Ad Slot' type='HTML' version='2'>
+            <b:widget id='HTML2' locked='false' title='Sidebar Ad Slot' type='HTML' version='2' visible='true'>
+              <b:widget-settings>
+                <b:widget-setting name='content'/>
+              </b:widget-settings>
               <b:includable id='main'>
                 <b:if cond='data:content'>
                   <data:content/>
@@ -1197,7 +1283,7 @@ ${layoutSkinCss}
             </b:widget>
 
             <!-- Widget 2: Most Read Ranked Dispatches -->
-            <b:widget id='PopularPosts1' locked='false' title='Most Read Dispatches' type='PopularPosts' version='2'>
+            <b:widget id='PopularPosts1' locked='false' title='Popular Stories' type='PopularPosts' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
                 <b:widget-setting name='showThumbnails'>true</b:widget-setting>
@@ -1207,10 +1293,10 @@ ${layoutSkinCss}
               <b:includable id='main'>
                 <div>
                   <div class='sidebar-box-header'>
-                    <h3 class='sidebar-box-title'>Most Read</h3>
+                    <h3 class='sidebar-box-title'>Popular Stories</h3>
                   </div>
                   <ol class='popular-posts-stack'>
-                    <b:if cond='data:posts.any'>
+                    <b:if cond='data:posts'>
                       <b:loop index='idx' values='data:posts' var='post'>
                         <li class='popular-post-item'>
                           <b:if cond='data:post.thumbnail'>
@@ -1231,15 +1317,15 @@ ${layoutSkinCss}
               </b:includable>
             </b:widget>
 
-            <!-- Widget 3: Explore Topics / Categories Tag Cloud -->
-            <b:widget id='Label1' locked='false' title='Explore Desks' type='Label' version='2'>
+            <!-- Widget 3: Categories -->
+            <b:widget id='Label2' locked='false' title='Categories' type='Label' version='2' visible='true'>
               <b:includable id='main'>
                 <div>
                   <div class='sidebar-box-header'>
                     <h3 class='sidebar-box-title'><data:title/></h3>
                   </div>
                   <ul class='label-cloud-list'>
-                    <b:if cond='data:labels.any'>
+                    <b:if cond='data:labels'>
                       <b:loop values='data:labels' var='label'>
                         <li class='label-cloud-item'>
                           <a expr:href='data:label.url'>
@@ -1260,8 +1346,8 @@ ${layoutSkinCss}
               </b:includable>
             </b:widget>
 
-            <!-- Widget 4: Featured Videos / Multimedia Showcase -->
-            <b:widget id='HTML3' locked='false' title='Featured Videos' type='HTML' version='2'>
+            <!-- Widget 4: Multimedia Showcase -->
+            <b:widget id='HTML3' locked='false' title='Featured Videos' type='HTML' version='2' visible='true'>
               <b:includable id='main'>
                 <b:if cond='data:content'>
                   <data:content/>
@@ -1285,7 +1371,7 @@ ${layoutSkinCss}
             </b:widget>
 
             <!-- Widget 5: Newsletter Morning Dispatch -->
-            <b:widget id='HTML4' locked='false' title='Morning Dispatch' type='HTML' version='2'>
+            <b:widget id='HTML4' locked='false' title='Morning Dispatch' type='HTML' version='2' visible='true'>
               <b:includable id='main'>
                 <b:if cond='data:content'>
                   <data:content/>
@@ -1316,7 +1402,7 @@ ${layoutSkinCss}
     <section class='site-wrapper' id='home-sections'>
       <b:section class='home-sections' id='home-category-blocks' maxwidgets='5' name='Homepage Modular Category Blocks' showaddelement='yes'>
         
-        <b:widget id='HTML5' locked='false' title='Business and Markets Desk' type='HTML' version='2'>
+        <b:widget id='HTML5' locked='false' title='Business and Markets Desk' type='HTML' version='2' visible='true'>
           <b:includable id='main'>
             <div class='modular-news-block' data-block-label='Business' data-label='Business'>
               <div class='sidebar-box-header'>
@@ -1347,7 +1433,7 @@ ${layoutSkinCss}
           </b:includable>
         </b:widget>
 
-        <b:widget id='HTML6' locked='false' title='Technology and Innovation Desk' type='HTML' version='2'>
+        <b:widget id='HTML6' locked='false' title='Technology and Innovation Desk' type='HTML' version='2' visible='true'>
           <b:includable id='main'>
             <div class='modular-news-block' data-block-label='Technology' data-label='Technology'>
               <div class='sidebar-box-header'>
@@ -1391,7 +1477,7 @@ ${layoutSkinCss}
 
         <!-- Col 1: Publication Info and Brand Section -->
         <b:section class='footer-brand' id='footer-brand' maxwidgets='5' name='Footer Brand &amp; Mission' showaddelement='yes'>
-          <b:widget id='Text1' locked='true' title='About Publication' type='Text' version='2'>
+          <b:widget id='Text1' locked='true' title='About Publication' type='Text' version='2' visible='true'>
             <b:includable id='main'>
               <div>
                 <div class='footer-brand-title'><data:blog.title/></div>
@@ -1411,12 +1497,12 @@ ${layoutSkinCss}
 
         <!-- Col 2: Categories / News Desks Section -->
         <b:section class='footer-categories' id='footer-categories' maxwidgets='5' name='Footer News Desks' showaddelement='yes'>
-          <b:widget id='Label2' locked='true' title='News Desks' type='Label' version='2'>
+          <b:widget id='Label3' locked='false' title='News Desks' type='Label' version='2' visible='true'>
             <b:includable id='main'>
               <div>
                 <h4 class='footer-col-title'><data:title/></h4>
                 <ul class='footer-links-list'>
-                  <b:if cond='data:labels.any'>
+                  <b:if cond='data:labels'>
                     <b:loop values='data:labels' var='label'>
                       <li>
                         <a expr:href='data:label.url'>
@@ -1440,12 +1526,12 @@ ${layoutSkinCss}
 
         <!-- Col 3: Legal and Newsroom Links Section -->
         <b:section class='footer-links' id='footer-links' maxwidgets='5' name='Footer Editorial Links' showaddelement='yes'>
-          <b:widget id='LinkList3' locked='false' title='Newsroom &amp; Legal' type='LinkList' version='2'>
+          <b:widget id='LinkList3' locked='false' title='Newsroom &amp; Legal' type='LinkList' version='2' visible='true'>
             <b:includable id='main'>
               <div>
                 <h4 class='footer-col-title'>Editorial and Policies</h4>
                 <ul class='footer-links-list'>
-                  <b:if cond='data:links.any'>
+                  <b:if cond='data:links'>
                     <b:loop values='data:links' var='link'>
                       <li>
                         <a expr:href='data:link.target'>
@@ -1468,7 +1554,7 @@ ${layoutSkinCss}
 
         <!-- Col 4: Newsletter and Syndication Section -->
         <b:section class='footer-newsletter' id='footer-newsletter' maxwidgets='5' name='Footer Newsletter &amp; Legal' showaddelement='yes'>
-          <b:widget id='HTML7' locked='false' title='Syndication &amp; Feeds' type='HTML' version='2'>
+          <b:widget id='HTML7' locked='false' title='Syndication &amp; Feeds' type='HTML' version='2' visible='true'>
             <b:includable id='main'>
               <div>
                 <h4 class='footer-col-title'>Syndication &amp; Feeds</h4>

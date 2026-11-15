@@ -1,9 +1,9 @@
 # Validation News Magzine Theme
 
-[![Version](https://img.shields.io/badge/version-v1.2.0-C90016.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.2.0)
+[![Version](https://img.shields.io/badge/version-v1.2.1-C90016.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.2.1)
 [![Blogger Engine](https://img.shields.io/badge/Blogger-Layout_v3_%7C_Widget_v2-111111.svg?style=flat-square&logo=blogger)](https://www.blogger.com)
 [![XML Validation](https://img.shields.io/badge/XML%20Validation-15%2F15%20Passing%20(100%25)-22C55E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/actions)
-[![jsDelivr CDN](https://img.shields.io/badge/jsDelivr-v1.2.0%20CDN-E84393.svg?style=flat-square&logo=jsdelivr)](https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/)
+[![jsDelivr CDN](https://img.shields.io/badge/jsDelivr-v1.2.1%20CDN-E84393.svg?style=flat-square&logo=jsdelivr)](https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-1D4ED8.svg?style=flat-square)](LICENSE)
 
 > **Validation News Magzine Theme** is a high-authority, SEO-optimized, editorial digital newspaper template architected strictly for Google Blogger (Blogspot) using **Layout v3** (`b:layoutsVersion='3'`) and **Widget v2** (`b:defaultwidgetversion='2'`).
@@ -43,13 +43,13 @@ The template links production assets directly from jsDelivr's global multi-CDN n
 
 ```html
 <!-- Stylesheets -->
-<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/css/components.css' rel='stylesheet'/>
-<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/css/post.css' rel='stylesheet'/>
+<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/css/components.css' rel='stylesheet'/>
+<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/css/post.css' rel='stylesheet'/>
 
 <!-- Deferred Scripts -->
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/js/core.js'></script>
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/js/magazine-feeds.js'></script>
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/js/article-tools.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/js/core.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/js/magazine-feeds.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/js/article-tools.js'></script>
 ```
 
 ---
@@ -147,7 +147,7 @@ The test runner executes 15 strict validation gates:
 6. **JSON-LD Syntax:** Parses all structured data blocks (`Organization`, `WebSite`, `NewsArticle`, `BreadcrumbList`) with zero trailing commas.
 7. **Ampersand Escaping:** Ensures 100% of ampersands outside CDATA blocks are escaped as `&amp;`.
 8. **XHTML Self-Closing Tags:** Verifies `<meta/>`, `<link/>`, `<img/>`, and `<input/>` self-close properly.
-9. **jsDelivr CDN Integrity:** Verifies all referenced v1.2.0 CDN URLs map directly to existing files in `assets/`.
+9. **jsDelivr CDN Integrity:** Verifies all referenced v1.2.1 CDN URLs map directly to existing files in `assets/`.
 10. **Blogger Layout v3 `<b:defaultmarkups>`:** Verifies presence of the root blueprint container.
 11. **Blog1 Modular Architecture:** Verifies presence of all 15 decoupled includables (`main`, `archiveHeader`, `featuredLeadPost`, `postCard`, `singlePost`, `staticPage`, `postBreadcrumbs`, `postMeta`, `postLabels`, `postShare`, `authorBox`, `postPagination`, `threadedComments`, `emptyState`, `error404`).
 12. **Section showaddelement Permissions & Classes:** Verifies all 13 sections have `showaddelement="yes"` and semantic class attributes.
