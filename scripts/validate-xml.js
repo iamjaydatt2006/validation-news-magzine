@@ -91,15 +91,24 @@ print(json.dumps(result))
 
 assertCheck(`CHECK 3: Section Widget Nesting (${sectionCount} sections found)`, sectionsValid, 'Zero raw HTML directly in <b:section> (only valid <b:widget> elements)');
 
-// 4. PopularPosts Widget Configuration
+// 4. PopularPosts & PageList Widget Schema Configuration
 const ppMatch = content.match(/<b:widget[^>]*type=['"]PopularPosts['"][^>]*>([\s\S]*?)<\/b:widget>/);
 if (ppMatch) {
   const ppBody = ppMatch[1];
   const hasAllTime = ppBody.includes("<b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>");
   const hasInvalid30Days = ppBody.includes('LAST_30_DAYS');
-  assertCheck('CHECK 4: PopularPosts timeRange Settings', hasAllTime && !hasInvalid30Days, "Valid enum 'ALL_TIME' (Zero rejected 'LAST_30_DAYS')");
+  assertCheck('CHECK 4.1: PopularPosts timeRange Settings', hasAllTime && !hasInvalid30Days, "Valid enum 'ALL_TIME' (Zero rejected 'LAST_30_DAYS')");
 } else {
-  assertCheck('CHECK 4: PopularPosts Widget Presence', false, 'PopularPosts1 widget not found');
+  assertCheck('CHECK 4.1: PopularPosts Widget Presence', false, 'PopularPosts1 widget not found');
+}
+
+const pageListMatch = content.match(/<b:widget[^>]*type=['"]PageList['"][^>]*>([\s\S]*?)<\/b:widget>/);
+if (pageListMatch) {
+  const pageListBody = pageListMatch[1];
+  const hasInvalidLinkSetting = pageListBody.includes("name='link-") || pageListBody.includes('name="link-');
+  assertCheck('CHECK 4.2: PageList Widget Schema Settings', !hasInvalidLinkSetting, "Zero invalid 'link-X' setting names (PageList schema allows only pageListJson/homeTitle)");
+} else {
+  assertCheck('CHECK 4.2: PageList Widget Presence', false, 'PageList1 widget not found');
 }
 
 // 5. JSON-LD Blocks Verification

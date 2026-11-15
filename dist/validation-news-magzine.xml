@@ -1870,18 +1870,17 @@ body.is-archive .portal-grid-layout {
         </div>
         <div class='top-bar-right'>
           <b:section id='top-bar-links' maxwidgets='1' name='Top Bar Quick Links' showaddelement='no'>
-            <b:widget id='LinkList1' locked='true' title='Quick Links' type='LinkList' version='2'>
-              <b:widget-settings>
-                <b:widget-setting name='link-0'>https://twitter.com</b:widget-setting>
-                <b:widget-setting name='text-0'>X / Twitter</b:widget-setting>
-                <b:widget-setting name='link-1'>/feeds/posts/default</b:widget-setting>
-                <b:widget-setting name='text-1'>RSS Feed</b:widget-setting>
-              </b:widget-settings>
+            <b:widget id='LinkList1' locked='false' title='Quick Links' type='LinkList' version='2'>
               <b:includable id='main'>
                 <div class='top-quick-links' style='display:inline-flex; gap:12px;'>
-                  <b:loop values='data:links' var='link'>
-                    <a expr:href='data:link.target' target='_blank'><data:link.name/></a>
-                  </b:loop>
+                  <b:if cond='data:links'>
+                    <b:loop values='data:links' var='link'>
+                      <a expr:href='data:link.target' target='_blank'><data:link.name/></a>
+                    </b:loop>
+                  <b:else/>
+                    <a href='https://twitter.com' target='_blank'>X / Twitter</a>
+                    <a href='/feeds/posts/default'>RSS Feed</a>
+                  </b:if>
                 </div>
               </b:includable>
             </b:widget>
@@ -1937,27 +1936,25 @@ body.is-archive .portal-grid-layout {
         <!-- Category Links Scroll Area -->
         <div class='nav-links-scroll'>
           <b:section id='nav-section' maxwidgets='1' name='Category Navigation' showaddelement='no'>
-            <b:widget id='PageList1' locked='true' title='Pages &amp; Categories' type='PageList' version='2'>
+            <b:widget id='PageList1' locked='false' title='Pages &amp; Categories' type='PageList' version='2'>
               <b:widget-settings>
-                <b:widget-setting name='link-0'>/</b:widget-setting>
-                <b:widget-setting name='text-0'>Home</b:widget-setting>
-                <b:widget-setting name='link-1'>/search/label/World</b:widget-setting>
-                <b:widget-setting name='text-1'>World</b:widget-setting>
-                <b:widget-setting name='link-2'>/search/label/Business</b:widget-setting>
-                <b:widget-setting name='text-2'>Business</b:widget-setting>
-                <b:widget-setting name='link-3'>/search/label/Tech</b:widget-setting>
-                <b:widget-setting name='text-3'>Tech</b:widget-setting>
-                <b:widget-setting name='link-4'>/search/label/Sports</b:widget-setting>
-                <b:widget-setting name='text-4'>Sports</b:widget-setting>
-                <b:widget-setting name='link-5'>/search/label/Health</b:widget-setting>
-                <b:widget-setting name='text-5'>Health</b:widget-setting>
-                <b:widget-setting name='link-6'>/search/label/Opinion</b:widget-setting>
-                <b:widget-setting name='text-6'>Opinion</b:widget-setting>
+                <b:widget-setting name='pageListJson'><![CDATA[{}]]></b:widget-setting>
+                <b:widget-setting name='homeTitle'>Home</b:widget-setting>
               </b:widget-settings>
               <b:includable id='main'>
-                <b:loop values='data:links' var='link'>
-                  <a expr:class='"nav-link-item" + (data:link.isCurrentPage ? " active" : "")' expr:href='data:link.href'><data:link.title/></a>
-                </b:loop>
+                <b:if cond='data:links'>
+                  <b:loop values='data:links' var='link'>
+                    <a expr:class='"nav-link-item" + (data:link.isCurrentPage ? " active" : "")' expr:href='data:link.href'><data:link.title/></a>
+                  </b:loop>
+                <b:else/>
+                  <a class='nav-link-item active' expr:href='data:blog.homepageUrl.canonical'>Home</a>
+                  <a class='nav-link-item' href='/search/label/World'>World</a>
+                  <a class='nav-link-item' href='/search/label/Business'>Business</a>
+                  <a class='nav-link-item' href='/search/label/Tech'>Tech</a>
+                  <a class='nav-link-item' href='/search/label/Sports'>Sports</a>
+                  <a class='nav-link-item' href='/search/label/Health'>Health</a>
+                  <a class='nav-link-item' href='/search/label/Opinion'>Opinion</a>
+                </b:if>
               </b:includable>
             </b:widget>
           </b:section>
@@ -1988,24 +1985,20 @@ body.is-archive .portal-grid-layout {
           In The News
         </span>
         <b:section id='trending-section' maxwidgets='1' name='Trending Bar Topics' showaddelement='no'>
-          <b:widget id='LinkList2' locked='true' title='Trending Topics' type='LinkList' version='2'>
-            <b:widget-settings>
-              <b:widget-setting name='link-0'>/search/label/Economy</b:widget-setting>
-              <b:widget-setting name='text-0'>Global Economy</b:widget-setting>
-              <b:widget-setting name='link-1'>/search/label/AI</b:widget-setting>
-              <b:widget-setting name='text-1'>AI Revolution</b:widget-setting>
-              <b:widget-setting name='link-2'>/search/label/Climate</b:widget-setting>
-              <b:widget-setting name='text-2'>Climate Summit</b:widget-setting>
-              <b:widget-setting name='link-3'>/search/label/Elections</b:widget-setting>
-              <b:widget-setting name='text-3'>General Elections</b:widget-setting>
-              <b:widget-setting name='link-4'>/search/label/Cricket</b:widget-setting>
-              <b:widget-setting name='text-4'>Cricket World Cup</b:widget-setting>
-            </b:widget-settings>
+          <b:widget id='LinkList2' locked='false' title='Trending Topics' type='LinkList' version='2'>
             <b:includable id='main'>
               <div class='trending-list'>
-                <b:loop values='data:links' var='link'>
-                  <a class='trending-item' expr:href='data:link.target'><data:link.name/></a>
-                </b:loop>
+                <b:if cond='data:links'>
+                  <b:loop values='data:links' var='link'>
+                    <a class='trending-item' expr:href='data:link.target'><data:link.name/></a>
+                  </b:loop>
+                <b:else/>
+                  <a class='trending-item' href='/search/label/Economy'>Global Economy</a>
+                  <a class='trending-item' href='/search/label/AI'>AI Revolution</a>
+                  <a class='trending-item' href='/search/label/Climate'>Climate Summit</a>
+                  <a class='trending-item' href='/search/label/Elections'>General Elections</a>
+                  <a class='trending-item' href='/search/label/Cricket'>Cricket World Cup</a>
+                </b:if>
               </div>
             </b:includable>
           </b:widget>
@@ -2580,24 +2573,21 @@ body.is-archive .portal-grid-layout {
 
         <!-- Col 3: Legal and Newsroom Links Section -->
         <b:section id='footer-links' maxwidgets='1' name='Footer Editorial Links' showaddelement='no'>
-          <b:widget id='LinkList3' locked='true' title='Newsroom &amp; Legal' type='LinkList' version='2'>
-            <b:widget-settings>
-              <b:widget-setting name='link-0'>/p/about.html</b:widget-setting>
-              <b:widget-setting name='text-0'>About Our Newsroom</b:widget-setting>
-              <b:widget-setting name='link-1'>/p/standards.html</b:widget-setting>
-              <b:widget-setting name='text-1'>Standards and Ethics</b:widget-setting>
-              <b:widget-setting name='link-2'>/p/privacy.html</b:widget-setting>
-              <b:widget-setting name='text-2'>Privacy Policy</b:widget-setting>
-              <b:widget-setting name='link-3'>/p/terms.html</b:widget-setting>
-              <b:widget-setting name='text-3'>Terms of Service</b:widget-setting>
-            </b:widget-settings>
+          <b:widget id='LinkList3' locked='false' title='Newsroom &amp; Legal' type='LinkList' version='2'>
             <b:includable id='main'>
               <div>
                 <h4 class='footer-col-title'>Editorial and Policies</h4>
                 <ul class='footer-links-list'>
-                  <b:loop values='data:links' var='link'>
-                    <li><a expr:href='data:link.target'><data:link.name/></a></li>
-                  </b:loop>
+                  <b:if cond='data:links'>
+                    <b:loop values='data:links' var='link'>
+                      <li><a expr:href='data:link.target'><data:link.name/></a></li>
+                    </b:loop>
+                  <b:else/>
+                    <li><a href='/p/about.html'>About Our Newsroom</a></li>
+                    <li><a href='/p/standards.html'>Standards and Ethics</a></li>
+                    <li><a href='/p/privacy.html'>Privacy Policy</a></li>
+                    <li><a href='/p/terms.html'>Terms of Service</a></li>
+                  </b:if>
                 </ul>
               </div>
             </b:includable>
