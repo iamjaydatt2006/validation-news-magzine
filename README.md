@@ -1,9 +1,9 @@
 # Validation News Magzine Theme
 
-[![Version](https://img.shields.io/badge/version-v1.0.2-D9232E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.0.2)
+[![Version](https://img.shields.io/badge/version-v1.1.0-C90016.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.1.0)
 [![Blogger Engine](https://img.shields.io/badge/Blogger-Layout_v3_%7C_Widget_v2-111111.svg?style=flat-square&logo=blogger)](https://www.blogger.com)
-[![XML Validation](https://img.shields.io/badge/XML%20Validation-100%25%20Passing-22C55E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/actions)
-[![jsDelivr CDN](https://img.shields.io/badge/jsDelivr-v1.0.2%20CDN-E84393.svg?style=flat-square&logo=jsdelivr)](https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/)
+[![XML Validation](https://img.shields.io/badge/XML%20Validation-13%2F13%20Passing%20(100%25)-22C55E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/actions)
+[![jsDelivr CDN](https://img.shields.io/badge/jsDelivr-v1.1.0%20CDN-E84393.svg?style=flat-square&logo=jsdelivr)](https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-1D4ED8.svg?style=flat-square)](LICENSE)
 
 > **Validation News Magzine Theme** is a high-authority, SEO-optimized, editorial digital newspaper template architected strictly for Google Blogger (Blogspot) using **Layout v3** (`b:layoutsVersion='3'`) and **Widget v2** (`b:defaultwidgetversion='2'`).
@@ -43,14 +43,35 @@ The template links production assets directly from jsDelivr's global multi-CDN n
 
 ```html
 <!-- Stylesheets -->
-<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/css/components.css' rel='stylesheet'/>
-<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/css/post.css' rel='stylesheet'/>
+<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/css/components.css' rel='stylesheet'/>
+<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/css/post.css' rel='stylesheet'/>
 
 <!-- Deferred Scripts -->
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/core.js'></script>
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/magazine-feeds.js'></script>
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/article-tools.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/js/core.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/js/magazine-feeds.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/js/article-tools.js'></script>
 ```
+
+---
+
+## Post-Upload Layout Configuration Checklist
+
+Once you have uploaded `dist/validation-news-magzine.xml` via **Theme → Restore**, visit **Blogger → Layout** to configure your newspaper's gadgets:
+
+1. **Category Navigation (`PageList1`):**
+   - Click the pencil icon on **Category Navigation** to add your site's main news desks (e.g. `World`, `Business`, `Tech`, `Sports`, `Health`).
+2. **Breaking News Marquee (`HTML0`):**
+   - Set the gadget title or content to filter posts by a specific label (default: `breaking-news`).
+3. **Left Rail Briefs (`HTML1`):**
+   - By default loads fast news briefs from label `Briefs`. To customize, edit the widget content.
+4. **Sidebar Top 300x250 Ad (`HTML2`):**
+   - Paste your Google AdSense responsive snippet or sponsor banner HTML.
+5. **Most Read Dispatches (`PopularPosts1`):**
+   - Configured with official `ALL_TIME` setting and counter ranks (`01`–`05`).
+6. **Homepage Modular Category Blocks (`HTML5`, `HTML6`):**
+   - Configure category headlines like `World News` or `Technology` to load specific 4-card grids.
+7. **Footer News Desks & Policies (`Label2`, `LinkList3`):**
+   - Point your editorial links to your About, Privacy Policy, and Ethics pages.
 
 ---
 
@@ -117,15 +138,20 @@ npm test
 ```
 
 ### Validation Suite Checks
-The test runner executes 8 strict validation gates:
-1. **W3C XML Parsing:** 100% well-formedness.
+The test runner executes 13 strict validation gates:
+1. **W3C XML Parsing:** 100% well-formedness (0 syntax errors).
 2. **Blogger Layout Attributes:** Validates `b:layoutsVersion='3'`, `b:defaultwidgetversion='2'`, `b:css='false'`, and `b:responsive='true'`.
-3. **Section Hierarchy:** Confirms all 11 `<b:section>` elements contain only valid `<b:widget>` children.
+3. **Section Hierarchy:** Confirms all 13 `<b:section>` elements contain only valid `<b:widget>` children.
 4. **PopularPosts Settings:** Enforces valid `timeRange: ALL_TIME` (guaranteeing zero Blogger parser rejections).
-5. **JSON-LD Syntax:** Parses all structured data blocks to ensure zero trailing commas.
-6. **Ampersand Escaping:** Ensures 100% of ampersands outside CDATA blocks are escaped as `&amp;`.
-7. **XHTML Self-Closing Tags:** Verifies `<meta/>`, `<link/>`, `<img/>`, and `<input/>` self-close properly.
-8. **jsDelivr CDN Integrity:** Verifies all referenced CDN URLs map directly to existing files in `assets/`.
+5. **PageList Schema:** Enforces valid PageList settings (`pageListJson`, `homeTitle`) with zero invalid setting keys.
+6. **JSON-LD Syntax:** Parses all structured data blocks to ensure zero trailing commas and valid schema syntax.
+7. **Ampersand Escaping:** Ensures 100% of ampersands outside CDATA blocks are escaped as `&amp;`.
+8. **XHTML Self-Closing Tags:** Verifies `<meta/>`, `<link/>`, `<img/>`, and `<input/>` self-close properly.
+9. **jsDelivr CDN Integrity:** Verifies all referenced v1.1.0 CDN URLs map directly to existing files in `assets/`.
+10. **Blogger Layout v3 `<b:defaultmarkups>`:** Verifies presence of the root blueprint container.
+11. **Blog1 Includable Contracts:** Verifies `main`, `post`, and `comments` includables exist.
+12. **Blogger Layout Wireframe (`<b:template-skin>`):** Verifies dedicated `body#layout` CSS wireframe for Blogger Theme Layout dashboard.
+13. **Native v2 Widget Includables:** Verifies all 18 widgets implement valid `<b:includable id='main'>`.
 
 ---
 

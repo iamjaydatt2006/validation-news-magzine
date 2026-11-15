@@ -1,9 +1,9 @@
 /**
  * Validation News Magzine Theme - Build Script
- * Compiles the standalone Blogger XML theme with Critical CSS + jsDelivr CDN integration.
+ * Compiles the standalone Blogger XML theme with Critical CSS + Layout Wireframe + jsDelivr CDN integration.
  * Adheres strictly to Blogger Layout v3 and Widget v2 specifications.
  * @package ValidationNewsMagzine
- * @version 1.0.2
+ * @version 1.1.0
  * @author Jaydatta Khodave
  * @license MIT
  */
@@ -31,6 +31,165 @@ const combinedCss = `/* Core Tokens & Reset */\n${coreCss}\n\n/* Components & Gr
 // Combined JS for standalone fallback inside //<![CDATA[
 const combinedJs = `// Core Interactions\n${coreJs}\n\n// Magazine Feeds\n${feedsJs}\n\n// Article Tools\n${toolsJs}`;
 
+const layoutSkinCss = `
+/* ==================================================================
+   BLOGGER LAYOUT DASHBOARD WIREFRAME STYLES (v1.1.0)
+   Styles body#layout into a clean visual newspaper wireframe.
+   ================================================================== */
+body#layout {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f1f3f5;
+  color: #212529;
+  margin: 0;
+  padding: 24px;
+  line-height: 1.5;
+}
+
+body#layout .site-wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Hide interactive frontend overlays & buttons in layout editor */
+body#layout .theme-toggle-btn,
+body#layout #mobile-menu-btn,
+body#layout #search-modal-trigger,
+body#layout .live-pill-btn,
+body#layout .search-modal-backdrop,
+body#layout .mobile-drawer-backdrop,
+body#layout .mobile-drawer-panel,
+body#layout #live-datetime,
+body#layout .edition-badge,
+body#layout .trending-badge,
+body#layout .breaking-badge,
+body#layout .rail-section-header,
+body#layout .footer-bottom-bar,
+body#layout #reading-progress-bar,
+body#layout .article-share-strip,
+body#layout .article-reading-tools {
+  display: none !important;
+}
+
+/* Layout Section Containers */
+body#layout .section {
+  background: #ffffff;
+  border: 2px dashed #cbd5e1;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  position: relative;
+  transition: border-color 0.15s ease;
+}
+
+body#layout .section:hover {
+  border-color: #94a3b8;
+}
+
+body#layout .section::before {
+  content: attr(name);
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Gadget Card Styling in Layout Editor */
+body#layout .widget {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+body#layout .widget:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+/* Top Rows */
+body#layout header#top-bar {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+body#layout div#masthead {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+body#layout nav#primary-nav-sticky {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+body#layout div#trending-bar {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+body#layout #breaking-news-bar {
+  display: block !important;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+body#layout .portal-main-area {
+  display: block;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+/* 3-Column Magazine Grid in Layout Editor */
+body#layout .portal-grid-layout {
+  display: grid !important;
+  grid-template-columns: 280px minmax(0, 1fr) 300px !important;
+  gap: 20px !important;
+  width: 100% !important;
+  align-items: start !important;
+}
+
+body#layout .portal-left-rail,
+body#layout .portal-center-feed,
+body#layout .portal-sidebar {
+  display: block !important;
+  width: 100% !important;
+}
+
+body#layout #home-sections {
+  display: block;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+/* 4-Column Footer Architecture in Layout Editor */
+body#layout #site-footer {
+  display: block;
+  width: 100%;
+  padding-top: 24px;
+  border-top: 2px solid #e2e8f0;
+}
+
+body#layout .footer-top-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 18px !important;
+  width: 100% !important;
+}
+`;
+
 const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
@@ -44,9 +203,9 @@ const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
   <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,700&amp;display=swap' rel='stylesheet'/>
 
-  <!-- jsDelivr CDN Modular Non-Blocking Stylesheets (v1.0.2 Release) -->
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/css/components.css' rel='stylesheet'/>
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/css/post.css' rel='stylesheet'/>
+  <!-- jsDelivr CDN Modular Non-Blocking Stylesheets (v1.1.0 Release) -->
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/css/components.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/css/post.css' rel='stylesheet'/>
 
   <!-- Dynamic Document Title (Zero b:eval Chaining) -->
   <title>
@@ -187,6 +346,14 @@ ${combinedCss}
   ]]></b:skin>
 
   <!-- ==================================================================
+       BLOGGER LAYOUT DASHBOARD WIREFRAME STYLES
+       Provides dedicated styling for Blogger Theme Designer and Layout editor.
+       ================================================================== -->
+  <b:template-skin><![CDATA[
+${layoutSkinCss}
+  ]]></b:template-skin>
+
+  <!-- ==================================================================
        DEFAULT WIDGET MARKUPS (Required by Blogger Layout v3 and Widget v2)
        ================================================================== -->
   <b:defaultmarkups>
@@ -197,13 +364,18 @@ ${combinedCss}
     </b:defaultmarkup>
   </b:defaultmarkups>
 
-  <!-- jsDelivr CDN Deferred JavaScript Modules (v1.0.2 Release) -->
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/core.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/magazine-feeds.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/article-tools.js'></script>
+  <!-- jsDelivr CDN Deferred JavaScript Modules (v1.1.0 Release) -->
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/js/core.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/js/magazine-feeds.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/js/article-tools.js'></script>
 </head>
 
 <body expr:class='(data:view.isHomepage ? "is-homepage" : "") + (data:view.isPost ? " is-post" : "") + (data:view.isPage ? " is-page" : "") + (data:view.isMultipleItems and not data:view.isHomepage ? " is-archive" : "") + (data:view.isError ? " is-error" : "")'>
+
+  <!-- Reading Progress Bar (Fixed Top on Post View) -->
+  <b:if cond='data:view.isPost'>
+    <div id='reading-progress-bar'></div>
+  </b:if>
 
   <!-- ==================================================================
        TOP UTILITY BAR
@@ -363,6 +535,42 @@ ${combinedCss}
   </div>
 
   <!-- ==================================================================
+       BREAKING NEWS LIVE TICKER STRIP
+       ================================================================== -->
+  <div id='breaking-news-bar'>
+    <div class='site-wrapper'>
+      <div class='breaking-news-inner'>
+        <span class='breaking-badge'>
+          <span class='breaking-pulse'></span>
+          Breaking News
+        </span>
+        <div class='breaking-ticker-track'>
+          <b:section class='breaking-news' id='breaking-news-section' maxwidgets='2' name='Breaking News Live Ticker' showaddelement='yes'>
+            <b:widget id='HTML0' locked='false' title='Breaking News Ticker' type='HTML' version='2'>
+              <b:includable id='main'>
+                <div class='breaking-ticker-content' id='breaking-ticker-content'>
+                  <b:if cond='data:content'>
+                    <data:content/>
+                  <b:else/>
+                    <a class='breaking-ticker-item' href='/search/label/Live'>
+                      <span>High-level multilateral security talks resume as global trade corridors open</span>
+                      <span class='breaking-ticker-sep'>&#9670;</span>
+                    </a>
+                    <a class='breaking-ticker-item' href='/search/label/Economy'>
+                      <span>Benchmark rates stabilize across major sovereign debt auctions</span>
+                      <span class='breaking-ticker-sep'>&#9670;</span>
+                    </a>
+                  </b:if>
+                </div>
+              </b:includable>
+            </b:widget>
+          </b:section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================================
        ARCHIVE / SEARCH / LABEL HERO BANNER (When Not Homepage)
        ================================================================== -->
   <b:if cond='data:view.isMultipleItems and not data:view.isHomepage'>
@@ -370,7 +578,7 @@ ${combinedCss}
       <div class='site-wrapper'>
         <b:if cond='data:view.isLabelSearch'>
           <span class='archive-kicker'>News Desk Archive</span>
-          <h1 class='archive-main-title'>Topic: <data:view.search.label/></h1>
+          <h1 class='archive-main-title'>Category / Tag: <data:view.search.label/></h1>
           <p class='archive-subtext'>All reporting, investigative pieces, and editorial dispatches filed under #<data:view.search.label/></p>
         <b:elseif cond='data:view.isSearch'/>
           <span class='archive-kicker'>Search Archives</span>
@@ -382,6 +590,7 @@ ${combinedCss}
         <b:elseif cond='data:view.isArchive'/>
           <span class='archive-kicker'>Historical Dispatches</span>
           <h1 class='archive-main-title'>Newsroom Archive: <data:view.archive.rangeMessage/></h1>
+          <p class='archive-subtext'>Chronological dispatches published during <data:view.archive.rangeMessage/></p>
         </b:if>
       </div>
     </div>
@@ -404,10 +613,10 @@ ${combinedCss}
           <b:section class='left-rail' id='left-rail' maxwidgets='5' name='Left Rail Breaking Briefs' showaddelement='yes'>
             <b:widget id='HTML1' locked='false' title='Editor Briefs' type='HTML' version='2'>
               <b:includable id='main'>
-                <b:if cond='data:content'>
-                  <data:content/>
-                <b:else/>
-                  <div class='briefs-container'>
+                <div class='briefs-container' data-rail-label='Briefs'>
+                  <b:if cond='data:content'>
+                    <data:content/>
+                  <b:else/>
                     <article class='brief-item'>
                       <div class='brief-thumb-wrap'>
                         <img alt='Wildlife conservation report' loading='lazy' src='https://picsum.photos/seed/brief1/400/225'/>
@@ -431,8 +640,8 @@ ${combinedCss}
                       <span class='brief-kicker'>Space &amp; Defense</span>
                       <h4 class='brief-headline'><a href='#'>Next-generation optical telemetry satellite prepares for equatorial launch countdown</a></h4>
                     </article>
-                  </div>
-                </b:if>
+                  </b:if>
+                </div>
               </b:includable>
             </b:widget>
           </b:section>
@@ -458,7 +667,7 @@ ${combinedCss}
                       <input class='search-refine-input' name='q' placeholder='Search archives for topic or name...' type='search'/>
                       <button class='search-refine-btn' type='submit'>Search</button>
                     </form>
-                    <a expr:href='data:blog.homepageUrl.canonical' style='color: var(--accent-red); font-weight: 700;'>&#8592; Return to Front Page</a>
+                    <a class='return-home-link' expr:href='data:blog.homepageUrl.canonical'>&#8592; Return to Front Page</a>
                   </div>
 
                 <!-- VIEW 2: SINGLE POST / ARTICLE VIEW -->
@@ -487,19 +696,28 @@ ${combinedCss}
                     <b:loop index='i' values='data:posts' var='post'>
                       <b:if cond='data:i == 0'>
                         <article class='lead-story-card' expr:id='"lead-" + data:post.id'>
+                          <b:loop index='j' values='data:post.labels' var='label'>
+                            <b:if cond='data:j == 0'>
+                              <a class='lead-category-kicker' expr:href='data:label.url'><data:label.name/></a>
+                            </b:if>
+                          </b:loop>
                           <h2 class='lead-headline'>
                             <a expr:href='data:post.url'><data:post.title/></a>
                           </h2>
                           <div class='lead-media-wrap'>
                             <a expr:href='data:post.url'>
                               <b:if cond='data:post.featuredImage'>
-                                <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")' fetchpriority='high'/>
+                                <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 900, "16:9")' fetchpriority='high'/>
                               <b:else/>
-                                <img alt='Newsroom Lead Story' fetchpriority='high' src='https://picsum.photos/seed/leadnews/1200/675'/>
+                                <div class='media-fallback-svg' style='aspect-ratio:16/9;background:var(--bg-subtle);display:flex;align-items:center;justify-content:center;'>
+                                  <svg fill='none' height='48' stroke='var(--border-hairline)' stroke-width='1.5' viewBox='0 0 24 24' width='48'><path d='M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'/></svg>
+                                </div>
                               </b:if>
                             </a>
                           </div>
-                          <b:if cond='data:post.snippet'>
+                          <b:if cond='data:post.snippets.long'>
+                            <p class='lead-deck'><data:post.snippets.long/></p>
+                          <b:elseif cond='data:post.snippet'/>
                             <p class='lead-deck'><data:post.snippet/></p>
                           </b:if>
                           <div class='lead-meta'>
@@ -516,16 +734,18 @@ ${combinedCss}
                       <b:loop index='i' values='data:posts' var='post'>
                         <b:if cond='data:i &gt; 0'>
                           <article class='news-card-horizontal' expr:id='"stream-" + data:post.id'>
-                            <div>
+                            <div class='card-content-wrap'>
                               <b:loop index='lblIdx' values='data:post.labels' var='label'>
                                 <b:if cond='data:lblIdx == 0'>
-                                  <span class='card-kicker'><data:label.name/></span>
+                                  <a class='card-kicker' expr:href='data:label.url'><data:label.name/></a>
                                 </b:if>
                               </b:loop>
                               <h3 class='card-headline'>
                                 <a expr:href='data:post.url'><data:post.title/></a>
                               </h3>
-                              <b:if cond='data:post.snippet'>
+                              <b:if cond='data:post.snippets.short'>
+                                <p class='card-snippet'><data:post.snippets.short/></p>
+                              <b:elseif cond='data:post.snippet'/>
                                 <p class='card-snippet'><data:post.snippet/></p>
                               </b:if>
                               <div class='card-meta-line'>
@@ -537,9 +757,11 @@ ${combinedCss}
                             <div class='card-thumb-wrap'>
                               <a expr:href='data:post.url'>
                                 <b:if cond='data:post.featuredImage'>
-                                  <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 400, "16:10")' loading='lazy'/>
+                                  <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 360, "3:2")' loading='lazy'/>
                                 <b:else/>
-                                  <img alt='Story' loading='lazy' src='https://picsum.photos/seed/newsstream/400/250'/>
+                                  <div class='thumb-fallback-svg' style='aspect-ratio:3/2;background:var(--bg-subtle);display:flex;align-items:center;justify-content:center;border-radius:var(--radius-xs);'>
+                                    <svg fill='none' height='28' stroke='var(--border-hairline)' stroke-width='1.5' viewBox='0 0 24 24' width='28'><path d='M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'/></svg>
+                                  </div>
                                 </b:if>
                               </a>
                             </div>
@@ -548,9 +770,17 @@ ${combinedCss}
                       </b:loop>
                     </div>
                   <b:else/>
-                    <div class='no-posts-card' style='padding: 40px; text-align: center;'>
-                      <h3>No Dispatches Filed Yet</h3>
-                      <p>The editorial team is preparing coverage. Please check back shortly.</p>
+                    <div class='no-posts-card'>
+                      <div class='no-posts-icon'>
+                        <svg fill='none' height='48' stroke='currentColor' stroke-width='1.5' viewBox='0 0 24 24' width='48'><path d='M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z'/></svg>
+                      </div>
+                      <h3 class='no-posts-title'>No Dispatches Filed Yet</h3>
+                      <p class='no-posts-desc'>There are currently no published reports in this newsroom section. Our editorial correspondents are preparing coverage.</p>
+                      <form class='search-refine-form' expr:action='data:blog.searchUrl' style='margin: 0 auto 20px;'>
+                        <input class='search-refine-input' name='q' placeholder='Search archives for topic or name...' type='search'/>
+                        <button class='search-refine-btn' type='submit'>Search</button>
+                      </form>
+                      <a class='return-home-link' expr:href='data:blog.homepageUrl.canonical'>&#8592; Return to Front Page</a>
                     </div>
                   </b:if>
 
@@ -575,19 +805,23 @@ ${combinedCss}
                               <b:if cond='data:post.featuredImage'>
                                 <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 500, "16:9")' loading='lazy'/>
                               <b:else/>
-                                <img alt='Archive Story' loading='lazy' src='https://picsum.photos/seed/arch/500/280'/>
+                                <div class='thumb-fallback-svg' style='aspect-ratio:16/9;background:var(--bg-subtle);display:flex;align-items:center;justify-content:center;border-radius:var(--radius-xs);'>
+                                  <svg fill='none' height='32' stroke='var(--border-hairline)' stroke-width='1.5' viewBox='0 0 24 24' width='32'><path d='M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'/></svg>
+                                </div>
                               </b:if>
                             </a>
                           </div>
                           <b:loop index='lblIdx' values='data:post.labels' var='label'>
                             <b:if cond='data:lblIdx == 0'>
-                              <span class='brief-kicker'><data:label.name/></span>
+                              <a class='brief-kicker' expr:href='data:label.url'><data:label.name/></a>
                             </b:if>
                           </b:loop>
                           <h3 class='card-headline'>
                             <a expr:href='data:post.url'><data:post.title/></a>
                           </h3>
-                          <b:if cond='data:post.snippet'>
+                          <b:if cond='data:post.snippets.short'>
+                            <p class='card-snippet'><data:post.snippets.short/></p>
+                          <b:elseif cond='data:post.snippet'/>
                             <p class='card-snippet'><data:post.snippet/></p>
                           </b:if>
                           <div class='card-meta-line' style='margin-top: 8px;'>
@@ -597,9 +831,17 @@ ${combinedCss}
                       </b:loop>
                     </div>
                   <b:else/>
-                    <div class='no-posts-card' style='padding: 40px; text-align: center;'>
-                      <h3>No Dispatches Matching Your Criteria</h3>
-                      <p>Try searching with another keyword or explore other news desks.</p>
+                    <div class='no-posts-card'>
+                      <div class='no-posts-icon'>
+                        <svg fill='none' height='48' stroke='currentColor' stroke-width='1.5' viewBox='0 0 24 24' width='48'><path d='M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z'/></svg>
+                      </div>
+                      <h3 class='no-posts-title'>No Dispatches Matching Your Criteria</h3>
+                      <p class='no-posts-desc'>Try searching with another keyword or explore other editorial news desks.</p>
+                      <form class='search-refine-form' expr:action='data:blog.searchUrl' style='margin: 0 auto 20px;'>
+                        <input class='search-refine-input' name='q' placeholder='Search archives for topic or name...' type='search'/>
+                        <button class='search-refine-btn' type='submit'>Search</button>
+                      </form>
+                      <a class='return-home-link' expr:href='data:blog.homepageUrl.canonical'>&#8592; Return to Front Page</a>
                     </div>
                   </b:if>
 
@@ -637,11 +879,13 @@ ${combinedCss}
                   <header class='article-header'>
                     <b:loop index='lblIdx' values='data:post.labels' var='label'>
                       <b:if cond='data:lblIdx == 0'>
-                        <span class='article-kicker-desk'><data:label.name/> Desk</span>
+                        <a class='article-kicker-desk' expr:href='data:label.url'><data:label.name/> Desk</a>
                       </b:if>
                     </b:loop>
                     <h1 class='article-main-headline'><data:post.title/></h1>
-                    <b:if cond='data:post.snippet'>
+                    <b:if cond='data:post.snippets.long'>
+                      <p class='article-subheadline'><data:post.snippets.long/></p>
+                    <b:elseif cond='data:post.snippet'/>
                       <p class='article-subheadline'><data:post.snippet/></p>
                     </b:if>
 
@@ -657,12 +901,24 @@ ${combinedCss}
                           <span class='author-name-bold'><data:post.author.name/></span>
                         </div>
                       </div>
-                      <div class='byline-meta-group'>
+                      <div class='byline-timestamps'>
                         <time expr:datetime='data:post.date.iso8601'>Published: <data:post.date/></time>
                         <b:if cond='data:post.lastUpdated'>
                           <span>&#8226;</span>
                           <time expr:datetime='data:post.lastUpdated.iso8601'>Updated: <data:post.lastUpdated/></time>
                         </b:if>
+                      </div>
+                      <div class='article-reading-tools'>
+                        <span id='reading-time'>1 min read</span>
+                        <div class='font-size-adjuster'>
+                          <button aria-label='Decrease font size' class='font-size-btn' id='font-size-dec'>A-</button>
+                          <button aria-label='Reset font size' class='font-size-btn' id='font-size-reset'>A</button>
+                          <button aria-label='Increase font size' class='font-size-btn' id='font-size-inc'>A+</button>
+                        </div>
+                        <button aria-label='Print Dispatch' class='print-article-btn' id='print-article-btn'>
+                          <svg fill='none' height='12' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='12'><path d='M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2'/><path d='M6 14h12v8H6z'/></svg>
+                          <span>Print</span>
+                        </button>
                       </div>
                     </div>
                   </header>
@@ -678,6 +934,9 @@ ${combinedCss}
                     </button>
                     <button aria-label='Share on WhatsApp' class='share-btn share-wa' expr:data-title='data:post.title' expr:data-url='data:post.url.canonical'>
                       <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z'/></svg>
+                    </button>
+                    <button aria-label='Share on Telegram' class='share-btn share-tg' expr:data-title='data:post.title' expr:data-url='data:post.url.canonical'>
+                      <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z'/></svg>
                     </button>
                     <button aria-label='Copy Article Link' class='share-btn share-copy' expr:data-url='data:post.url.canonical' id='copy-link-btn'>
                       <svg fill='none' height='14' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='14'><path d='M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71'/></svg>
@@ -706,15 +965,40 @@ ${combinedCss}
                     <data:post.body/>
                   </div>
 
-                  <!-- Labels / Tags Row -->
+                  <!-- Clickable Labels / Tags Row -->
                   <b:if cond='data:post.labels.any'>
                     <div class='article-tags-section'>
                       <span class='tags-label'>Filed Under:</span>
                       <b:loop values='data:post.labels' var='label'>
-                        <a class='tag-badge' expr:href='data:label.url'>#<data:label.name/></a>
+                        <a class='tag-badge' expr:href='data:label.url' rel='tag'>#<data:label.name/></a>
                       </b:loop>
                     </div>
                   </b:if>
+
+                  <!-- Author Bio Card -->
+                  <div class='author-bio-box'>
+                    <b:if cond='data:post.author.authorPhoto.image'>
+                      <img alt='Author' class='author-bio-avatar' expr:src='data:post.author.authorPhoto.image'/>
+                    <b:else/>
+                      <div class='author-bio-avatar' style='display:flex;align-items:center;justify-content:center;font-weight:700;background:var(--accent-red);color:#fff;font-size:1.25rem;'>N</div>
+                    </b:if>
+                    <div>
+                      <h4 class='author-bio-name'>
+                        <b:if cond='data:post.author.profileUrl'>
+                          <a expr:href='data:post.author.profileUrl' rel='author'><data:post.author.name/></a>
+                        <b:else/>
+                          <data:post.author.name/>
+                        </b:if>
+                      </h4>
+                      <p class='author-bio-desc'>
+                        <b:if cond='data:post.author.aboutMe'>
+                          <data:post.author.aboutMe/>
+                        <b:else/>
+                          Contributing journalist and editorial correspondent for <data:blog.title/> covering breaking reports, policy analysis, and verified investigations.
+                        </b:if>
+                      </p>
+                    </div>
+                  </div>
 
                   <!-- Previous / Next Navigation Split -->
                   <div class='post-navigation-split'>
@@ -732,7 +1016,7 @@ ${combinedCss}
                     </div>
                   </div>
 
-                  <!-- Related Coverage Grid -->
+                  <!-- Related Coverage Grid (Dynamic JSON feed from primary label) -->
                   <div class='related-coverage-block' id='related-coverage'>
                     <h3 class='related-block-title'>Related Dispatches</h3>
                     <div class='related-grid' id='related-posts-grid'>
@@ -761,7 +1045,7 @@ ${combinedCss}
                       &quot;@id&quot;: &quot;<data:post.url.canonical/>&quot;
                     },
                     &quot;headline&quot;: &quot;<data:post.title.jsonEscaped/>&quot;,
-                    &quot;description&quot;: &quot;<b:if cond='data:post.snippet'><data:post.snippet.jsonEscaped/><b:else/><data:post.title.jsonEscaped/></b:if>&quot;,
+                    &quot;description&quot;: &quot;<b:if cond='data:post.snippets.long'><data:post.snippets.long.jsonEscaped/><b:elseif cond='data:post.snippet'/><data:post.snippet.jsonEscaped/><b:else/><data:post.title.jsonEscaped/></b:if>&quot;,
                     <b:if cond='data:post.featuredImage'>
                     &quot;image&quot;: [
                       &quot;<data:post.featuredImage/>&quot;
@@ -816,7 +1100,7 @@ ${combinedCss}
         </section>
 
         <!-- ==========================================================
-             RIGHT SIDEBAR: AD CONTAINER + POPULAR POSTS + VIDEOS
+             RIGHT SIDEBAR: AD CONTAINER + POPULAR POSTS + EXPLORE + VIDEOS
              ========================================================== -->
         <aside class='portal-sidebar'>
           <b:section class='sidebar' id='sidebar' maxwidgets='10' name='Right Editorial Sidebar' showaddelement='yes'>
@@ -838,11 +1122,11 @@ ${combinedCss}
               </b:includable>
             </b:widget>
 
-            <!-- Widget 2: Most Read / Trending (Valid ALL_TIME settings) -->
+            <!-- Widget 2: Most Read Ranked Dispatches -->
             <b:widget id='PopularPosts1' locked='false' title='Most Read Dispatches' type='PopularPosts' version='2'>
               <b:widget-settings>
                 <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
-                <b:widget-setting name='showThumbnails'>false</b:widget-setting>
+                <b:widget-setting name='showThumbnails'>true</b:widget-setting>
                 <b:widget-setting name='showSnippets'>false</b:widget-setting>
                 <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
               </b:widget-settings>
@@ -853,8 +1137,11 @@ ${combinedCss}
                   </div>
                   <ol class='popular-posts-stack'>
                     <b:if cond='data:posts.any'>
-                      <b:loop values='data:posts' var='post'>
+                      <b:loop index='idx' values='data:posts' var='post'>
                         <li class='popular-post-item'>
+                          <b:if cond='data:post.thumbnail'>
+                            <img alt='Thumbnail' class='popular-post-thumb' expr:src='resizeImage(data:post.thumbnail, 72, "1:1")' loading='lazy'/>
+                          </b:if>
                           <h4 class='popular-post-title'>
                             <a expr:href='data:post.href'><data:post.title/></a>
                           </h4>
@@ -870,7 +1157,36 @@ ${combinedCss}
               </b:includable>
             </b:widget>
 
-            <!-- Widget 3: Featured Videos / Multimedia Showcase -->
+            <!-- Widget 3: Explore Topics / Categories Tag Cloud -->
+            <b:widget id='Label1' locked='false' title='Explore Desks' type='Label' version='2'>
+              <b:includable id='main'>
+                <div>
+                  <div class='sidebar-box-header'>
+                    <h3 class='sidebar-box-title'><data:title/></h3>
+                  </div>
+                  <ul class='label-cloud-list'>
+                    <b:if cond='data:labels.any'>
+                      <b:loop values='data:labels' var='label'>
+                        <li class='label-cloud-item'>
+                          <a expr:href='data:label.url'>
+                            <span><data:label.name/></span>
+                            <span class='label-count-badge'>(<data:label.count/>)</span>
+                          </a>
+                        </li>
+                      </b:loop>
+                    <b:else/>
+                      <li class='label-cloud-item'><a href='/search/label/World'><span>World</span> <span class='label-count-badge'>(12)</span></a></li>
+                      <li class='label-cloud-item'><a href='/search/label/Business'><span>Business</span> <span class='label-count-badge'>(18)</span></a></li>
+                      <li class='label-cloud-item'><a href='/search/label/Tech'><span>Tech</span> <span class='label-count-badge'>(24)</span></a></li>
+                      <li class='label-cloud-item'><a href='/search/label/Sports'><span>Sports</span> <span class='label-count-badge'>(9)</span></a></li>
+                      <li class='label-cloud-item'><a href='/search/label/Health'><span>Health</span> <span class='label-count-badge'>(7)</span></a></li>
+                    </b:if>
+                  </ul>
+                </div>
+              </b:includable>
+            </b:widget>
+
+            <!-- Widget 4: Featured Videos / Multimedia Showcase -->
             <b:widget id='HTML3' locked='false' title='Featured Videos' type='HTML' version='2'>
               <b:includable id='main'>
                 <b:if cond='data:content'>
@@ -894,7 +1210,7 @@ ${combinedCss}
               </b:includable>
             </b:widget>
 
-            <!-- Widget 4: Newsletter Morning Dispatch -->
+            <!-- Widget 5: Newsletter Morning Dispatch -->
             <b:widget id='HTML4' locked='false' title='Morning Dispatch' type='HTML' version='2'>
               <b:includable id='main'>
                 <b:if cond='data:content'>
@@ -925,16 +1241,17 @@ ${combinedCss}
   <b:if cond='data:view.isHomepage'>
     <section class='site-wrapper' id='home-sections'>
       <b:section class='home-sections' id='home-category-blocks' maxwidgets='5' name='Homepage Modular Category Blocks' showaddelement='yes'>
+        
         <b:widget id='HTML5' locked='false' title='Business and Markets Desk' type='HTML' version='2'>
           <b:includable id='main'>
-            <b:if cond='data:content'>
-              <data:content/>
-            <b:else/>
-              <div class='modular-news-block'>
-                <div class='sidebar-box-header'>
-                  <h3 class='sidebar-box-title'><data:title/></h3>
-                </div>
-                <div class='modular-block-grid'>
+            <div class='modular-news-block' data-block-label='Business'>
+              <div class='sidebar-box-header'>
+                <h3 class='sidebar-box-title'><data:title/></h3>
+              </div>
+              <div class='modular-block-grid'>
+                <b:if cond='data:content'>
+                  <data:content/>
+                <b:else/>
                   <article class='modular-card'>
                     <div class='brief-thumb-wrap'><img alt='Market news' loading='lazy' src='https://picsum.photos/seed/biz1/400/225'/></div>
                     <span class='brief-kicker'>Central Banking</span>
@@ -950,17 +1267,49 @@ ${combinedCss}
                     <span class='brief-kicker'>Venture Ecosystem</span>
                     <h4 class='brief-headline'><a href='#'>Early-stage deeptech funding rebounds with focus on silicon manufacturing</a></h4>
                   </article>
-                </div>
+                </b:if>
               </div>
-            </b:if>
+            </div>
           </b:includable>
         </b:widget>
+
+        <b:widget id='HTML6' locked='false' title='Technology and Innovation Desk' type='HTML' version='2'>
+          <b:includable id='main'>
+            <div class='modular-news-block' data-block-label='Technology'>
+              <div class='sidebar-box-header'>
+                <h3 class='sidebar-box-title'><data:title/></h3>
+              </div>
+              <div class='modular-block-grid'>
+                <b:if cond='data:content'>
+                  <data:content/>
+                <b:else/>
+                  <article class='modular-card'>
+                    <div class='brief-thumb-wrap'><img alt='AI research' loading='lazy' src='https://picsum.photos/seed/tech1/400/225'/></div>
+                    <span class='brief-kicker'>Artificial Intelligence</span>
+                    <h4 class='brief-headline'><a href='#'>Neural architecture benchmarks demonstrate reasoning efficiency gains</a></h4>
+                  </article>
+                  <article class='modular-card'>
+                    <div class='brief-thumb-wrap'><img alt='Semiconductor' loading='lazy' src='https://picsum.photos/seed/tech2/400/225'/></div>
+                    <span class='brief-kicker'>Semiconductors</span>
+                    <h4 class='brief-headline'><a href='#'>Next-generation lithography pilot delivers sub-nanometer node test yields</a></h4>
+                  </article>
+                  <article class='modular-card'>
+                    <div class='brief-thumb-wrap'><img alt='Cybersecurity' loading='lazy' src='https://picsum.photos/seed/tech3/400/225'/></div>
+                    <span class='brief-kicker'>Cyber Defense</span>
+                    <h4 class='brief-headline'><a href='#'>Quantum-resistant encryption mandates roll out across financial institutions</a></h4>
+                  </article>
+                </b:if>
+              </div>
+            </div>
+          </b:includable>
+        </b:widget>
+
       </b:section>
     </section>
   </b:if>
 
   <!-- ==================================================================
-       FOOTER ARCHITECTURE
+       FOOTER ARCHITECTURE (4-COLUMN EDITORIAL DESKS and POLICIES)
        ================================================================== -->
   <footer id='site-footer'>
     <div class='site-wrapper'>
@@ -988,14 +1337,19 @@ ${combinedCss}
 
         <!-- Col 2: Categories / News Desks Section -->
         <b:section class='footer-categories' id='footer-categories' maxwidgets='5' name='Footer News Desks' showaddelement='yes'>
-          <b:widget id='Label1' locked='true' title='News Desks' type='Label' version='2'>
+          <b:widget id='Label2' locked='true' title='News Desks' type='Label' version='2'>
             <b:includable id='main'>
               <div>
                 <h4 class='footer-col-title'><data:title/></h4>
                 <ul class='footer-links-list'>
                   <b:if cond='data:labels.any'>
                     <b:loop values='data:labels' var='label'>
-                      <li><a expr:href='data:label.url'><data:label.name/></a></li>
+                      <li>
+                        <a expr:href='data:label.url'>
+                          <span><data:label.name/></span>
+                          <span style='font-size:0.75rem; opacity:0.7;'> (<data:label.count/>)</span>
+                        </a>
+                      </li>
                     </b:loop>
                   <b:else/>
                     <li><a href='/search/label/World'>World News</a></li>
@@ -1028,6 +1382,24 @@ ${combinedCss}
                     <li><a href='/p/terms.html'>Terms of Service</a></li>
                   </b:if>
                 </ul>
+              </div>
+            </b:includable>
+          </b:widget>
+        </b:section>
+
+        <!-- Col 4: Newsletter and Syndication Section -->
+        <b:section class='footer-newsletter' id='footer-newsletter' maxwidgets='5' name='Footer Newsletter &amp; Legal' showaddelement='yes'>
+          <b:widget id='HTML7' locked='false' title='Syndication &amp; Feeds' type='HTML' version='2'>
+            <b:includable id='main'>
+              <div>
+                <h4 class='footer-col-title'>Syndication &amp; Feeds</h4>
+                <p style='font-size: 0.8125rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;'>
+                  Subscribe to verified XML syndication feeds for news aggregators and institutional wire services.
+                </p>
+                <div style='display:flex; flex-direction:column; gap:6px;'>
+                  <a expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default"' style='font-size:0.8125rem; font-weight:700; color:var(--accent-red);'>&#9656; Atom Syndication Feed</a>
+                  <a expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default?alt=rss"' style='font-size:0.8125rem; font-weight:700; color:var(--text-ink);'>&#9656; RSS 2.0 Newsfeed</a>
+                </div>
               </div>
             </b:includable>
           </b:widget>

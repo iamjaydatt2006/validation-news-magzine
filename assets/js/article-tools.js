@@ -1,7 +1,7 @@
 /**
- * Validation News Magzine Theme - Article Editorial Tools (TOC, Reading Time, Share)
+ * Validation News Magzine Theme - Article Editorial Tools (TOC, Reading Time, Share, Font Size, Progress)
  * @package ValidationNewsMagzine
- * @version 1.0.0
+ * @version 1.1.0
  * @author Jaydatta Khodave
  * @license MIT
  */
@@ -12,7 +12,20 @@
   function initArticleTools() {
     const articleBody = document.getElementById('article-content');
 
-    // 1. Estimated Reading Time Calculator
+    // 1. Reading Progress Bar (Fixed Viewport Top)
+    const progressBar = document.getElementById('reading-progress-bar');
+    if (progressBar && articleBody) {
+      window.addEventListener('scroll', function() {
+        const rect = articleBody.getBoundingClientRect();
+        const winHeight = window.innerHeight;
+        const totalHeight = articleBody.offsetHeight;
+        const scrolled = Math.max(0, -rect.top);
+        const progress = Math.min(100, Math.max(0, (scrolled / (totalHeight - winHeight + 100)) * 100));
+        progressBar.style.width = progress + '%';
+      }, { passive: true });
+    }
+
+    // 2. Estimated Reading Time Calculator
     const readingTimeEl = document.getElementById('reading-time');
     if (articleBody && readingTimeEl) {
       const words = articleBody.innerText.trim().split(/\s+/).filter(Boolean).length;
@@ -20,7 +33,49 @@
       readingTimeEl.textContent = readMinutes + ' min read';
     }
 
-    // 2. Auto Table of Contents Generator
+    // 3. Font Size Adjuster Controls (A- / A / A+)
+    const btnDec = document.getElementById('font-size-dec');
+    const btnReset = document.getElementById('font-size-reset');
+    const btnInc = document.getElementById('font-size-inc');
+    const fontSizes = ['15px', '17.5px', '20px'];
+    let currentIdx = 1;
+
+    function applyFontSize(idx) {
+      if (articleBody) {
+        articleBody.style.fontSize = fontSizes[idx];
+      }
+    }
+
+    if (btnDec) {
+      btnDec.addEventListener('click', function() {
+        currentIdx = Math.max(0, currentIdx - 1);
+        applyFontSize(currentIdx);
+      });
+    }
+
+    if (btnReset) {
+      btnReset.addEventListener('click', function() {
+        currentIdx = 1;
+        applyFontSize(currentIdx);
+      });
+    }
+
+    if (btnInc) {
+      btnInc.addEventListener('click', function() {
+        currentIdx = Math.min(fontSizes.length - 1, currentIdx + 1);
+        applyFontSize(currentIdx);
+      });
+    }
+
+    // 4. Print Article Handler
+    const printBtn = document.getElementById('print-article-btn');
+    if (printBtn) {
+      printBtn.addEventListener('click', function() {
+        window.print();
+      });
+    }
+
+    // 5. Auto Table of Contents Generator
     const tocContainer = document.getElementById('toc-container');
     const tocList = document.getElementById('toc-list');
     const tocToggle = document.getElementById('toc-toggle');
@@ -59,7 +114,7 @@
       }
     }
 
-    // 3. Social Share Actions & Clipboard Copy
+    // 6. Social Share Actions & Clipboard Copy
     const copyBtn = document.getElementById('copy-link-btn');
     if (copyBtn) {
       copyBtn.addEventListener('click', function() {
@@ -92,6 +147,14 @@
         const u = encodeURIComponent(btn.getAttribute('data-url') || window.location.href);
         const t = encodeURIComponent(btn.getAttribute('data-title') || document.title);
         window.open('https://api.whatsapp.com/send?text=' + t + '%20' + u, '_blank');
+      });
+    });
+
+    document.querySelectorAll('.share-tg').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const u = encodeURIComponent(btn.getAttribute('data-url') || window.location.href);
+        const t = encodeURIComponent(btn.getAttribute('data-title') || document.title);
+        window.open('https://t.me/share/url?url=' + u + '&text=' + t, '_blank');
       });
     });
   }

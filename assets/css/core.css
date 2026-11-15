@@ -9,15 +9,15 @@
 :root {
   /* Color Palette - Authority Newsroom Editorial */
   --bg-page: #FFFFFF;
-  --bg-subtle: #F7F7F8;
+  --bg-subtle: #F7F7F7;
   --bg-ad: #F2F3F5;
-  --text-ink: #111111;
+  --text-ink: #171717;
   --text-body: #333333;
   --text-muted: #666666;
-  --border-hairline: #E2E2E2;
-  --border-strong: #111111;
-  --accent-red: #D9232E;
-  --accent-red-hover: #B71C1C;
+  --border-hairline: #E5E5E5;
+  --border-strong: #171717;
+  --accent-red: #C90016;
+  --accent-red-hover: #9E0011;
   --accent-blue: #1D4ED8;
   --accent-blue-hover: #1E40AF;
 

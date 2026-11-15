@@ -291,6 +291,100 @@
 }
 
 /* ==================================================================
+   BREAKING NEWS LIVE TICKER STRIP
+   ================================================================== */
+#breaking-news-bar {
+  background: var(--bg-page);
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: 0.8125rem;
+}
+
+.breaking-news-inner {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  overflow: hidden;
+}
+
+.breaking-badge {
+  background: var(--accent-red);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  margin-right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.breaking-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.breaking-ticker-track {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.breaking-ticker-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  animation: ticker-slide 28s linear infinite;
+}
+
+.breaking-ticker-track:hover .breaking-ticker-content {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breaking-ticker-content {
+    animation: none;
+    overflow-x: auto;
+  }
+}
+
+@keyframes ticker-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.breaking-ticker-item {
+  color: var(--text-ink);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breaking-ticker-item:hover {
+  color: var(--accent-red);
+}
+
+.breaking-ticker-sep {
+  color: var(--accent-red);
+  font-weight: 800;
+}
+
+/* ==================================================================
    2. HOMEPAGE 3-COLUMN ASYMMETRIC MAGAZINE GRID
    ================================================================== */
 
@@ -753,7 +847,7 @@
 
 .footer-top-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
   gap: 32px;
   padding-bottom: 36px;
   border-bottom: 1px solid var(--border-hairline);
@@ -921,6 +1015,91 @@
   list-style: none;
   font-size: 1rem;
   font-weight: 700;
+}
+
+/* Empty Newsroom State Display */
+.no-posts-card {
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--bg-subtle);
+  border: 1px dashed var(--border-hairline);
+  border-radius: var(--radius-xs);
+  margin-bottom: 24px;
+}
+
+.no-posts-icon {
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.no-posts-title {
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--text-ink);
+  margin-bottom: 8px;
+}
+
+.no-posts-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto 20px;
+  line-height: 1.5;
+}
+
+.return-home-link {
+  font-weight: 700;
+  color: var(--accent-red);
+  font-size: 0.875rem;
+  display: inline-block;
+}
+
+.return-home-link:hover {
+  text-decoration: underline;
+}
+
+/* Category & Label Widget Badges */
+.label-cloud-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+.label-cloud-item a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-xs);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-ink);
+  transition: all var(--transition-fast);
+}
+
+.label-cloud-item a:hover {
+  background: var(--accent-red);
+  color: #FFFFFF;
+  border-color: var(--accent-red);
+}
+
+.label-count-badge {
+  font-size: 0.6875rem;
+  opacity: 0.75;
+}
+
+/* Popular Posts Thumbnail Support */
+.popular-post-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+  flex-shrink: 0;
+  background: var(--bg-subtle);
 }
 
 /* ==================================================================

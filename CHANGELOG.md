@@ -7,6 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2026-11-15
+
+### Major Architectural Upgrades & Full Production Readiness
+- **Blogger Layout Editor Wireframe (`<b:template-skin>`):**
+  - **Dedicated `body#layout` CSS Wireframe:** Injected a comprehensive `<b:template-skin>` block directly following `<b:skin>`. Because `b:css='false'` strips default Blogger wireframe CSS bundles, the Blogger Layout canvas (`body#layout`) previously rendered sections squished side-by-side with no structural boundaries.
+  - **Exact Visual Blueprint:** Styled `body#layout` to mirror the actual live newspaper grid:
+    - Row 1: Full-width Top Bar (`#top-bar-section`)
+    - Row 2: Centered Masthead Header (`#header-section`)
+    - Row 3: Navigation Bar (`#nav-section`)
+    - Row 4: Trending and Breaking News Bars (`#trending-section`, `#breaking-section`)
+    - Row 5: 3-Column Magazine Grid (`[Left Rail 25% | Main Editorial 50% | Right Sidebar 25%]`)
+    - Row 6: Homepage Modular Category Blocks (`#category-blocks-section`)
+    - Row 7: 4-Column Footer Grid (`#footer-brand`, `#footer-categories`, `#footer-links`, `#footer-newsletter`)
+  - **Section Badging & Edit Controls:** Added distinct dashed boundaries, uppercase section headers (`::before` with `content: attr(name)`), gadget card container styling, and hover states.
+  - **Suppressed Frontend Overlays in Editor:** Hidden interactive runtime elements (`.theme-toggle-btn`, `#reading-progress-bar`, `.search-modal-backdrop`, `.mobile-drawer-backdrop`, etc.) in the layout dashboard so the drag-and-drop canvas is clean and functional.
+
+- **Native v2 `<b:includable id='main'>` for All 18 Widgets:**
+  - Standardized every widget across all 13 sections to implement an explicit, valid `<b:includable id='main'>` using official Blogger v2 expressions:
+    - `LinkList1` (Top Bar Quick Links)
+    - `Header1` (Newspaper Masthead)
+    - `PageList1` (Category Navigation)
+    - `LinkList2` (Trending Topics Bar)
+    - `HTML0` (Breaking News Bar)
+    - `HTML1` (Left Rail Fast Dispatches & Briefs)
+    - `Blog1` (Main Editorial Feed, Archives, Single Post & Comments)
+    - `HTML2` (Top Sidebar Zero-CLS Ad Unit)
+    - `PopularPosts1` (Most Read Dispatches with Counter Ranks)
+    - `Label1` (Topic Exploration Cloud)
+    - `HTML3` (Video & Multimedia Showcase)
+    - `HTML4` (Morning Newsletter Dispatch Box)
+    - `HTML5` (Homepage Modular Category Block A)
+    - `HTML6` (Homepage Modular Category Block B)
+    - `Text1` (Footer About & Mission)
+    - `Label2` (Footer News Desks)
+    - `LinkList3` (Footer Editorial & Legal Policies)
+    - `HTML7` (Footer RSS/Atom Syndication Links)
+  - Every widget now displays full Edit controls (pencil icons) in **Blogger → Layout**, and widgets display gracefully with real blog data or robust editorial fallbacks.
+
+- **High-Authority Editorial Upgrade (Times of India / NYT Inspiration):**
+  - **Refined Color Palette:** High-contrast ink typography (`--text-ink: #171717;`), pure white surface (`--bg-page: #FFFFFF;`), editorial crimson accent (`--accent-red: #C90016;`), subtle gray background (`--bg-subtle: #F7F7F7;`), and crisp hairline borders (`--border-hairline: #E5E5E5;`).
+  - **Breaking News Marquee Ticker:** Added `#breaking-news-bar` with CSS-powered horizontal marquee animation, pulsing live red indicator dot, pause-on-hover, and auto-hide if feed has no items.
+  - **Left Rail Dynamic Briefs:** Implemented dynamic feed loader for the left column (`data-rail-label='Briefs'`) with automatic fallback to latest posts, kicker tags, and timestamp badges.
+  - **Homepage Category Blocks:** Implemented modular full-width category sections (`data-block-label`) below the main grid.
+  - **Single Post Reading Suite:**
+    - Real-time Reading Progress Bar fixed to the top of the viewport (`#reading-progress-bar`).
+    - Font size switcher (`A- / A / A+`) dynamically adjusting article base font size (`16px`, `18px`, `20px`).
+    - Dedicated print button triggering `window.print()` with a complete print stylesheet (`@media print`) hiding header, navigation, ads, sidebars, and footer.
+    - Collapsible Table of Contents automatically indexed from article `h2` and `h3` tags.
+    - Author Bio Card with author photo avatar, display name, profile link, and editorial biography.
+    - Complete social share suite: WhatsApp, X (Twitter), Facebook, Telegram, and Copy Link with notification tooltip.
+
+- **Automated Validation Suite Expansion (13 Strict Checks):**
+  - Upgraded test harness in `scripts/validate-xml.js` from 11 to 13 automated checks:
+    - **Check 12:** Verifies `<b:template-skin>` presence and `body#layout` wireframe styling.
+    - **Check 13:** Verifies all 18 widgets implement native `<b:includable id='main'>`.
+  - Bumped version to `1.1.0` across `package.json`, build scripts, test suites, and jsDelivr CDN endpoints.
+
+---
+
 ## [1.0.2] - 2026-11-15
 
 ### Critical Fixes & Production Hardening

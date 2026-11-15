@@ -2,7 +2,7 @@
  * Validation News Magzine Theme - Comprehensive XML Validator & Linter
  * Performs deep W3C XML, Blogger Layout v3, JSON-LD, CDATA & CDN audits.
  * @package ValidationNewsMagzine
- * @version 1.0.2
+ * @version 1.1.0
  * @author Jaydatta Khodave
  * @license MIT
  */
@@ -15,7 +15,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const XML_FILE = path.join(ROOT_DIR, 'dist/validation-news-magzine.xml');
 
 console.log('===============================================================');
-console.log('VALIDATION NEWS MAGZINE THEME - STRICT XML AUDIT SUITE (v1.0.2)');
+console.log('VALIDATION NEWS MAGZINE THEME - STRICT XML AUDIT SUITE (v1.1.0)');
 console.log('===============================================================\n');
 
 if (!fs.existsSync(XML_FILE)) {
@@ -168,7 +168,7 @@ for (const vt of voidTags) {
 assertCheck('CHECK 7: XHTML Self-Closing Void Tags', voidTagsValid, 'All <link/>, <meta/>, <img/>, <input/> properly terminated');
 
 // 8. jsDelivr CDN URLs Resolution to Local Repository Assets
-const cdnRegex = /https:\/\/cdn\.jsdelivr\.net\/gh\/iamjaydatt2006\/validation-news-magzine@v1\.0\.2\/([a-zA-Z0-9_\-./]+)/g;
+const cdnRegex = /https:\/\/cdn\.jsdelivr\.net\/gh\/iamjaydatt2006\/validation-news-magzine@v1\.1\.0\/([a-zA-Z0-9_\-./]+)/g;
 let cdnMatch;
 let cdnUrlsCount = 0;
 let cdnUrlsValid = true;
@@ -182,7 +182,7 @@ while ((cdnMatch = cdnRegex.exec(content)) !== null) {
     cdnUrlsValid = false;
   }
 }
-assertCheck(`CHECK 8: jsDelivr CDN Asset Mapping (${cdnUrlsCount} URLs)`, cdnUrlsValid && cdnUrlsCount > 0, 'All v1.0.2 CDN endpoints resolve to existing files');
+assertCheck(`CHECK 8: jsDelivr CDN Asset Mapping (${cdnUrlsCount} URLs)`, cdnUrlsValid && cdnUrlsCount > 0, 'All v1.1.0 CDN endpoints resolve to existing files');
 
 // 9. Blogger Layout v3 <b:defaultmarkups> Verification
 const hasDefaultMarkups = content.includes('<b:defaultmarkups>') && content.includes('</b:defaultmarkups>');
@@ -215,10 +215,44 @@ for sec in sections:
     cls = sec.attrib.get('class', '')
     if perm != 'yes' or not cls:
         invalid.append({'id': sec_id, 'showaddelement': perm, 'class': cls})
-print(json.dumps(invalid))
+print(json.dumps({'count': len(sections), 'invalid': invalid}))
 "`;
 const secPermResult = JSON.parse(execSync(pySectionPermCheck, { stdio: ['pipe', 'pipe', 'pipe'] }).toString());
-assertCheck('CHECK 11: Section showaddelement Permissions & Classes', secPermResult.length === 0, secPermResult.length === 0 ? 'All 11 sections have showaddelement="yes" and semantic class attributes' : `Invalid sections: ${JSON.stringify(secPermResult)}`);
+assertCheck(`CHECK 11: Section showaddelement Permissions & Classes (${secPermResult.count} sections)`, secPermResult.invalid.length === 0, secPermResult.invalid.length === 0 ? `All ${secPermResult.count} sections have showaddelement="yes" and semantic class attributes` : `Invalid sections: ${JSON.stringify(secPermResult.invalid)}`);
+
+// 12. Blogger Layout Wireframe (<b:template-skin>)
+const tmplSkinMatch = content.match(/<b:template-skin>([\s\S]*?)<\/b:template-skin>/i);
+let hasTemplateSkin = false;
+if (tmplSkinMatch) {
+  const tsCss = tmplSkinMatch[1];
+  hasTemplateSkin = tsCss.includes('body#layout') && tsCss.includes('.section');
+}
+assertCheck('CHECK 12: Blogger Layout Editor Wireframe (<b:template-skin>)', hasTemplateSkin, 'Dedicated body#layout CSS wireframe for Blogger Theme Layout dashboard');
+
+// 13. Native v2 Widget Includables (<b:includable id="main">)
+let widgetsWithoutMain = [];
+let totalWidgets = 0;
+try {
+  const pyWidgetCheck = `python3 -c "
+import xml.etree.ElementTree as ET, json
+tree = ET.parse('${XML_FILE}')
+root = tree.getroot()
+widgets = root.findall('.//{http://www.google.com/2005/gml/b}widget')
+missing = []
+for w in widgets:
+    w_id = w.attrib.get('id', 'unknown')
+    mains = [inc for inc in w.findall('.//{http://www.google.com/2005/gml/b}includable') if inc.attrib.get('id') == 'main']
+    if not mains:
+        missing.append(w_id)
+print(json.dumps({'total': len(widgets), 'missing': missing}))
+"`;
+  const widgetResult = JSON.parse(execSync(pyWidgetCheck, { stdio: ['pipe', 'pipe', 'pipe'] }).toString());
+  totalWidgets = widgetResult.total;
+  widgetsWithoutMain = widgetResult.missing;
+} catch (e) {
+  widgetsWithoutMain = [e.message];
+}
+assertCheck(`CHECK 13: Native v2 Widget Includables (${totalWidgets} widgets)`, widgetsWithoutMain.length === 0, widgetsWithoutMain.length === 0 ? `All ${totalWidgets} widgets implement valid <b:includable id='main'>` : `Widgets missing main includable: ${widgetsWithoutMain.join(', ')}`);
 
 console.log('\n===============================================================');
 if (hasErrors) {
