@@ -1,4 +1,4 @@
-# Widget Configuration & Layout Customization Guide (v1.1.0)
+# Widget Configuration & Layout Customization Guide (v1.2.0)
 
 The **Validation News Magzine Theme** exposes 13 distinct layout sections directly within the **Blogger → Layout** visual dashboard, styled into a clean wireframe via `<b:template-skin>`.
 

@@ -1,7 +1,7 @@
 /**
  * Validation News Magzine Theme - Core UI & Interaction Controller
  * @package ValidationNewsMagzine
- * @version 1.0.0
+ * @version 1.2.0
  * @author Jaydatta Khodave
  * @license MIT
  */

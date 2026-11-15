@@ -1,7 +1,7 @@
 /**
  * Validation News Magzine Theme - Article Editorial Tools (TOC, Reading Time, Share, Font Size, Progress)
  * @package ValidationNewsMagzine
- * @version 1.1.0
+ * @version 1.2.0
  * @author Jaydatta Khodave
  * @license MIT
  */

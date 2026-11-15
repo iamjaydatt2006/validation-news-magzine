@@ -2,7 +2,7 @@
  * Validation News Magzine Theme - Comprehensive XML Validator & Linter
  * Performs deep W3C XML, Blogger Layout v3, JSON-LD, CDATA & CDN audits.
  * @package ValidationNewsMagzine
- * @version 1.1.0
+ * @version 1.2.0
  * @author Jaydatta Khodave
  * @license MIT
  */
@@ -15,7 +15,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const XML_FILE = path.join(ROOT_DIR, 'dist/validation-news-magzine.xml');
 
 console.log('===============================================================');
-console.log('VALIDATION NEWS MAGZINE THEME - STRICT XML AUDIT SUITE (v1.1.0)');
+console.log('VALIDATION NEWS MAGZINE THEME - STRICT XML AUDIT SUITE (v1.2.0)');
 console.log('===============================================================\n');
 
 if (!fs.existsSync(XML_FILE)) {
@@ -168,7 +168,7 @@ for (const vt of voidTags) {
 assertCheck('CHECK 7: XHTML Self-Closing Void Tags', voidTagsValid, 'All <link/>, <meta/>, <img/>, <input/> properly terminated');
 
 // 8. jsDelivr CDN URLs Resolution to Local Repository Assets
-const cdnRegex = /https:\/\/cdn\.jsdelivr\.net\/gh\/iamjaydatt2006\/validation-news-magzine@v1\.1\.0\/([a-zA-Z0-9_\-./]+)/g;
+const cdnRegex = /https:\/\/cdn\.jsdelivr\.net\/gh\/iamjaydatt2006\/validation-news-magzine@v1\.2\.0\/([a-zA-Z0-9_\-./]+)/g;
 let cdnMatch;
 let cdnUrlsCount = 0;
 let cdnUrlsValid = true;
@@ -182,22 +182,43 @@ while ((cdnMatch = cdnRegex.exec(content)) !== null) {
     cdnUrlsValid = false;
   }
 }
-assertCheck(`CHECK 8: jsDelivr CDN Asset Mapping (${cdnUrlsCount} URLs)`, cdnUrlsValid && cdnUrlsCount > 0, 'All v1.1.0 CDN endpoints resolve to existing files');
+assertCheck(`CHECK 8: jsDelivr CDN Asset Mapping (${cdnUrlsCount} URLs)`, cdnUrlsValid && cdnUrlsCount > 0, 'All v1.2.0 CDN endpoints resolve to existing files');
 
 // 9. Blogger Layout v3 <b:defaultmarkups> Verification
 const hasDefaultMarkups = content.includes('<b:defaultmarkups>') && content.includes('</b:defaultmarkups>');
 assertCheck('CHECK 9: Blogger Layout v3 <b:defaultmarkups>', hasDefaultMarkups, 'Global widget default markups declared to prevent no-items layout stripping');
 
-// 10. Blog1 Widget Includables Contract (main, post, comments)
+// 10. Blog1 Modular Architecture & Includable Contracts (15 Required Includables)
 const blog1Match = content.match(/<b:widget[^>]*id=['"]Blog1['"][^>]*>([\s\S]*?)<\/b:widget>/);
 let blog1Valid = false;
+let missingBlogIncludables = [];
 if (blog1Match) {
   const b1Body = blog1Match[1];
-  const hasMain = b1Body.includes("<b:includable id='main'>");
-  const hasPost = b1Body.includes("<b:includable id='post'") || b1Body.includes('<b:includable id="post"');
-  const hasComments = b1Body.includes("<b:includable id='comments'") || b1Body.includes('<b:includable id="comments"');
-  blog1Valid = hasMain && hasPost && hasComments;
-  assertCheck('CHECK 10: Blog1 Includable Contracts', blog1Valid, 'Contains main, post, and comments includables with zero unresolvable includes');
+  const requiredIncludables = [
+    'main',
+    'archiveHeader',
+    'featuredLeadPost',
+    'postCard',
+    'singlePost',
+    'staticPage',
+    'postBreadcrumbs',
+    'postMeta',
+    'postLabels',
+    'postShare',
+    'authorBox',
+    'postPagination',
+    'threadedComments',
+    'emptyState',
+    'error404'
+  ];
+
+  for (const inc of requiredIncludables) {
+    if (!b1Body.includes(`id='${inc}'`) && !b1Body.includes(`id="${inc}"`)) {
+      missingBlogIncludables.push(inc);
+    }
+  }
+  blog1Valid = missingBlogIncludables.length === 0;
+  assertCheck(`CHECK 10: Blog1 Modular Architecture (${requiredIncludables.length} contracts)`, blog1Valid, blog1Valid ? 'Contains all 15 modular includables (main, archiveHeader, lead, cards, post, comments, etc.)' : `Missing includables: ${missingBlogIncludables.join(', ')}`);
 } else {
   assertCheck('CHECK 10: Blog1 Widget Presence', false, 'Blog1 widget missing');
 }
@@ -253,6 +274,26 @@ print(json.dumps({'total': len(widgets), 'missing': missing}))
   widgetsWithoutMain = [e.message];
 }
 assertCheck(`CHECK 13: Native v2 Widget Includables (${totalWidgets} widgets)`, widgetsWithoutMain.length === 0, widgetsWithoutMain.length === 0 ? `All ${totalWidgets} widgets implement valid <b:includable id='main'>` : `Widgets missing main includable: ${widgetsWithoutMain.join(', ')}`);
+
+// 14. Blogger Theme Designer Variable Definitions (<Variable> in <b:skin>)
+const bSkinMatch = content.match(/<b:skin>([\s\S]*?)<\/b:skin>/i);
+let hasVariables = false;
+if (bSkinMatch) {
+  const skinBody = bSkinMatch[1];
+  hasVariables = skinBody.includes('<Variable name="keycolor"') &&
+                 skinBody.includes('<Group description="Theme Colors"') &&
+                 skinBody.includes('<Variable name="bg.page"');
+}
+assertCheck('CHECK 14: Theme Designer Variable Definitions', hasVariables, 'Valid <Variable> and <Group> blocks declared in <b:skin> for Blogger Theme Designer GUI');
+
+// 15. Semantic Microdata Schema (Per basic-blogger-template documentation)
+const hasMicrodata = content.includes("itemtype='http://schema.org/WebPage'") &&
+                     content.includes("itemtype='http://schema.org/WPHeader'") &&
+                     content.includes("itemtype='http://schema.org/SiteNavigationElement'") &&
+                     content.includes("itemtype='http://schema.org/Blog'") &&
+                     content.includes("itemtype='http://schema.org/WPSideBar'") &&
+                     content.includes("itemtype='http://schema.org/WPFooter'");
+assertCheck('CHECK 15: Schema.org Semantic Microdata & Microformats', hasMicrodata, 'Complete HTML5 Microdata markup across WebPage, WPHeader, SiteNav, Blog, WPSideBar & WPFooter');
 
 console.log('\n===============================================================');
 if (hasErrors) {

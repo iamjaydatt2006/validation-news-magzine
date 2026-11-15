@@ -1,9 +1,9 @@
 # Validation News Magzine Theme
 
-[![Version](https://img.shields.io/badge/version-v1.1.0-C90016.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.1.0)
+[![Version](https://img.shields.io/badge/version-v1.2.0-C90016.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.2.0)
 [![Blogger Engine](https://img.shields.io/badge/Blogger-Layout_v3_%7C_Widget_v2-111111.svg?style=flat-square&logo=blogger)](https://www.blogger.com)
-[![XML Validation](https://img.shields.io/badge/XML%20Validation-13%2F13%20Passing%20(100%25)-22C55E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/actions)
-[![jsDelivr CDN](https://img.shields.io/badge/jsDelivr-v1.1.0%20CDN-E84393.svg?style=flat-square&logo=jsdelivr)](https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/)
+[![XML Validation](https://img.shields.io/badge/XML%20Validation-15%2F15%20Passing%20(100%25)-22C55E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/actions)
+[![jsDelivr CDN](https://img.shields.io/badge/jsDelivr-v1.2.0%20CDN-E84393.svg?style=flat-square&logo=jsdelivr)](https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-1D4ED8.svg?style=flat-square)](LICENSE)
 
 > **Validation News Magzine Theme** is a high-authority, SEO-optimized, editorial digital newspaper template architected strictly for Google Blogger (Blogspot) using **Layout v3** (`b:layoutsVersion='3'`) and **Widget v2** (`b:defaultwidgetversion='2'`).
@@ -43,13 +43,13 @@ The template links production assets directly from jsDelivr's global multi-CDN n
 
 ```html
 <!-- Stylesheets -->
-<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/css/components.css' rel='stylesheet'/>
-<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/css/post.css' rel='stylesheet'/>
+<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/css/components.css' rel='stylesheet'/>
+<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/css/post.css' rel='stylesheet'/>
 
 <!-- Deferred Scripts -->
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/js/core.js'></script>
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/js/magazine-feeds.js'></script>
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.1.0/assets/js/article-tools.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/js/core.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/js/magazine-feeds.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.0/assets/js/article-tools.js'></script>
 ```
 
 ---
@@ -138,20 +138,22 @@ npm test
 ```
 
 ### Validation Suite Checks
-The test runner executes 13 strict validation gates:
-1. **W3C XML Parsing:** 100% well-formedness (0 syntax errors).
+The test runner executes 15 strict validation gates:
+1. **W3C XML Parsing:** 100% well-formedness (0 syntax errors via Python ElementTree / xmllint).
 2. **Blogger Layout Attributes:** Validates `b:layoutsVersion='3'`, `b:defaultwidgetversion='2'`, `b:css='false'`, and `b:responsive='true'`.
 3. **Section Hierarchy:** Confirms all 13 `<b:section>` elements contain only valid `<b:widget>` children.
 4. **PopularPosts Settings:** Enforces valid `timeRange: ALL_TIME` (guaranteeing zero Blogger parser rejections).
 5. **PageList Schema:** Enforces valid PageList settings (`pageListJson`, `homeTitle`) with zero invalid setting keys.
-6. **JSON-LD Syntax:** Parses all structured data blocks to ensure zero trailing commas and valid schema syntax.
+6. **JSON-LD Syntax:** Parses all structured data blocks (`Organization`, `WebSite`, `NewsArticle`, `BreadcrumbList`) with zero trailing commas.
 7. **Ampersand Escaping:** Ensures 100% of ampersands outside CDATA blocks are escaped as `&amp;`.
 8. **XHTML Self-Closing Tags:** Verifies `<meta/>`, `<link/>`, `<img/>`, and `<input/>` self-close properly.
-9. **jsDelivr CDN Integrity:** Verifies all referenced v1.1.0 CDN URLs map directly to existing files in `assets/`.
+9. **jsDelivr CDN Integrity:** Verifies all referenced v1.2.0 CDN URLs map directly to existing files in `assets/`.
 10. **Blogger Layout v3 `<b:defaultmarkups>`:** Verifies presence of the root blueprint container.
-11. **Blog1 Includable Contracts:** Verifies `main`, `post`, and `comments` includables exist.
-12. **Blogger Layout Wireframe (`<b:template-skin>`):** Verifies dedicated `body#layout` CSS wireframe for Blogger Theme Layout dashboard.
-13. **Native v2 Widget Includables:** Verifies all 18 widgets implement valid `<b:includable id='main'>`.
+11. **Blog1 Modular Architecture:** Verifies presence of all 15 decoupled includables (`main`, `archiveHeader`, `featuredLeadPost`, `postCard`, `singlePost`, `staticPage`, `postBreadcrumbs`, `postMeta`, `postLabels`, `postShare`, `authorBox`, `postPagination`, `threadedComments`, `emptyState`, `error404`).
+12. **Section showaddelement Permissions & Classes:** Verifies all 13 sections have `showaddelement="yes"` and semantic class attributes.
+13. **Blogger Layout Wireframe (`<b:template-skin>`):** Verifies dedicated `body#layout` CSS wireframe for Blogger Theme Layout dashboard.
+14. **Native v2 Widget Includables:** Verifies all 18 widgets implement valid `<b:includable id='main'>`.
+15. **Schema.org Microdata & Theme Designer Variables:** Verifies `<Variable>` and `<Group>` definitions in `<b:skin>` and HTML5 Microdata landmarks (`WebPage`, `WPHeader`, `SiteNavigationElement`, `Blog`, `WPSideBar`, `WPFooter`).
 
 ---
 

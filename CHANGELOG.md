@@ -7,6 +7,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2026-11-15
+
+### Architectural Standards & Official Documentation Compliance
+- **Strict Compliance with Official `basic-blogger-template.readthedocs.io`:**
+  - **Open Graph Protocol Namespace:** Added `xmlns:og='http://ogp.me/ns#'` to the root `<html>` element alongside official Blogger namespaces (`xmlns:b`, `xmlns:data`, `xmlns:expr`).
+  - **Blogger Theme Designer `<Variable>` Definitions:** Injected complete `<Variable>` and `<Group>` definitions inside `<b:skin><![CDATA[ ... ]]></b:skin>`. Enables real-time visual color and typography customization in **Blogger → Theme → Customize** (Key Color, Page Background, Subtle Gray, Ad Background, Ink Headlines, Body Text, Muted Metadata, Hairlines, Red Accent, Blue Links, and Typography font stacks).
+  - **HTML5 Microdata Schema on Structural Landmarks:** Implemented semantic Microdata schema attributes across page landmarks (complementing JSON-LD schema):
+    - `<body itemscope='itemscope' itemtype='http://schema.org/WebPage'>`
+    - `<header id='masthead' itemscope='itemscope' itemtype='http://schema.org/WPHeader'>`
+    - `<nav id='primary-nav-sticky' itemscope='itemscope' itemtype='http://schema.org/SiteNavigationElement' role='navigation'>`
+    - `<main id='main-content' itemscope='itemscope' itemtype='http://schema.org/Blog' role='main'>`
+    - `<aside id='site-sidebar' itemscope='itemscope' itemtype='http://schema.org/WPSideBar' role='complementary'>`
+    - `<footer id='site-footer' itemscope='itemscope' itemtype='http://schema.org/WPFooter'>`
+
+- **Full Multi-Context Architecture in `Blog1` (15 Modular Includables):**
+  - Refactored `Blog1` into 15 cleanly decoupled, self-contained `<b:includable>` blocks:
+    1. `main`: Root view dispatcher routing to specific contexts based on `data:view` properties.
+    2. `archiveHeader`: Dedicated hero banner for topic desks (`<data:view.search.label/>`), search queries (`<data:view.search.query/>`), and chronological archives (`<data:view.archive.rangeMessage/>`).
+    3. `featuredLeadPost`: Homepage lead cover story (`i == 0`) with prominent serif headline, 16:9 hero photo (`resizeImage(data:post.featuredImage, 900, "16:9")`), and metadata.
+    4. `postCard`: Standard horizontal news card for editorial streams and archive grids with 3:2 lazy-loaded thumbnails (`resizeImage(data:post.featuredImage, 360, "3:2")`).
+    5. `singlePost`: Full newspaper article reader with breadcrumbs, byline bar, reading tools, social share strip, hero figure, auto-generated Table of Contents, formatted body, author bio, related dispatches, and threaded comments.
+    6. `staticPage`: Clean distraction-free static page layout.
+    7. `postBreadcrumbs`: Visible hierarchical breadcrumbs (`Home > Desk > Title`).
+    8. `postMeta`: Standardized byline author name and published/updated ISO-8601 timestamps.
+    9. `postLabels`: Clickable category and tag badges with `rel='tag'`.
+    10. `postShare`: Social sharing strip (WhatsApp, X, Facebook, Telegram, and Copy Link).
+    11. `authorBox`: Author biography box with photo avatar, author name, profile URL, and bio description.
+    12. `postPagination`: Newer and Older dispatches navigation buttons.
+    13. `threadedComments`: Native Blogger threaded comments with comment count badge.
+    14. `emptyState`: Newsroom empty-state card with search form and return home link.
+    15. `error404`: 404 Page Not Found error card with search refine form.
+    - Added compatibility aliases `post`, `comments`, and `commentPicker` to prevent unresolvable include warnings in third-party Blogger tools.
+
+- **Native `<b:class>` for Active Navigation States:**
+  - Implemented `<b:class cond='data:link.isCurrentPage' name='active'/>` across `PageList1` (Category Navigation), `LinkList1` (Top Bar Quick Links), `LinkList2` (Trending Topics Bar), and `LinkList3` (Footer Editorial Policies).
+
+- **Dynamic Feed Loader Enhancements (`assets/js/magazine-feeds.js`):**
+  - Updated Breaking News Ticker selector to support both `breaking-ticker-track` and `breaking-ticker-content`.
+  - Added dual support for `data-label` and `data-ticker-label` / `data-rail-label` / `data-block-label` so users can configure feeds using simple `data-label` in the Layout editor.
+
+- **Expanded 15-Gate Automated XML & Blogger Audit Suite (`scripts/validate-xml.js`):**
+  - Upgraded test harness from 13 to 15 strict checks:
+    - **Check 10:** Validates presence of all 15 modular includables in `Blog1`.
+    - **Check 14:** Validates Blogger Theme Designer `<Variable>` and `<Group>` definitions in `<b:skin>`.
+    - **Check 15:** Validates HTML5 Microdata Schema markup across all structural landmarks.
+  - Bumped version to `1.2.0` across `package.json`, build scripts, test suites, and jsDelivr CDN endpoints.
+
+---
+
 ## [1.1.0] - 2026-11-15
 
 ### Major Architectural Upgrades & Full Production Readiness

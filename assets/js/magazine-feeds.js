@@ -2,7 +2,7 @@
  * Validation News Magzine Theme - Blogger JSON Feed API Loader
  * Handles dynamic Breaking News Ticker, Related Posts, Left Rail Briefs & Category Blocks.
  * @package ValidationNewsMagzine
- * @version 1.1.0
+ * @version 1.2.0
  * @author Jaydatta Khodave
  * @license MIT
  */
@@ -13,9 +13,9 @@
   function initMagazineFeeds() {
     // 1. Dynamic Breaking News Live Ticker Loader
     const tickerBar = document.getElementById('breaking-news-bar');
-    const tickerContent = document.getElementById('breaking-ticker-content');
-    if (tickerBar && tickerContent) {
-      const tickerLabel = tickerBar.getAttribute('data-ticker-label') || 'breaking-news';
+    const tickerTrack = document.getElementById('breaking-ticker-track') || document.getElementById('breaking-ticker-content');
+    if (tickerBar && tickerTrack) {
+      const tickerLabel = tickerBar.getAttribute('data-label') || tickerBar.getAttribute('data-ticker-label') || 'breaking-news';
       const tickerFeedUrl = '/feeds/posts/default/-/' + encodeURIComponent(tickerLabel) + '?alt=json&max-results=6';
 
       fetch(tickerFeedUrl)
@@ -39,15 +39,15 @@
                 }
               }
               const title = (entry.title && entry.title.$t) ? entry.title.$t : 'Breaking Dispatch';
-              html += '<a class="breaking-ticker-item" href="' + href + '"><span>' + title.replace(/"/g, '&quot;') + '</span><span class="breaking-ticker-sep">&#9670;</span></a>';
+              html += '<span class="ticker-item"><a href="' + href + '">' + title.replace(/"/g, '&quot;') + '</a></span><span class="ticker-divider">&#8226;</span>';
             }
             // Duplicate for smooth seamless infinite marquee loop
-            tickerContent.innerHTML = html + html;
+            tickerTrack.innerHTML = html + html;
             tickerBar.style.display = 'block';
           }
         })
         .catch(function() {
-          // If no posts tagged breaking-news, ticker remains cleanly hidden
+          // If no posts tagged breaking-news, fallback ticker items are preserved
         });
     }
 
@@ -106,10 +106,10 @@
         });
     }
 
-    // 3. Dynamic Left Rail Hydration via data-rail-label
-    const leftRailFeed = document.querySelector('[data-rail-label]');
+    // 3. Dynamic Left Rail Hydration via data-label or data-rail-label
+    const leftRailFeed = document.querySelector('[data-rail-label]') || document.querySelector('[data-label="Briefs"]') || document.getElementById('rail-briefs-stream');
     if (leftRailFeed) {
-      const railLabel = leftRailFeed.getAttribute('data-rail-label');
+      const railLabel = leftRailFeed.getAttribute('data-rail-label') || leftRailFeed.getAttribute('data-label') || 'Briefs';
       const railFeedUrl = railLabel ?
         ('/feeds/posts/default/-/' + encodeURIComponent(railLabel) + '?alt=json&max-results=5') :
         '/feeds/posts/default?alt=json&max-results=5';
@@ -149,11 +149,11 @@
         .catch(function() {});
     }
 
-    // 4. Dynamic Category Blocks Hydration via data-block-label
-    document.querySelectorAll('[data-block-label]').forEach(function(blockEl) {
-      const blockLabel = blockEl.getAttribute('data-block-label');
+    // 4. Dynamic Category Blocks Hydration via data-block-label or data-label
+    document.querySelectorAll('[data-block-label], [data-label]').forEach(function(blockEl) {
+      const blockLabel = blockEl.getAttribute('data-block-label') || blockEl.getAttribute('data-label');
       const gridContainer = blockEl.querySelector('.modular-block-grid');
-      if (blockLabel && gridContainer) {
+      if (blockLabel && gridContainer && blockLabel !== 'Briefs' && blockLabel !== 'breaking-news') {
         const blockFeedUrl = '/feeds/posts/default/-/' + encodeURIComponent(blockLabel) + '?alt=json&max-results=3';
         fetch(blockFeedUrl)
           .then(function(res) { return res.json(); })
@@ -187,6 +187,14 @@
           .catch(function() {});
       }
     });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMagazineFeeds);
+  } else {
+    initMagazineFeeds();
+  }
+})();
   }
 
   if (document.readyState === 'loading') {
