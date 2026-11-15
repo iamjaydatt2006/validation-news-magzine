@@ -1,8 +1,9 @@
 /**
  * Validation News Magzine Theme - Build Script
  * Compiles the standalone Blogger XML theme with Critical CSS + jsDelivr CDN integration.
+ * Adheres strictly to Blogger Layout v3 and Widget v2 specifications.
  * @package ValidationNewsMagzine
- * @version 1.0.0
+ * @version 1.0.2
  * @author Jaydatta Khodave
  * @license MIT
  */
@@ -43,9 +44,9 @@ const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
   <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,700&amp;display=swap' rel='stylesheet'/>
 
-  <!-- jsDelivr CDN Modular Non-Blocking Stylesheets (v1.0.0 Release) -->
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/css/components.css' rel='stylesheet'/>
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/css/post.css' rel='stylesheet'/>
+  <!-- jsDelivr CDN Modular Non-Blocking Stylesheets (v1.0.2 Release) -->
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/css/components.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/css/post.css' rel='stylesheet'/>
 
   <!-- Dynamic Document Title (Zero b:eval Chaining) -->
   <title>
@@ -185,10 +186,21 @@ const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
 ${combinedCss}
   ]]></b:skin>
 
-  <!-- jsDelivr CDN Deferred JavaScript Modules (v1.0.0 Release) -->
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/js/core.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/js/magazine-feeds.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/js/article-tools.js'></script>
+  <!-- ==================================================================
+       DEFAULT WIDGET MARKUPS (Required by Blogger Layout v3 and Widget v2)
+       ================================================================== -->
+  <b:defaultmarkups>
+    <b:defaultmarkup type='Common'>
+      <b:includable id='body'>
+        <b:comment>Common global default body blueprint</b:comment>
+      </b:includable>
+    </b:defaultmarkup>
+  </b:defaultmarkups>
+
+  <!-- jsDelivr CDN Deferred JavaScript Modules (v1.0.2 Release) -->
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/core.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/magazine-feeds.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/article-tools.js'></script>
 </head>
 
 <body expr:class='(data:view.isHomepage ? "is-homepage" : "") + (data:view.isPost ? " is-post" : "") + (data:view.isPage ? " is-page" : "") + (data:view.isMultipleItems and not data:view.isHomepage ? " is-archive" : "") + (data:view.isError ? " is-error" : "")'>
@@ -204,11 +216,11 @@ ${combinedCss}
           <span class='top-bar-date' id='live-datetime'>Sun, Nov 15, 2026 | Updated Live</span>
         </div>
         <div class='top-bar-right'>
-          <b:section id='top-bar-links' maxwidgets='1' name='Top Bar Quick Links' showaddelement='no'>
+          <b:section class='top-bar-links' id='top-bar-links' maxwidgets='5' name='Top Bar Quick Links' showaddelement='yes'>
             <b:widget id='LinkList1' locked='false' title='Quick Links' type='LinkList' version='2'>
               <b:includable id='main'>
                 <div class='top-quick-links' style='display:inline-flex; gap:12px;'>
-                  <b:if cond='data:links'>
+                  <b:if cond='data:links.any'>
                     <b:loop values='data:links' var='link'>
                       <a expr:href='data:link.target' target='_blank'><data:link.name/></a>
                     </b:loop>
@@ -235,7 +247,7 @@ ${combinedCss}
   <div id='masthead'>
     <div class='site-wrapper'>
       <div class='masthead-inner'>
-        <b:section id='masthead-section' maxwidgets='1' name='Masthead Header' showaddelement='no'>
+        <b:section class='header' id='masthead-section' maxwidgets='5' name='Masthead Header' showaddelement='yes'>
           <b:widget id='Header1' locked='true' title='Site Header' type='Header' version='2'>
             <b:includable id='main'>
               <b:if cond='data:useImage'>
@@ -244,10 +256,18 @@ ${combinedCss}
                 </a>
               <b:else/>
                 <h1 class='masthead-title'>
-                  <a expr:href='data:blog.homepageUrl.canonical'><data:title/></a>
+                  <a expr:href='data:blog.homepageUrl.canonical'>
+                    <b:if cond='data:title'>
+                      <data:title/>
+                    <b:else/>
+                      <data:blog.title/>
+                    </b:if>
+                  </a>
                 </h1>
                 <b:if cond='data:description'>
                   <div class='masthead-tagline'><data:description/></div>
+                <b:elseif cond='data:blog.description'/>
+                  <div class='masthead-tagline'><data:blog.description/></div>
                 </b:if>
               </b:if>
             </b:includable>
@@ -270,14 +290,14 @@ ${combinedCss}
 
         <!-- Category Links Scroll Area -->
         <div class='nav-links-scroll'>
-          <b:section id='nav-section' maxwidgets='1' name='Category Navigation' showaddelement='no'>
+          <b:section class='nav' id='nav-section' maxwidgets='5' name='Category Navigation' showaddelement='yes'>
             <b:widget id='PageList1' locked='false' title='Pages &amp; Categories' type='PageList' version='2'>
               <b:widget-settings>
                 <b:widget-setting name='pageListJson'><![CDATA[{}]]></b:widget-setting>
                 <b:widget-setting name='homeTitle'>Home</b:widget-setting>
               </b:widget-settings>
               <b:includable id='main'>
-                <b:if cond='data:links'>
+                <b:if cond='data:links.any'>
                   <b:loop values='data:links' var='link'>
                     <a expr:class='"nav-link-item" + (data:link.isCurrentPage ? " active" : "")' expr:href='data:link.href'><data:link.title/></a>
                   </b:loop>
@@ -319,11 +339,11 @@ ${combinedCss}
           <svg fill='currentColor' height='12' viewBox='0 0 24 24' width='12'><path d='M17.5 12a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0zm1.5 0c0-3.866-3.134-7-7-7a6.97 6.97 0 00-4.95 2.05l-1.414-1.414A8.96 8.96 0 0112 3c4.97 0 9 4.03 9 9s-4.03 9-9 9a8.96 8.96 0 01-6.364-2.636l1.414-1.414A6.97 6.97 0 0012 19c3.866 0 7-3.134 7-7z'/></svg>
           In The News
         </span>
-        <b:section id='trending-section' maxwidgets='1' name='Trending Bar Topics' showaddelement='no'>
+        <b:section class='trending' id='trending-section' maxwidgets='5' name='Trending Bar Topics' showaddelement='yes'>
           <b:widget id='LinkList2' locked='false' title='Trending Topics' type='LinkList' version='2'>
             <b:includable id='main'>
               <div class='trending-list'>
-                <b:if cond='data:links'>
+                <b:if cond='data:links.any'>
                   <b:loop values='data:links' var='link'>
                     <a class='trending-item' expr:href='data:link.target'><data:link.name/></a>
                   </b:loop>
@@ -381,34 +401,38 @@ ${combinedCss}
           <div class='rail-section-header'>
             <h3 class='rail-section-title'>Fast Dispatches</h3>
           </div>
-          <b:section id='left-rail' maxwidgets='2' name='Left Rail Breaking Briefs' showaddelement='yes'>
+          <b:section class='left-rail' id='left-rail' maxwidgets='5' name='Left Rail Breaking Briefs' showaddelement='yes'>
             <b:widget id='HTML1' locked='false' title='Editor Briefs' type='HTML' version='2'>
               <b:includable id='main'>
-                <div class='briefs-container'>
-                  <article class='brief-item'>
-                    <div class='brief-thumb-wrap'>
-                      <img alt='Wildlife conservation report' loading='lazy' src='https://picsum.photos/seed/brief1/400/225'/>
-                    </div>
-                    <span class='brief-kicker'>Environment</span>
-                    <h4 class='brief-headline'><a href='#'>Endangered coastal species reintroduced into native wildlife sanctuary after intensive care</a></h4>
-                  </article>
-                  <article class='brief-item'>
-                    <span class='brief-kicker'>Technology</span>
-                    <h4 class='brief-headline'><a href='#'>Micro-inverter efficiency surges as photovoltaic engineering teams adopt biomimetic structures</a></h4>
-                  </article>
-                  <article class='brief-item'>
-                    <span class='brief-kicker'>Global Health</span>
-                    <h4 class='brief-headline'><a href='#'>Clinical trials validate preventative care protocol reducing metabolic risks in urban centers</a></h4>
-                  </article>
-                  <article class='brief-item'>
-                    <span class='brief-kicker'>Markets</span>
-                    <h4 class='brief-headline'><a href='#'>Central reserves expand liquidity buffer as sovereign bond yields stabilize across major bourses</a></h4>
-                  </article>
-                  <article class='brief-item'>
-                    <span class='brief-kicker'>Space &amp; Defense</span>
-                    <h4 class='brief-headline'><a href='#'>Next-generation optical telemetry satellite prepares for equatorial launch countdown</a></h4>
-                  </article>
-                </div>
+                <b:if cond='data:content'>
+                  <data:content/>
+                <b:else/>
+                  <div class='briefs-container'>
+                    <article class='brief-item'>
+                      <div class='brief-thumb-wrap'>
+                        <img alt='Wildlife conservation report' loading='lazy' src='https://picsum.photos/seed/brief1/400/225'/>
+                      </div>
+                      <span class='brief-kicker'>Environment</span>
+                      <h4 class='brief-headline'><a href='#'>Endangered coastal species reintroduced into native wildlife sanctuary after intensive care</a></h4>
+                    </article>
+                    <article class='brief-item'>
+                      <span class='brief-kicker'>Technology</span>
+                      <h4 class='brief-headline'><a href='#'>Micro-inverter efficiency surges as photovoltaic engineering teams adopt biomimetic structures</a></h4>
+                    </article>
+                    <article class='brief-item'>
+                      <span class='brief-kicker'>Global Health</span>
+                      <h4 class='brief-headline'><a href='#'>Clinical trials validate preventative care protocol reducing metabolic risks in urban centers</a></h4>
+                    </article>
+                    <article class='brief-item'>
+                      <span class='brief-kicker'>Markets</span>
+                      <h4 class='brief-headline'><a href='#'>Central reserves expand liquidity buffer as sovereign bond yields stabilize across major bourses</a></h4>
+                    </article>
+                    <article class='brief-item'>
+                      <span class='brief-kicker'>Space &amp; Defense</span>
+                      <h4 class='brief-headline'><a href='#'>Next-generation optical telemetry satellite prepares for equatorial launch countdown</a></h4>
+                    </article>
+                  </div>
+                </b:if>
               </b:includable>
             </b:widget>
           </b:section>
@@ -418,8 +442,10 @@ ${combinedCss}
              CENTER COLUMN: BLOG1 (LEAD STORY + EDITORIAL STREAM)
              ========================================================== -->
         <section class='portal-center-feed'>
-          <b:section id='main' maxwidgets='1' name='Main Editorial Content' showaddelement='no'>
+          <b:section class='main' id='main' maxwidgets='5' name='Main Editorial Content' showaddelement='yes'>
             <b:widget id='Blog1' locked='true' title='News Posts' type='Blog' version='2'>
+
+              <!-- Includable: main (View Dispatcher) -->
               <b:includable id='main'>
 
                 <!-- VIEW 1: ERROR 404 VIEW -->
@@ -438,177 +464,7 @@ ${combinedCss}
                 <!-- VIEW 2: SINGLE POST / ARTICLE VIEW -->
                 <b:elseif cond='data:view.isPost'/>
                   <b:loop values='data:posts' var='post'>
-                    <article class='article-reading-col' expr:id='"post-" + data:post.id'>
-
-                      <!-- Breadcrumbs -->
-                      <nav aria-label='Breadcrumb' class='editorial-breadcrumbs'>
-                        <a expr:href='data:blog.homepageUrl.canonical'>Home</a>
-                        <span class='breadcrumb-sep'>/</span>
-                        <b:loop index='lblIdx' values='data:post.labels' var='label'>
-                          <b:if cond='data:lblIdx == 0'>
-                            <a expr:href='data:label.url'><data:label.name/></a>
-                            <span class='breadcrumb-sep'>/</span>
-                          </b:if>
-                        </b:loop>
-                        <span class='breadcrumb-current'><data:post.title/></span>
-                      </nav>
-
-                      <!-- Article Header -->
-                      <header class='article-header'>
-                        <b:loop index='lblIdx' values='data:post.labels' var='label'>
-                          <b:if cond='data:lblIdx == 0'>
-                            <span class='article-kicker-desk'><data:label.name/> Desk</span>
-                          </b:if>
-                        </b:loop>
-                        <h1 class='article-main-headline'><data:post.title/></h1>
-                        <b:if cond='data:post.snippet'>
-                          <p class='article-subheadline'><data:post.snippet/></p>
-                        </b:if>
-
-                        <div class='article-byline-bar'>
-                          <div class='byline-author-group'>
-                            <b:if cond='data:post.author.authorPhoto.image'>
-                              <img alt='Author' class='byline-avatar' expr:src='data:post.author.authorPhoto.image'/>
-                            <b:else/>
-                              <div class='byline-avatar' style='display:flex;align-items:center;justify-content:center;font-weight:700;'>N</div>
-                            </b:if>
-                            <div>
-                              <span>By </span>
-                              <span class='author-name-bold'><data:post.author.name/></span>
-                            </div>
-                          </div>
-                          <div class='byline-timestamps'>
-                            <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
-                            <span>&#8226;</span>
-                            <span id='reading-time'>3 min read</span>
-                          </div>
-                        </div>
-                      </header>
-
-                      <!-- Share Strip -->
-                      <div class='article-share-strip'>
-                        <span class='share-label'>Share:</span>
-                        <button aria-label='Share on Twitter' class='share-btn share-tw' expr:data-title='data:post.title' expr:data-url='data:post.url.canonical'>
-                          <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>
-                        </button>
-                        <button aria-label='Share on Facebook' class='share-btn share-fb' expr:data-url='data:post.url.canonical'>
-                          <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg>
-                        </button>
-                        <button aria-label='Share on WhatsApp' class='share-btn share-wa' expr:data-title='data:post.title' expr:data-url='data:post.url.canonical'>
-                          <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z'/></svg>
-                        </button>
-                        <button aria-label='Copy Article Link' class='share-btn share-copy' expr:data-url='data:post.url.canonical' id='copy-link-btn'>
-                          <svg fill='none' height='14' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='14'><path d='M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71'/></svg>
-                        </button>
-                      </div>
-
-                      <!-- Featured Hero Image -->
-                      <b:if cond='data:post.featuredImage'>
-                        <figure class='article-hero-media'>
-                          <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")' fetchpriority='high'/>
-                          <figcaption class='media-caption'>Image: Newsroom Visual Desk / Editorial Archives</figcaption>
-                        </figure>
-                      </b:if>
-
-                      <!-- Auto Table of Contents Container -->
-                      <div id='toc-container'>
-                        <div class='toc-header-toggle' id='toc-toggle'>
-                          <span>Inside This Dispatch</span>
-                          <span id='toc-icon'>&#9660;</span>
-                        </div>
-                        <ul class='toc-list' id='toc-list'></ul>
-                      </div>
-
-                      <!-- Article Content Body -->
-                      <div class='article-body-content' id='article-content'>
-                        <data:post.body/>
-                      </div>
-
-                      <!-- Labels / Tags Row -->
-                      <b:if cond='data:post.labels'>
-                        <div class='article-tags-section'>
-                          <span class='tags-label'>Filed Under:</span>
-                          <b:loop values='data:post.labels' var='label'>
-                            <a class='tag-badge' expr:href='data:label.url'>#<data:label.name/></a>
-                          </b:loop>
-                        </div>
-                      </b:if>
-
-                      <!-- Previous / Next Navigation Split -->
-                      <div class='post-navigation-split'>
-                        <div>
-                          <b:if cond='data:newerPageUrl'>
-                            <span class='nav-direction-label'>&#8592; Previous Dispatch</span>
-                            <a class='nav-post-title' expr:href='data:newerPageUrl'>Return to latest coverage</a>
-                          </b:if>
-                        </div>
-                        <div class='post-nav-next'>
-                          <b:if cond='data:olderPageUrl'>
-                            <span class='nav-direction-label'>Next Story &#8594;</span>
-                            <a class='nav-post-title' expr:href='data:olderPageUrl'>Continue reading archives</a>
-                          </b:if>
-                        </div>
-                      </div>
-
-                      <!-- Related Coverage Grid -->
-                      <div class='related-coverage-block' id='related-coverage'>
-                        <h3 class='related-block-title'>Related Dispatches</h3>
-                        <div class='related-grid' id='related-posts-grid'>
-                          <div class='related-card'>
-                            <div class='related-thumb-box'><img alt='Related Story' loading='lazy' src='https://picsum.photos/seed/rel1/400/250'/></div>
-                            <h4 class='related-card-title'><a href='#'>Diplomatic envoys convene for multilateral regional security dialogue</a></h4>
-                          </div>
-                          <div class='related-card'>
-                            <div class='related-thumb-box'><img alt='Related Story' loading='lazy' src='https://picsum.photos/seed/rel2/400/250'/></div>
-                            <h4 class='related-card-title'><a href='#'>Infrastructure bill allocates strategic capital for transit corridor expansion</a></h4>
-                          </div>
-                          <div class='related-card'>
-                            <div class='related-thumb-box'><img alt='Related Story' loading='lazy' src='https://picsum.photos/seed/rel3/400/250'/></div>
-                            <h4 class='related-card-title'><a href='#'>Quantum computing laboratory demonstrates fault-tolerant qubit coherence</a></h4>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- JSON-LD NewsArticle Structured Data for Post -->
-                      <script type='application/ld+json'>
-                      {
-                        &quot;@context&quot;: &quot;https://schema.org&quot;,
-                        &quot;@type&quot;: &quot;NewsArticle&quot;,
-                        &quot;mainEntityOfPage&quot;: {
-                          &quot;@type&quot;: &quot;WebPage&quot;,
-                          &quot;@id&quot;: &quot;<data:post.url.canonical/>&quot;
-                        },
-                        &quot;headline&quot;: &quot;<data:post.title.jsonEscaped/>&quot;,
-                        &quot;description&quot;: &quot;<b:if cond='data:post.snippet'><data:post.snippet.jsonEscaped/><b:else/><data:post.title.jsonEscaped/></b:if>&quot;,
-                        <b:if cond='data:post.featuredImage'>
-                        &quot;image&quot;: [
-                          &quot;<data:post.featuredImage/>&quot;
-                        ],
-                        </b:if>
-                        &quot;datePublished&quot;: &quot;<data:post.date.iso8601/>&quot;,
-                        &quot;dateModified&quot;: &quot;<b:if cond='data:post.lastUpdated'><data:post.lastUpdated.iso8601/><b:else/><data:post.date.iso8601/></b:if>&quot;,
-                        &quot;author&quot;: {
-                          &quot;@type&quot;: &quot;Person&quot;,
-                          &quot;name&quot;: &quot;<data:post.author.name.jsonEscaped/>&quot;
-                        },
-                        &quot;publisher&quot;: {
-                          &quot;@type&quot;: &quot;NewsMediaOrganization&quot;,
-                          &quot;name&quot;: &quot;<data:blog.title.jsonEscaped/>&quot;,
-                          &quot;logo&quot;: {
-                            &quot;@type&quot;: &quot;ImageObject&quot;,
-                            &quot;url&quot;: &quot;https://resources.blogblog.com/img/blank.gif&quot;
-                          }
-                        }
-                      }
-                      </script>
-
-                      <!-- Native Threaded Comments -->
-                      <section class='comments-container'>
-                        <h3 class='comments-header-title'>Reader Editorial Commentary</h3>
-                        <b:include data='post' name='comments'/>
-                      </section>
-
-                    </article>
+                    <b:include data='post' name='post'/>
                   </b:loop>
 
                 <!-- VIEW 3: STATIC PAGE VIEW (isPage) -->
@@ -626,70 +482,77 @@ ${combinedCss}
 
                 <!-- VIEW 4: HOMEPAGE (isHomepage) -->
                 <b:elseif cond='data:view.isHomepage'/>
-                  <!-- LEAD COVER STORY (i == 0) -->
-                  <b:loop index='i' values='data:posts' var='post'>
-                    <b:if cond='data:i == 0'>
-                      <article class='lead-story-card' expr:id='"lead-" + data:post.id'>
-                        <h2 class='lead-headline'>
-                          <a expr:href='data:post.url'><data:post.title/></a>
-                        </h2>
-                        <div class='lead-media-wrap'>
-                          <a expr:href='data:post.url'>
-                            <b:if cond='data:post.featuredImage'>
-                              <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")' fetchpriority='high'/>
-                            <b:else/>
-                              <img alt='Newsroom Lead Story' fetchpriority='high' src='https://picsum.photos/seed/leadnews/1200/675'/>
-                            </b:if>
-                          </a>
-                        </div>
-                        <b:if cond='data:post.snippet'>
-                          <p class='lead-deck'><data:post.snippet/></p>
-                        </b:if>
-                        <div class='lead-meta'>
-                          <span class='meta-author'>By <data:post.author.name/></span>
-                          <span>&#8226;</span>
-                          <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
-                        </div>
-                      </article>
-                    </b:if>
-                  </b:loop>
-
-                  <!-- EDITORIAL HORIZONTAL STREAM (i > 0) -->
-                  <div class='editorial-stream-grid'>
+                  <b:if cond='data:posts.any'>
+                    <!-- LEAD COVER STORY (i == 0) -->
                     <b:loop index='i' values='data:posts' var='post'>
-                      <b:if cond='data:i &gt; 0'>
-                        <article class='news-card-horizontal' expr:id='"stream-" + data:post.id'>
-                          <div>
-                            <b:loop index='lblIdx' values='data:post.labels' var='label'>
-                              <b:if cond='data:lblIdx == 0'>
-                                <span class='card-kicker'><data:label.name/></span>
-                              </b:if>
-                            </b:loop>
-                            <h3 class='card-headline'>
-                              <a expr:href='data:post.url'><data:post.title/></a>
-                            </h3>
-                            <b:if cond='data:post.snippet'>
-                              <p class='card-snippet'><data:post.snippet/></p>
-                            </b:if>
-                            <div class='card-meta-line'>
-                              <span><data:post.author.name/></span>
-                              <span>&#8226;</span>
-                              <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
-                            </div>
-                          </div>
-                          <div class='card-thumb-wrap'>
+                      <b:if cond='data:i == 0'>
+                        <article class='lead-story-card' expr:id='"lead-" + data:post.id'>
+                          <h2 class='lead-headline'>
+                            <a expr:href='data:post.url'><data:post.title/></a>
+                          </h2>
+                          <div class='lead-media-wrap'>
                             <a expr:href='data:post.url'>
                               <b:if cond='data:post.featuredImage'>
-                                <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 400, "16:10")' loading='lazy'/>
+                                <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")' fetchpriority='high'/>
                               <b:else/>
-                                <img alt='Story' loading='lazy' src='https://picsum.photos/seed/newsstream/400/250'/>
+                                <img alt='Newsroom Lead Story' fetchpriority='high' src='https://picsum.photos/seed/leadnews/1200/675'/>
                               </b:if>
                             </a>
+                          </div>
+                          <b:if cond='data:post.snippet'>
+                            <p class='lead-deck'><data:post.snippet/></p>
+                          </b:if>
+                          <div class='lead-meta'>
+                            <span class='meta-author'>By <data:post.author.name/></span>
+                            <span>&#8226;</span>
+                            <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
                           </div>
                         </article>
                       </b:if>
                     </b:loop>
-                  </div>
+
+                    <!-- EDITORIAL HORIZONTAL STREAM (i > 0) -->
+                    <div class='editorial-stream-grid'>
+                      <b:loop index='i' values='data:posts' var='post'>
+                        <b:if cond='data:i &gt; 0'>
+                          <article class='news-card-horizontal' expr:id='"stream-" + data:post.id'>
+                            <div>
+                              <b:loop index='lblIdx' values='data:post.labels' var='label'>
+                                <b:if cond='data:lblIdx == 0'>
+                                  <span class='card-kicker'><data:label.name/></span>
+                                </b:if>
+                              </b:loop>
+                              <h3 class='card-headline'>
+                                <a expr:href='data:post.url'><data:post.title/></a>
+                              </h3>
+                              <b:if cond='data:post.snippet'>
+                                <p class='card-snippet'><data:post.snippet/></p>
+                              </b:if>
+                              <div class='card-meta-line'>
+                                <span><data:post.author.name/></span>
+                                <span>&#8226;</span>
+                                <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
+                              </div>
+                            </div>
+                            <div class='card-thumb-wrap'>
+                              <a expr:href='data:post.url'>
+                                <b:if cond='data:post.featuredImage'>
+                                  <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 400, "16:10")' loading='lazy'/>
+                                <b:else/>
+                                  <img alt='Story' loading='lazy' src='https://picsum.photos/seed/newsstream/400/250'/>
+                                </b:if>
+                              </a>
+                            </div>
+                          </article>
+                        </b:if>
+                      </b:loop>
+                    </div>
+                  <b:else/>
+                    <div class='no-posts-card' style='padding: 40px; text-align: center;'>
+                      <h3>No Dispatches Filed Yet</h3>
+                      <p>The editorial team is preparing coverage. Please check back shortly.</p>
+                    </div>
+                  </b:if>
 
                   <!-- Homepage Pagination -->
                   <div class='blog-pager'>
@@ -703,35 +566,42 @@ ${combinedCss}
 
                 <!-- VIEW 5: ARCHIVE / SEARCH / LABEL MULTIPLE ITEMS -->
                 <b:else/>
-                  <div class='archive-cards-grid'>
-                    <b:loop values='data:posts' var='post'>
-                      <article class='brief-item' style='padding: 16px; background: var(--bg-subtle); border-radius: var(--radius-xs);'>
-                        <div class='brief-thumb-wrap'>
-                          <a expr:href='data:post.url'>
-                            <b:if cond='data:post.featuredImage'>
-                              <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 500, "16:9")' loading='lazy'/>
-                            <b:else/>
-                              <img alt='Archive Story' loading='lazy' src='https://picsum.photos/seed/arch/500/280'/>
+                  <b:if cond='data:posts.any'>
+                    <div class='archive-cards-grid'>
+                      <b:loop values='data:posts' var='post'>
+                        <article class='brief-item' style='padding: 16px; background: var(--bg-subtle); border-radius: var(--radius-xs);'>
+                          <div class='brief-thumb-wrap'>
+                            <a expr:href='data:post.url'>
+                              <b:if cond='data:post.featuredImage'>
+                                <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 500, "16:9")' loading='lazy'/>
+                              <b:else/>
+                                <img alt='Archive Story' loading='lazy' src='https://picsum.photos/seed/arch/500/280'/>
+                              </b:if>
+                            </a>
+                          </div>
+                          <b:loop index='lblIdx' values='data:post.labels' var='label'>
+                            <b:if cond='data:lblIdx == 0'>
+                              <span class='brief-kicker'><data:label.name/></span>
                             </b:if>
-                          </a>
-                        </div>
-                        <b:loop index='lblIdx' values='data:post.labels' var='label'>
-                          <b:if cond='data:lblIdx == 0'>
-                            <span class='brief-kicker'><data:label.name/></span>
+                          </b:loop>
+                          <h3 class='card-headline'>
+                            <a expr:href='data:post.url'><data:post.title/></a>
+                          </h3>
+                          <b:if cond='data:post.snippet'>
+                            <p class='card-snippet'><data:post.snippet/></p>
                           </b:if>
-                        </b:loop>
-                        <h3 class='card-headline'>
-                          <a expr:href='data:post.url'><data:post.title/></a>
-                        </h3>
-                        <b:if cond='data:post.snippet'>
-                          <p class='card-snippet'><data:post.snippet/></p>
-                        </b:if>
-                        <div class='card-meta-line' style='margin-top: 8px;'>
-                          <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
-                        </div>
-                      </article>
-                    </b:loop>
-                  </div>
+                          <div class='card-meta-line' style='margin-top: 8px;'>
+                            <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
+                          </div>
+                        </article>
+                      </b:loop>
+                    </div>
+                  <b:else/>
+                    <div class='no-posts-card' style='padding: 40px; text-align: center;'>
+                      <h3>No Dispatches Matching Your Criteria</h3>
+                      <p>Try searching with another keyword or explore other news desks.</p>
+                    </div>
+                  </b:if>
 
                   <!-- Archive Pagination -->
                   <div class='blog-pager'>
@@ -745,6 +615,202 @@ ${combinedCss}
                 </b:if>
 
               </b:includable>
+
+              <!-- Includable: post (Single Post Article View) -->
+              <b:includable id='post' var='post'>
+                <article class='article-reading-col' expr:id='"post-" + data:post.id'>
+
+                  <!-- Breadcrumbs -->
+                  <nav aria-label='Breadcrumb' class='editorial-breadcrumbs'>
+                    <a expr:href='data:blog.homepageUrl.canonical'>Home</a>
+                    <span class='breadcrumb-sep'>/</span>
+                    <b:loop index='lblIdx' values='data:post.labels' var='label'>
+                      <b:if cond='data:lblIdx == 0'>
+                        <a expr:href='data:label.url'><data:label.name/></a>
+                        <span class='breadcrumb-sep'>/</span>
+                      </b:if>
+                    </b:loop>
+                    <span class='breadcrumb-current'><data:post.title/></span>
+                  </nav>
+
+                  <!-- Article Header -->
+                  <header class='article-header'>
+                    <b:loop index='lblIdx' values='data:post.labels' var='label'>
+                      <b:if cond='data:lblIdx == 0'>
+                        <span class='article-kicker-desk'><data:label.name/> Desk</span>
+                      </b:if>
+                    </b:loop>
+                    <h1 class='article-main-headline'><data:post.title/></h1>
+                    <b:if cond='data:post.snippet'>
+                      <p class='article-subheadline'><data:post.snippet/></p>
+                    </b:if>
+
+                    <div class='article-byline-bar'>
+                      <div class='byline-author-group'>
+                        <b:if cond='data:post.author.authorPhoto.image'>
+                          <img alt='Author' class='byline-avatar' expr:src='data:post.author.authorPhoto.image'/>
+                        <b:else/>
+                          <div class='byline-avatar' style='display:flex;align-items:center;justify-content:center;font-weight:700;'>N</div>
+                        </b:if>
+                        <div>
+                          <span>By </span>
+                          <span class='author-name-bold'><data:post.author.name/></span>
+                        </div>
+                      </div>
+                      <div class='byline-meta-group'>
+                        <time expr:datetime='data:post.date.iso8601'>Published: <data:post.date/></time>
+                        <b:if cond='data:post.lastUpdated'>
+                          <span>&#8226;</span>
+                          <time expr:datetime='data:post.lastUpdated.iso8601'>Updated: <data:post.lastUpdated/></time>
+                        </b:if>
+                      </div>
+                    </div>
+                  </header>
+
+                  <!-- Social Share Toolbar -->
+                  <div class='article-share-strip'>
+                    <span class='share-label'>Share:</span>
+                    <button aria-label='Share on Twitter' class='share-btn share-tw' expr:data-title='data:post.title' expr:data-url='data:post.url.canonical'>
+                      <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>
+                    </button>
+                    <button aria-label='Share on Facebook' class='share-btn share-fb' expr:data-url='data:post.url.canonical'>
+                      <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg>
+                    </button>
+                    <button aria-label='Share on WhatsApp' class='share-btn share-wa' expr:data-title='data:post.title' expr:data-url='data:post.url.canonical'>
+                      <svg fill='currentColor' height='14' viewBox='0 0 24 24' width='14'><path d='M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z'/></svg>
+                    </button>
+                    <button aria-label='Copy Article Link' class='share-btn share-copy' expr:data-url='data:post.url.canonical' id='copy-link-btn'>
+                      <svg fill='none' height='14' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' width='14'><path d='M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71'/></svg>
+                    </button>
+                  </div>
+
+                  <!-- Featured Hero Image -->
+                  <b:if cond='data:post.featuredImage'>
+                    <figure class='article-hero-media'>
+                      <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")' fetchpriority='high'/>
+                      <figcaption class='media-caption'>Image: Newsroom Visual Desk / Editorial Archives</figcaption>
+                    </figure>
+                  </b:if>
+
+                  <!-- Auto Table of Contents Container -->
+                  <div id='toc-container'>
+                    <div class='toc-header-toggle' id='toc-toggle'>
+                      <span>Inside This Dispatch</span>
+                      <span id='toc-icon'>&#9660;</span>
+                    </div>
+                    <ul class='toc-list' id='toc-list'></ul>
+                  </div>
+
+                  <!-- Article Content Body -->
+                  <div class='article-body-content' id='article-content'>
+                    <data:post.body/>
+                  </div>
+
+                  <!-- Labels / Tags Row -->
+                  <b:if cond='data:post.labels.any'>
+                    <div class='article-tags-section'>
+                      <span class='tags-label'>Filed Under:</span>
+                      <b:loop values='data:post.labels' var='label'>
+                        <a class='tag-badge' expr:href='data:label.url'>#<data:label.name/></a>
+                      </b:loop>
+                    </div>
+                  </b:if>
+
+                  <!-- Previous / Next Navigation Split -->
+                  <div class='post-navigation-split'>
+                    <div>
+                      <b:if cond='data:newerPageUrl'>
+                        <span class='nav-direction-label'>&#8592; Previous Dispatch</span>
+                        <a class='nav-post-title' expr:href='data:newerPageUrl'>Return to latest coverage</a>
+                      </b:if>
+                    </div>
+                    <div class='post-nav-next'>
+                      <b:if cond='data:olderPageUrl'>
+                        <span class='nav-direction-label'>Next Story &#8594;</span>
+                        <a class='nav-post-title' expr:href='data:olderPageUrl'>Continue reading archives</a>
+                      </b:if>
+                    </div>
+                  </div>
+
+                  <!-- Related Coverage Grid -->
+                  <div class='related-coverage-block' id='related-coverage'>
+                    <h3 class='related-block-title'>Related Dispatches</h3>
+                    <div class='related-grid' id='related-posts-grid'>
+                      <div class='related-card'>
+                        <div class='related-thumb-box'><img alt='Related Story' loading='lazy' src='https://picsum.photos/seed/rel1/400/250'/></div>
+                        <h4 class='related-card-title'><a href='#'>Diplomatic envoys convene for multilateral regional security dialogue</a></h4>
+                      </div>
+                      <div class='related-card'>
+                        <div class='related-thumb-box'><img alt='Related Story' loading='lazy' src='https://picsum.photos/seed/rel2/400/250'/></div>
+                        <h4 class='related-card-title'><a href='#'>Infrastructure bill allocates strategic capital for transit corridor expansion</a></h4>
+                      </div>
+                      <div class='related-card'>
+                        <div class='related-thumb-box'><img alt='Related Story' loading='lazy' src='https://picsum.photos/seed/rel3/400/250'/></div>
+                        <h4 class='related-card-title'><a href='#'>Quantum computing laboratory demonstrates fault-tolerant qubit coherence</a></h4>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- JSON-LD NewsArticle Structured Data for Post -->
+                  <script type='application/ld+json'>
+                  {
+                    &quot;@context&quot;: &quot;https://schema.org&quot;,
+                    &quot;@type&quot;: &quot;NewsArticle&quot;,
+                    &quot;mainEntityOfPage&quot;: {
+                      &quot;@type&quot;: &quot;WebPage&quot;,
+                      &quot;@id&quot;: &quot;<data:post.url.canonical/>&quot;
+                    },
+                    &quot;headline&quot;: &quot;<data:post.title.jsonEscaped/>&quot;,
+                    &quot;description&quot;: &quot;<b:if cond='data:post.snippet'><data:post.snippet.jsonEscaped/><b:else/><data:post.title.jsonEscaped/></b:if>&quot;,
+                    <b:if cond='data:post.featuredImage'>
+                    &quot;image&quot;: [
+                      &quot;<data:post.featuredImage/>&quot;
+                    ],
+                    </b:if>
+                    &quot;datePublished&quot;: &quot;<data:post.date.iso8601/>&quot;,
+                    &quot;dateModified&quot;: &quot;<b:if cond='data:post.lastUpdated'><data:post.lastUpdated.iso8601/><b:else/><data:post.date.iso8601/></b:if>&quot;,
+                    &quot;author&quot;: {
+                      &quot;@type&quot;: &quot;Person&quot;,
+                      &quot;name&quot;: &quot;<data:post.author.name.jsonEscaped/>&quot;
+                    },
+                    &quot;publisher&quot;: {
+                      &quot;@type&quot;: &quot;NewsMediaOrganization&quot;,
+                      &quot;name&quot;: &quot;<data:blog.title.jsonEscaped/>&quot;,
+                      &quot;logo&quot;: {
+                        &quot;@type&quot;: &quot;ImageObject&quot;,
+                        &quot;url&quot;: &quot;https://resources.blogblog.com/img/blank.gif&quot;
+                      }
+                    }
+                  }
+                  </script>
+
+                  <!-- Native Threaded Comments -->
+                  <section class='comments-container'>
+                    <h3 class='comments-header-title'>Reader Editorial Commentary</h3>
+                    <b:include data='post' name='comments'/>
+                  </section>
+
+                </article>
+              </b:includable>
+
+              <!-- Includable: comments (Native Blogger Threaded Comments) -->
+              <b:includable id='comments' var='post'>
+                <b:if cond='data:post.allowComments'>
+                  <div class='comments' id='comments'>
+                    <b:if cond='data:post.numberOfComments &gt; 0'>
+                      <h4 class='comments-title'><data:post.numberOfComments/> Comments</h4>
+                    <b:else/>
+                      <h4 class='comments-title'>Responses &amp; Commentary</h4>
+                    </b:if>
+                    <b:if cond='data:post.commentHtml'>
+                      <div class='comment-thread'>
+                        <data:post.commentHtml/>
+                      </div>
+                    </b:if>
+                  </div>
+                </b:if>
+              </b:includable>
+
             </b:widget>
           </b:section>
         </section>
@@ -753,18 +819,22 @@ ${combinedCss}
              RIGHT SIDEBAR: AD CONTAINER + POPULAR POSTS + VIDEOS
              ========================================================== -->
         <aside class='portal-sidebar'>
-          <b:section id='sidebar' maxwidgets='4' name='Right Editorial Sidebar' showaddelement='yes'>
+          <b:section class='sidebar' id='sidebar' maxwidgets='10' name='Right Editorial Sidebar' showaddelement='yes'>
 
             <!-- Widget 1: 300x250 Fixed Ad Slot (Zero CLS) -->
             <b:widget id='HTML2' locked='false' title='Sponsor Ad Slot' type='HTML' version='2'>
               <b:includable id='main'>
-                <div class='news-ad-box'>
-                  <span class='ad-disclaimer'>Advertisement</span>
-                  <div class='ad-mock-content'>
-                    <strong>300 &#215; 250 Premium Ad Slot</strong>
-                    <p style='font-size:0.75rem; margin-top:4px;'>Google AdSense or Direct Sponsorship Partner</p>
+                <b:if cond='data:content'>
+                  <data:content/>
+                <b:else/>
+                  <div class='news-ad-box'>
+                    <span class='ad-disclaimer'>Advertisement</span>
+                    <div class='ad-mock-content'>
+                      <strong>300 &#215; 250 Premium Ad Slot</strong>
+                      <p style='font-size:0.75rem; margin-top:4px;'>Google AdSense or Direct Sponsorship Partner</p>
+                    </div>
                   </div>
-                </div>
+                </b:if>
               </b:includable>
             </b:widget>
 
@@ -782,13 +852,19 @@ ${combinedCss}
                     <h3 class='sidebar-box-title'>Most Read</h3>
                   </div>
                   <ol class='popular-posts-stack'>
-                    <b:loop values='data:posts' var='post'>
-                      <li class='popular-post-item'>
-                        <h4 class='popular-post-title'>
-                          <a expr:href='data:post.href'><data:post.title/></a>
-                        </h4>
-                      </li>
-                    </b:loop>
+                    <b:if cond='data:posts.any'>
+                      <b:loop values='data:posts' var='post'>
+                        <li class='popular-post-item'>
+                          <h4 class='popular-post-title'>
+                            <a expr:href='data:post.href'><data:post.title/></a>
+                          </h4>
+                        </li>
+                      </b:loop>
+                    <b:else/>
+                      <li class='popular-post-item'><h4 class='popular-post-title'><a href='#'>Global markets digest monetary policy updates</a></h4></li>
+                      <li class='popular-post-item'><h4 class='popular-post-title'><a href='#'>Next-generation clean energy grid breaks transmission records</a></h4></li>
+                      <li class='popular-post-item'><h4 class='popular-post-title'><a href='#'>Breakthrough in synthetic biology unveils climate-resilient agriculture</a></h4></li>
+                    </b:if>
                   </ol>
                 </div>
               </b:includable>
@@ -797,34 +873,42 @@ ${combinedCss}
             <!-- Widget 3: Featured Videos / Multimedia Showcase -->
             <b:widget id='HTML3' locked='false' title='Featured Videos' type='HTML' version='2'>
               <b:includable id='main'>
-                <div>
-                  <div class='sidebar-box-header'>
-                    <h3 class='sidebar-box-title' style='color: var(--accent-red);'>Featured Videos &#9656;</h3>
-                  </div>
-                  <div class='video-feature-card'>
-                    <img alt='Video cover' loading='lazy' src='https://picsum.photos/seed/video1/400/225'/>
-                    <div class='video-play-badge'>
-                      <svg fill='currentColor' viewBox='0 0 24 24'><path d='M8 5v14l11-7z'/></svg>
+                <b:if cond='data:content'>
+                  <data:content/>
+                <b:else/>
+                  <div>
+                    <div class='sidebar-box-header'>
+                      <h3 class='sidebar-box-title' style='color: var(--accent-red);'>Featured Videos &#9656;</h3>
                     </div>
+                    <div class='video-feature-card'>
+                      <img alt='Video cover' loading='lazy' src='https://picsum.photos/seed/video1/400/225'/>
+                      <div class='video-play-badge'>
+                        <svg fill='currentColor' viewBox='0 0 24 24'><path d='M8 5v14l11-7z'/></svg>
+                      </div>
+                    </div>
+                    <h4 style='font-size: 0.875rem; font-weight: 700; line-height: 1.35; margin-bottom: 12px;'>
+                      <a href='#'>Special Report: Autonomous transport tests expand to metropolitan freight arteries</a>
+                    </h4>
                   </div>
-                  <h4 style='font-size: 0.875rem; font-weight: 700; line-height: 1.35; margin-bottom: 12px;'>
-                    <a href='#'>Special Report: Autonomous transport tests expand to metropolitan freight arteries</a>
-                  </h4>
-                </div>
+                </b:if>
               </b:includable>
             </b:widget>
 
             <!-- Widget 4: Newsletter Morning Dispatch -->
             <b:widget id='HTML4' locked='false' title='Morning Dispatch' type='HTML' version='2'>
               <b:includable id='main'>
-                <div class='dispatch-box'>
-                  <h4 class='dispatch-title'>The Morning Edition</h4>
-                  <p class='dispatch-desc'>Get essential investigative reporting and executive news briefs delivered to your inbox every morning at 7:00 AM.</p>
-                  <form class='dispatch-form' onsubmit='event.preventDefault(); alert("Thank you for subscribing to the morning dispatch!");'>
-                    <input class='dispatch-input' placeholder='name@company.com' required='required' type='email'/>
-                    <button class='dispatch-btn' type='submit'>Join</button>
-                  </form>
-                </div>
+                <b:if cond='data:content'>
+                  <data:content/>
+                <b:else/>
+                  <div class='dispatch-box'>
+                    <h4 class='dispatch-title'>The Morning Edition</h4>
+                    <p class='dispatch-desc'>Get essential investigative reporting and executive news briefs delivered to your inbox every morning at 7:00 AM.</p>
+                    <form class='dispatch-form' onsubmit='event.preventDefault(); alert("Thank you for subscribing to the morning dispatch!");'>
+                      <input class='dispatch-input' placeholder='name@company.com' required='required' type='email'/>
+                      <button class='dispatch-btn' type='submit'>Join</button>
+                    </form>
+                  </div>
+                </b:if>
               </b:includable>
             </b:widget>
 
@@ -840,31 +924,35 @@ ${combinedCss}
        ================================================================== -->
   <b:if cond='data:view.isHomepage'>
     <section class='site-wrapper' id='home-sections'>
-      <b:section id='home-category-blocks' maxwidgets='2' name='Homepage Modular Category Blocks' showaddelement='yes'>
+      <b:section class='home-sections' id='home-category-blocks' maxwidgets='5' name='Homepage Modular Category Blocks' showaddelement='yes'>
         <b:widget id='HTML5' locked='false' title='Business and Markets Desk' type='HTML' version='2'>
           <b:includable id='main'>
-            <div class='modular-news-block'>
-              <div class='sidebar-box-header'>
-                <h3 class='sidebar-box-title'><data:title/></h3>
+            <b:if cond='data:content'>
+              <data:content/>
+            <b:else/>
+              <div class='modular-news-block'>
+                <div class='sidebar-box-header'>
+                  <h3 class='sidebar-box-title'><data:title/></h3>
+                </div>
+                <div class='modular-block-grid'>
+                  <article class='modular-card'>
+                    <div class='brief-thumb-wrap'><img alt='Market news' loading='lazy' src='https://picsum.photos/seed/biz1/400/225'/></div>
+                    <span class='brief-kicker'>Central Banking</span>
+                    <h4 class='brief-headline'><a href='#'>Global monetary authorities signal coordinated benchmark interest adjustments</a></h4>
+                  </article>
+                  <article class='modular-card'>
+                    <div class='brief-thumb-wrap'><img alt='Energy news' loading='lazy' src='https://picsum.photos/seed/biz2/400/225'/></div>
+                    <span class='brief-kicker'>Energy Transition</span>
+                    <h4 class='brief-headline'><a href='#'>Offshore wind farms surpass projected generation milestones for consecutive quarters</a></h4>
+                  </article>
+                  <article class='modular-card'>
+                    <div class='brief-thumb-wrap'><img alt='Tech news' loading='lazy' src='https://picsum.photos/seed/biz3/400/225'/></div>
+                    <span class='brief-kicker'>Venture Ecosystem</span>
+                    <h4 class='brief-headline'><a href='#'>Early-stage deeptech funding rebounds with focus on silicon manufacturing</a></h4>
+                  </article>
+                </div>
               </div>
-              <div class='modular-block-grid'>
-                <article class='modular-card'>
-                  <div class='brief-thumb-wrap'><img alt='Market news' loading='lazy' src='https://picsum.photos/seed/biz1/400/225'/></div>
-                  <span class='brief-kicker'>Central Banking</span>
-                  <h4 class='brief-headline'><a href='#'>Global monetary authorities signal coordinated benchmark interest adjustments</a></h4>
-                </article>
-                <article class='modular-card'>
-                  <div class='brief-thumb-wrap'><img alt='Energy news' loading='lazy' src='https://picsum.photos/seed/biz2/400/225'/></div>
-                  <span class='brief-kicker'>Energy Transition</span>
-                  <h4 class='brief-headline'><a href='#'>Offshore wind farms surpass projected generation milestones for consecutive quarters</a></h4>
-                </article>
-                <article class='modular-card'>
-                  <div class='brief-thumb-wrap'><img alt='Tech news' loading='lazy' src='https://picsum.photos/seed/biz3/400/225'/></div>
-                  <span class='brief-kicker'>Venture Ecosystem</span>
-                  <h4 class='brief-headline'><a href='#'>Early-stage deeptech funding rebounds with focus on silicon manufacturing</a></h4>
-                </article>
-              </div>
-            </div>
+            </b:if>
           </b:includable>
         </b:widget>
       </b:section>
@@ -879,27 +967,43 @@ ${combinedCss}
       <div class='footer-top-grid'>
 
         <!-- Col 1: Publication Info and Brand Section -->
-        <b:section id='footer-brand' maxwidgets='1' name='Footer Brand &amp; Mission' showaddelement='no'>
+        <b:section class='footer-brand' id='footer-brand' maxwidgets='5' name='Footer Brand &amp; Mission' showaddelement='yes'>
           <b:widget id='Text1' locked='true' title='About Publication' type='Text' version='2'>
             <b:includable id='main'>
               <div>
                 <div class='footer-brand-title'><data:blog.title/></div>
-                <p class='footer-brand-desc'>Independent digital newspaper and editorial portal dedicated to fearless reporting, investigative journalism, and insightful analysis.</p>
+                <p class='footer-brand-desc'>
+                  <b:if cond='data:text'>
+                    <data:text/>
+                  <b:elseif cond='data:blog.description'/>
+                    <data:blog.description/>
+                  <b:else/>
+                    Independent digital newspaper and editorial portal dedicated to fearless reporting, investigative journalism, and insightful analysis.
+                  </b:if>
+                </p>
               </div>
             </b:includable>
           </b:widget>
         </b:section>
 
         <!-- Col 2: Categories / News Desks Section -->
-        <b:section id='footer-categories' maxwidgets='1' name='Footer News Desks' showaddelement='no'>
+        <b:section class='footer-categories' id='footer-categories' maxwidgets='5' name='Footer News Desks' showaddelement='yes'>
           <b:widget id='Label1' locked='true' title='News Desks' type='Label' version='2'>
             <b:includable id='main'>
               <div>
                 <h4 class='footer-col-title'><data:title/></h4>
                 <ul class='footer-links-list'>
-                  <b:loop values='data:labels' var='label'>
-                    <li><a expr:href='data:label.url'><data:label.name/></a></li>
-                  </b:loop>
+                  <b:if cond='data:labels.any'>
+                    <b:loop values='data:labels' var='label'>
+                      <li><a expr:href='data:label.url'><data:label.name/></a></li>
+                    </b:loop>
+                  <b:else/>
+                    <li><a href='/search/label/World'>World News</a></li>
+                    <li><a href='/search/label/Business'>Business &amp; Finance</a></li>
+                    <li><a href='/search/label/Tech'>Technology &amp; AI</a></li>
+                    <li><a href='/search/label/Sports'>Sports &amp; Athletics</a></li>
+                    <li><a href='/search/label/Health'>Global Health</a></li>
+                  </b:if>
                 </ul>
               </div>
             </b:includable>
@@ -907,13 +1011,13 @@ ${combinedCss}
         </b:section>
 
         <!-- Col 3: Legal and Newsroom Links Section -->
-        <b:section id='footer-links' maxwidgets='1' name='Footer Editorial Links' showaddelement='no'>
+        <b:section class='footer-links' id='footer-links' maxwidgets='5' name='Footer Editorial Links' showaddelement='yes'>
           <b:widget id='LinkList3' locked='false' title='Newsroom &amp; Legal' type='LinkList' version='2'>
             <b:includable id='main'>
               <div>
                 <h4 class='footer-col-title'>Editorial and Policies</h4>
                 <ul class='footer-links-list'>
-                  <b:if cond='data:links'>
+                  <b:if cond='data:links.any'>
                     <b:loop values='data:links' var='link'>
                       <li><a expr:href='data:link.target'><data:link.name/></a></li>
                     </b:loop>

@@ -2,7 +2,7 @@
  * Validation News Magzine Theme - Comprehensive XML Validator & Linter
  * Performs deep W3C XML, Blogger Layout v3, JSON-LD, CDATA & CDN audits.
  * @package ValidationNewsMagzine
- * @version 1.0.0
+ * @version 1.0.2
  * @author Jaydatta Khodave
  * @license MIT
  */
@@ -15,7 +15,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const XML_FILE = path.join(ROOT_DIR, 'dist/validation-news-magzine.xml');
 
 console.log('===============================================================');
-console.log('VALIDATION NEWS MAGZINE THEME - STRICT XML AUDIT SUITE');
+console.log('VALIDATION NEWS MAGZINE THEME - STRICT XML AUDIT SUITE (v1.0.2)');
 console.log('===============================================================\n');
 
 if (!fs.existsSync(XML_FILE)) {
@@ -168,7 +168,7 @@ for (const vt of voidTags) {
 assertCheck('CHECK 7: XHTML Self-Closing Void Tags', voidTagsValid, 'All <link/>, <meta/>, <img/>, <input/> properly terminated');
 
 // 8. jsDelivr CDN URLs Resolution to Local Repository Assets
-const cdnRegex = /https:\/\/cdn\.jsdelivr\.net\/gh\/iamjaydatt2006\/validation-news-magzine@v1\.0\.0\/([a-zA-Z0-9_\-./]+)/g;
+const cdnRegex = /https:\/\/cdn\.jsdelivr\.net\/gh\/iamjaydatt2006\/validation-news-magzine@v1\.0\.2\/([a-zA-Z0-9_\-./]+)/g;
 let cdnMatch;
 let cdnUrlsCount = 0;
 let cdnUrlsValid = true;
@@ -182,7 +182,43 @@ while ((cdnMatch = cdnRegex.exec(content)) !== null) {
     cdnUrlsValid = false;
   }
 }
-assertCheck(`CHECK 8: jsDelivr CDN Asset Mapping (${cdnUrlsCount} URLs)`, cdnUrlsValid && cdnUrlsCount > 0, 'All CDN endpoints resolve to existing files');
+assertCheck(`CHECK 8: jsDelivr CDN Asset Mapping (${cdnUrlsCount} URLs)`, cdnUrlsValid && cdnUrlsCount > 0, 'All v1.0.2 CDN endpoints resolve to existing files');
+
+// 9. Blogger Layout v3 <b:defaultmarkups> Verification
+const hasDefaultMarkups = content.includes('<b:defaultmarkups>') && content.includes('</b:defaultmarkups>');
+assertCheck('CHECK 9: Blogger Layout v3 <b:defaultmarkups>', hasDefaultMarkups, 'Global widget default markups declared to prevent no-items layout stripping');
+
+// 10. Blog1 Widget Includables Contract (main, post, comments)
+const blog1Match = content.match(/<b:widget[^>]*id=['"]Blog1['"][^>]*>([\s\S]*?)<\/b:widget>/);
+let blog1Valid = false;
+if (blog1Match) {
+  const b1Body = blog1Match[1];
+  const hasMain = b1Body.includes("<b:includable id='main'>");
+  const hasPost = b1Body.includes("<b:includable id='post'") || b1Body.includes('<b:includable id="post"');
+  const hasComments = b1Body.includes("<b:includable id='comments'") || b1Body.includes('<b:includable id="comments"');
+  blog1Valid = hasMain && hasPost && hasComments;
+  assertCheck('CHECK 10: Blog1 Includable Contracts', blog1Valid, 'Contains main, post, and comments includables with zero unresolvable includes');
+} else {
+  assertCheck('CHECK 10: Blog1 Widget Presence', false, 'Blog1 widget missing');
+}
+
+// 11. Section showaddelement Permissions & Classes
+const pySectionPermCheck = `python3 -c "
+import xml.etree.ElementTree as ET, json
+tree = ET.parse('${XML_FILE}')
+root = tree.getroot()
+sections = root.findall('.//{http://www.google.com/2005/gml/b}section')
+invalid = []
+for sec in sections:
+    sec_id = sec.attrib.get('id', '')
+    perm = sec.attrib.get('showaddelement', '')
+    cls = sec.attrib.get('class', '')
+    if perm != 'yes' or not cls:
+        invalid.append({'id': sec_id, 'showaddelement': perm, 'class': cls})
+print(json.dumps(invalid))
+"`;
+const secPermResult = JSON.parse(execSync(pySectionPermCheck, { stdio: ['pipe', 'pipe', 'pipe'] }).toString());
+assertCheck('CHECK 11: Section showaddelement Permissions & Classes', secPermResult.length === 0, secPermResult.length === 0 ? 'All 11 sections have showaddelement="yes" and semantic class attributes' : `Invalid sections: ${JSON.stringify(secPermResult)}`);
 
 console.log('\n===============================================================');
 if (hasErrors) {

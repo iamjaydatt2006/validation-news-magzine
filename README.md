@@ -1,9 +1,9 @@
 # Validation News Magzine Theme
 
-[![Version](https://img.shields.io/badge/version-v1.0.0-D9232E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.0.0)
+[![Version](https://img.shields.io/badge/version-v1.0.2-D9232E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.0.2)
 [![Blogger Engine](https://img.shields.io/badge/Blogger-Layout_v3_%7C_Widget_v2-111111.svg?style=flat-square&logo=blogger)](https://www.blogger.com)
 [![XML Validation](https://img.shields.io/badge/XML%20Validation-100%25%20Passing-22C55E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/actions)
-[![jsDelivr CDN](https://img.shields.io/badge/jsDelivr-v1.0.0%20CDN-E84393.svg?style=flat-square&logo=jsdelivr)](https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/)
+[![jsDelivr CDN](https://img.shields.io/badge/jsDelivr-v1.0.2%20CDN-E84393.svg?style=flat-square&logo=jsdelivr)](https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-1D4ED8.svg?style=flat-square)](LICENSE)
 
 > **Validation News Magzine Theme** is a high-authority, SEO-optimized, editorial digital newspaper template architected strictly for Google Blogger (Blogspot) using **Layout v3** (`b:layoutsVersion='3'`) and **Widget v2** (`b:defaultwidgetversion='2'`).
@@ -43,13 +43,13 @@ The template links production assets directly from jsDelivr's global multi-CDN n
 
 ```html
 <!-- Stylesheets -->
-<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/css/components.css' rel='stylesheet'/>
-<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/css/post.css' rel='stylesheet'/>
+<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/css/components.css' rel='stylesheet'/>
+<link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/css/post.css' rel='stylesheet'/>
 
 <!-- Deferred Scripts -->
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/js/core.js'></script>
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/js/magazine-feeds.js'></script>
-<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.0/assets/js/article-tools.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/core.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/magazine-feeds.js'></script>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.0.2/assets/js/article-tools.js'></script>
 ```
 
 ---
