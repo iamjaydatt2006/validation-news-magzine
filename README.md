@@ -1,12 +1,12 @@
 # Validation News Magzine Theme
 
-[![Version](https://img.shields.io/badge/version-v1.3.0-C90016.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.3.0)
+[![Version](https://img.shields.io/badge/version-v1.4.0-C90016.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/releases/tag/v1.4.0)
 [![Blogger Engine](https://img.shields.io/badge/Blogger-Layout_v3_%7C_Widget_v2-111111.svg?style=flat-square&logo=blogger)](https://www.blogger.com)
 [![XML Validation](https://img.shields.io/badge/XML%20Validation-15%2F15%20Passing%20(100%25)-22C55E.svg?style=flat-square)](https://github.com/iamjaydatt2006/validation-news-magzine/actions)
-[![jsDelivr CDN](https://img.shields.io/badge/jsDelivr-v1.3.0%20CDN-E84393.svg?style=flat-square&logo=jsdelivr)](https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/)
+[![Standalone](https://img.shields.io/badge/Standalone-100%25%20Zero--CDN-10B981.svg?style=flat-square)](dist/validation-news-magzine.xml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-1D4ED8.svg?style=flat-square)](LICENSE)
 
-> **Validation News Magzine Theme** is a high-authority, SEO-optimized, editorial digital newspaper template architected strictly for Google Blogger (Blogspot) using **Layout v3** (`b:layoutsVersion='3'`) and **Widget v2** (`b:defaultwidgetversion='2'`).
+> **Validation News Magzine Theme** is a high-authority, SEO-optimized, 100% standalone editorial digital newspaper template architected strictly for Google Blogger (Blogspot) using **Layout v3** (`b:layoutsVersion='3'`) and **Widget v2** (`b:defaultwidgetversion='2'`). Zero external CDN dependencies. All CSS and JavaScript are fully self-contained.
 
 Modeled directly after the high-density editorial architecture of global publication portals (such as *The Times of India* and *The New York Times*), it features an authoritative 4-tier header, an asymmetric 3-column magazine grid, zero-CLS advertisement containers, dynamic JSON Feed API widgets, auto Table of Contents, and complete schema structured data.
 

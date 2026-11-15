@@ -126,6 +126,7 @@ body#layout header#top-bar .section {
   margin-bottom: 12px !important;
 }
 
+body#layout header#site-masthead,
 body#layout header#masthead,
 body#layout header#masthead .masthead-inner,
 body#layout header#masthead .section {
@@ -147,6 +148,7 @@ body#layout nav#primary-nav-sticky .section {
   margin-bottom: 12px !important;
 }
 
+body#layout div#site-trending-bar,
 body#layout div#trending-bar,
 body#layout div#trending-bar .trending-inner,
 body#layout div#trending-bar .section {
@@ -252,10 +254,6 @@ const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
   <link href='https://fonts.googleapis.com' rel='preconnect'/>
   <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,700&amp;display=swap' rel='stylesheet'/>
-
-  <!-- jsDelivr CDN Modular Non-Blocking Stylesheets (v1.2.0 Release) -->
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/css/components.css' rel='stylesheet'/>
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/css/post.css' rel='stylesheet'/>
 
   <!-- Dynamic Document Title (Zero b:eval Chaining) -->
   <title>
@@ -432,16 +430,11 @@ ${layoutSkinCss}
        ================================================================== -->
   <b:defaultmarkups>
     <b:defaultmarkup type='Common'>
-      <b:includable id='body'>
-        <b:comment>Common global default body blueprint</b:comment>
+      <b:includable id='globalNewsHelper'>
+        <b:comment>Global editorial news helper blueprint</b:comment>
       </b:includable>
     </b:defaultmarkup>
   </b:defaultmarkups>
-
-  <!-- jsDelivr CDN Deferred JavaScript Modules (v1.2.0 Release) -->
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/js/core.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/js/magazine-feeds.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/js/article-tools.js'></script>
 </head>
 
 <body expr:class='(data:view.isHomepage ? "is-homepage" : "") + (data:view.isPost ? " is-post" : "") + (data:view.isPage ? " is-page" : "") + (data:view.isMultipleItems and not data:view.isHomepage ? " is-archive" : "") + (data:view.isError ? " is-error" : "")' itemscope='itemscope' itemtype='http://schema.org/WebPage'>
@@ -462,7 +455,7 @@ ${layoutSkinCss}
           <span class='top-bar-date' id='live-datetime'>Sun, Nov 15, 2026 | Updated Live</span>
         </div>
         <div class='top-bar-right'>
-          <b:section class='top-bar-links' id='top-bar-links' maxwidgets='5' name='Top Bar Quick Links' showaddelement='yes'>
+          <b:section class='top-bar-links' id='top-bar-links' maxwidgets='5' name='Top Bar Quick Links' showaddelement='true'>
             <b:widget id='LinkList1' locked='false' title='Quick Links' type='LinkList' version='2' visible='true'>
               <b:includable id='main'>
                 <div class='top-quick-links' style='display:inline-flex; gap:12px;'>
@@ -493,10 +486,10 @@ ${layoutSkinCss}
   <!-- ==================================================================
        EDITORIAL MASTHEAD
        ================================================================== -->
-  <header id='masthead' itemscope='itemscope' itemtype='http://schema.org/WPHeader'>
+  <header id='site-masthead' itemscope='itemscope' itemtype='http://schema.org/WPHeader'>
     <div class='site-wrapper'>
       <div class='masthead-inner'>
-        <b:section class='header' id='masthead' maxwidgets='1' name='Masthead Header' showaddelement='yes'>
+        <b:section class='header' id='masthead' maxwidgets='5' name='Masthead Header' showaddelement='true'>
           <b:widget id='Header1' locked='true' title='Masthead Header' type='Header' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='displayUrl'/>
@@ -548,7 +541,7 @@ ${layoutSkinCss}
 
         <!-- Category Links Scroll Area -->
         <div class='nav-links-scroll'>
-          <b:section class='nav' id='primary-nav' maxwidgets='5' name='Main Navigation' showaddelement='yes'>
+          <b:section class='nav' id='primary-nav' maxwidgets='5' name='Main Navigation' showaddelement='true'>
             <b:widget id='PageList1' locked='false' title='Main Navigation' type='PageList' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='pageListJson'><![CDATA[{}]]></b:widget-setting>
@@ -596,14 +589,14 @@ ${layoutSkinCss}
   <!-- ==================================================================
        TRENDING "IN THE NEWS" STRIP
        ================================================================== -->
-  <div id='trending-bar'>
+  <div id='site-trending-bar'>
     <div class='site-wrapper'>
       <div class='trending-inner'>
         <span class='trending-badge'>
           <svg fill='currentColor' height='12' viewBox='0 0 24 24' width='12'><path d='M17.5 12a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0zm1.5 0c0-3.866-3.134-7-7-7a6.97 6.97 0 00-4.95 2.05l-1.414-1.414A8.96 8.96 0 0112 3c4.97 0 9 4.03 9 9s-4.03 9-9 9a8.96 8.96 0 01-6.364-2.636l1.414-1.414A6.97 6.97 0 0012 19c3.866 0 7-3.134 7-7z'/></svg>
           In The News
         </span>
-        <b:section class='trending' id='trending-bar' maxwidgets='5' name='Trending Topics' showaddelement='yes'>
+        <b:section class='trending' id='trending-bar' maxwidgets='5' name='Trending Topics' showaddelement='true'>
           <b:widget id='Label1' locked='false' title='Trending Topics' type='Label' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
@@ -646,7 +639,7 @@ ${layoutSkinCss}
           Breaking News
         </span>
         <div class='breaking-ticker-track'>
-          <b:section class='breaking-news' id='breaking-bar' maxwidgets='2' name='Breaking News Bar' showaddelement='yes'>
+          <b:section class='breaking-news' id='breaking-bar' maxwidgets='5' name='Breaking News Bar' showaddelement='true'>
             <b:widget id='HTML0' locked='false' title='Breaking News Ticker' type='HTML' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='content'/>
@@ -714,7 +707,7 @@ ${layoutSkinCss}
           <div class='rail-section-header'>
             <h3 class='rail-section-title'>Fast Dispatches</h3>
           </div>
-          <b:section class='left-rail' id='left-rail' maxwidgets='5' name='Left Rail Fast Dispatches' showaddelement='yes'>
+          <b:section class='left-rail' id='left-rail' maxwidgets='5' name='Left Rail Fast Dispatches' showaddelement='true'>
             <b:widget id='HTML1' locked='false' title='Fast Dispatches' type='HTML' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='content'/>
@@ -758,7 +751,7 @@ ${layoutSkinCss}
              CENTER COLUMN: BLOG1 (LEAD STORY + EDITORIAL STREAM)
              ========================================================== -->
         <section class='portal-center-feed'>
-          <b:section class='main' id='main' maxwidgets='1' name='Main Editorial Content' showaddelement='yes'>
+          <b:section class='main' id='main' maxwidgets='5' name='Main Editorial Content' showaddelement='true'>
             <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='showDateHeader'>false</b:widget-setting>
@@ -796,51 +789,49 @@ ${layoutSkinCss}
                 <b:if cond='data:view.isError'>
                   <b:include name='error404'/>
 
-                <!-- VIEW 2: SINGLE POST / ARTICLE VIEW -->
-                <b:elseif cond='data:view.isPost'/>
+                <!-- VIEW 2: SINGLE ITEM (Post or Static Page) -->
+                <b:elseif cond='data:view.isSingleItem'/>
                   <b:loop values='data:posts' var='post'>
-                    <b:include data='post' name='singlePost'/>
+                    <b:if cond='data:view.isPage'>
+                      <b:include data='post' name='staticPage'/>
+                    <b:else/>
+                      <b:include data='post' name='singlePost'/>
+                    </b:if>
                   </b:loop>
 
-                <!-- VIEW 3: STATIC PAGE VIEW (isPage) -->
-                <b:elseif cond='data:view.isPage'/>
-                  <b:loop values='data:posts' var='post'>
-                    <b:include data='post' name='staticPage'/>
-                  </b:loop>
-
-                <!-- VIEW 4: HOMEPAGE (isHomepage) -->
-                <b:elseif cond='data:view.isHomepage'/>
-                  <b:if cond='!data:posts.empty'>
-                    <!-- Lead Cover Story (i == 0) -->
-                    <b:loop index='i' values='data:posts' var='post'>
-                      <b:if cond='data:i == 0'>
-                        <b:include data='post' name='featuredLeadPost'/>
-                      </b:if>
-                    </b:loop>
-
-                    <!-- Editorial Horizontal Stream (i > 0) -->
-                    <div class='editorial-stream-grid'>
-                      <b:loop index='i' values='data:posts' var='post'>
-                        <b:if cond='data:i &gt; 0'>
-                          <b:include data='post' name='postCard'/>
-                        </b:if>
-                      </b:loop>
-                    </div>
-
-                    <b:include name='postPagination'/>
-                  <b:else/>
-                    <b:include name='emptyState'/>
+                <!-- VIEW 3: MULTIPLE ITEMS (Homepage, Archive, Label, Search, Index) -->
+                <b:else/>
+                  <b:if cond='!data:view.isHomepage'>
+                    <b:include name='archiveHeader'/>
                   </b:if>
 
-                <!-- VIEW 5: ARCHIVE / SEARCH / LABEL MULTIPLE ITEMS -->
-                <b:else/>
-                  <b:include name='archiveHeader'/>
                   <b:if cond='!data:posts.empty'>
-                    <div class='archive-cards-grid'>
-                      <b:loop values='data:posts' var='post'>
-                        <b:include data='post' name='postCard'/>
+                    <!-- On Homepage: Lead Hero + Editorial Stream Grid -->
+                    <b:if cond='data:view.isHomepage'>
+                      <!-- Lead Cover Story (i == 0) -->
+                      <b:loop index='i' values='data:posts' var='post'>
+                        <b:if cond='data:i == 0'>
+                          <b:include data='post' name='featuredLeadPost'/>
+                        </b:if>
                       </b:loop>
-                    </div>
+
+                      <!-- Editorial Horizontal Stream (i > 0) -->
+                      <div class='editorial-stream-grid'>
+                        <b:loop index='i' values='data:posts' var='post'>
+                          <b:if cond='data:i &gt; 0'>
+                            <b:include data='post' name='postCard'/>
+                          </b:if>
+                        </b:loop>
+                      </div>
+                    <b:else/>
+                      <!-- Archive / Label / Search 2-Column Grid -->
+                      <div class='archive-cards-grid'>
+                        <b:loop values='data:posts' var='post'>
+                          <b:include data='post' name='postCard'/>
+                        </b:loop>
+                      </div>
+                    </b:if>
+
                     <b:include name='postPagination'/>
                   <b:else/>
                     <b:include name='emptyState'/>
@@ -887,7 +878,7 @@ ${layoutSkinCss}
                   <div class='lead-media-wrap'>
                     <a expr:href='data:post.url'>
                       <b:if cond='data:post.featuredImage'>
-                        <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 900, "16:9")' fetchpriority='high'/>
+                        <img expr:alt='data:post.title' expr:src='data:post.featuredImage.isResizable ? resizeImage(data:post.featuredImage, 900, "16:9") : data:post.featuredImage' fetchpriority='high'/>
                       <b:else/>
                         <div class='media-fallback-svg' style='aspect-ratio:16/9;background:var(--bg-subtle);display:flex;align-items:center;justify-content:center;'>
                           <svg fill='none' height='48' stroke='var(--border-hairline)' stroke-width='1.5' viewBox='0 0 24 24' width='48'><path d='M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'/></svg>
@@ -926,7 +917,7 @@ ${layoutSkinCss}
                   <div class='card-thumb-wrap'>
                     <a expr:href='data:post.url'>
                       <b:if cond='data:post.featuredImage'>
-                        <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 360, "3:2")' loading='lazy'/>
+                        <img expr:alt='data:post.title' expr:src='data:post.featuredImage.isResizable ? resizeImage(data:post.featuredImage, 360, "3:2") : data:post.featuredImage' loading='lazy'/>
                       <b:else/>
                         <div class='thumb-fallback-svg' style='aspect-ratio:3/2;background:var(--bg-subtle);display:flex;align-items:center;justify-content:center;border-radius:var(--radius-xs);'>
                           <svg fill='none' height='28' stroke='var(--border-hairline)' stroke-width='1.5' viewBox='0 0 24 24' width='28'><path d='M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'/></svg>
@@ -993,7 +984,7 @@ ${layoutSkinCss}
 
                   <b:if cond='data:post.featuredImage'>
                     <figure class='article-hero-media'>
-                      <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")' fetchpriority='high'/>
+                      <img expr:alt='data:post.title' expr:src='data:post.featuredImage.isResizable ? resizeImage(data:post.featuredImage, 1200, "16:9") : data:post.featuredImage' fetchpriority='high'/>
                       <figcaption class='media-caption'>Image: Newsroom Visual Desk / Editorial Archives</figcaption>
                     </figure>
                   </b:if>
@@ -1212,7 +1203,7 @@ ${layoutSkinCss}
               <!-- Includable 14: threadedComments -->
               <b:includable id='threadedComments' var='post'>
                 <b:if cond='data:post.allowComments'>
-                  <div class='comments' id='comments'>
+                  <div class='comments' id='comments-section'>
                     <b:if cond='data:post.numberOfComments &gt; 0'>
                       <h4 class='comments-title'><data:post.numberOfComments/> Reader Comments</h4>
                     <b:else/>
@@ -1276,9 +1267,7 @@ ${layoutSkinCss}
              RIGHT SIDEBAR: AD CONTAINER + POPULAR POSTS + EXPLORE + VIDEOS
              ========================================================== -->
         <aside class='portal-sidebar' id='site-sidebar' itemscope='itemscope' itemtype='http://schema.org/WPSideBar' role='complementary'>
-          <b:section class='sidebar' id='sidebar' maxwidgets='10' name='Right Editorial Sidebar' showaddelement='yes'>
-
-            <!-- Widget 1: 300x250 Fixed Ad Slot (Zero CLS) -->
+          <b:section class='sidebar' id='sidebar' maxwidgets='10' name='Right Editorial Sidebar' showaddelement='true'>
             <b:widget id='HTML2' locked='false' title='Sidebar Ad Slot' type='HTML' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='content'/>
@@ -1297,8 +1286,6 @@ ${layoutSkinCss}
                 </b:if>
               </b:includable>
             </b:widget>
-
-            <!-- Widget 2: Most Read Ranked Dispatches -->
             <b:widget id='PopularPosts1' locked='false' title='Popular Stories' type='PopularPosts' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
@@ -1316,7 +1303,7 @@ ${layoutSkinCss}
                       <b:loop index='idx' values='data:posts' var='post'>
                         <li class='popular-post-item'>
                           <b:if cond='data:post.thumbnail'>
-                            <img alt='Thumbnail' class='popular-post-thumb' expr:src='resizeImage(data:post.thumbnail, 72, "1:1")' loading='lazy'/>
+                            <img alt='Thumbnail' class='popular-post-thumb' expr:src='data:post.thumbnail.isResizable ? resizeImage(data:post.thumbnail, 72, "1:1") : data:post.thumbnail' loading='lazy'/>
                           </b:if>
                           <h4 class='popular-post-title'>
                             <a expr:href='data:post.href'><data:post.title/></a>
@@ -1332,8 +1319,6 @@ ${layoutSkinCss}
                 </div>
               </b:includable>
             </b:widget>
-
-            <!-- Widget 3: Categories -->
             <b:widget id='Label2' locked='false' title='Categories' type='Label' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
@@ -1368,8 +1353,6 @@ ${layoutSkinCss}
                 </div>
               </b:includable>
             </b:widget>
-
-            <!-- Widget 4: Multimedia Showcase -->
             <b:widget id='HTML3' locked='false' title='Featured Videos' type='HTML' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='content'/>
@@ -1395,8 +1378,6 @@ ${layoutSkinCss}
                 </b:if>
               </b:includable>
             </b:widget>
-
-            <!-- Widget 5: Newsletter Morning Dispatch -->
             <b:widget id='HTML4' locked='false' title='Morning Dispatch' type='HTML' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='content'/>
@@ -1416,7 +1397,6 @@ ${layoutSkinCss}
                 </b:if>
               </b:includable>
             </b:widget>
-
           </b:section>
         </aside>
 
@@ -1429,7 +1409,7 @@ ${layoutSkinCss}
        ================================================================== -->
   <b:if cond='data:view.isHomepage'>
     <section class='site-wrapper' id='home-sections'>
-      <b:section class='home-sections' id='home-category-blocks' maxwidgets='5' name='Homepage Modular Category Blocks' showaddelement='yes'>
+      <b:section class='home-sections' id='home-category-blocks' maxwidgets='5' name='Homepage Modular Category Blocks' showaddelement='true'>
         
         <b:widget id='HTML5' locked='false' title='Business and Markets Desk' type='HTML' version='2' visible='true'>
           <b:widget-settings>
@@ -1511,7 +1491,7 @@ ${layoutSkinCss}
       <div class='footer-top-grid'>
 
         <!-- Col 1: Publication Info and Brand Section -->
-        <b:section class='footer-brand' id='footer-brand' maxwidgets='5' name='Footer Brand &amp; Mission' showaddelement='yes'>
+        <b:section class='footer-brand' id='footer-brand' maxwidgets='5' name='Footer Brand &amp; Mission' showaddelement='true'>
           <b:widget id='Text1' locked='true' title='About Publication' type='Text' version='2' visible='true'>
             <b:includable id='main'>
               <div>
@@ -1531,7 +1511,7 @@ ${layoutSkinCss}
         </b:section>
 
         <!-- Col 2: Categories / News Desks Section -->
-        <b:section class='footer-categories' id='footer-categories' maxwidgets='5' name='Footer News Desks' showaddelement='yes'>
+        <b:section class='footer-categories' id='footer-categories' maxwidgets='5' name='Footer News Desks' showaddelement='true'>
           <b:widget id='Label3' locked='false' title='News Desks' type='Label' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
@@ -1567,7 +1547,7 @@ ${layoutSkinCss}
         </b:section>
 
         <!-- Col 3: Legal and Newsroom Links Section -->
-        <b:section class='footer-links' id='footer-links' maxwidgets='5' name='Footer Editorial Links' showaddelement='yes'>
+        <b:section class='footer-links' id='footer-links' maxwidgets='5' name='Footer Editorial Links' showaddelement='true'>
           <b:widget id='LinkList3' locked='false' title='Newsroom &amp; Legal' type='LinkList' version='2' visible='true'>
             <b:includable id='main'>
               <div>
@@ -1595,7 +1575,7 @@ ${layoutSkinCss}
         </b:section>
 
         <!-- Col 4: Newsletter and Syndication Section -->
-        <b:section class='footer-newsletter' id='footer-newsletter' maxwidgets='5' name='Footer Newsletter &amp; Legal' showaddelement='yes'>
+        <b:section class='footer-newsletter' id='footer-newsletter' maxwidgets='5' name='Footer Newsletter &amp; Legal' showaddelement='true'>
           <b:widget id='HTML7' locked='false' title='Syndication &amp; Feeds' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'/>

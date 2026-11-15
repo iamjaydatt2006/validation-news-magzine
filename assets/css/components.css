@@ -80,6 +80,7 @@
 }
 
 /* Editorial Masthead */
+#site-masthead,
 #masthead {
   padding: 24px 0 16px;
   border-bottom: 1px solid var(--border-hairline);
@@ -237,6 +238,7 @@
 }
 
 /* Trending "In The News" Sub-Bar */
+#site-trending-bar,
 #trending-bar {
   background: var(--bg-subtle);
   border-bottom: 1px solid var(--border-hairline);

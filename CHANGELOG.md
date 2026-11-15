@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.4.0] - 2026-11-16
+
+### 100% Standalone Zero-CDN Architecture & "no-items" Widget Rendering Resolution
+- **100% Standalone Zero-CDN Architecture (Zero External Network Dependencies):**
+  - Completely stripped all external jsDelivr CDN stylesheet `<link>` and script `<script>` tags from the template.
+  - All CSS stylesheets (`core.css`, `components.css`, `post.css`) are 100% inlined directly into `<b:skin><![CDATA[ ... ]]></b:skin>`.
+  - All JavaScript controllers (`core.js`, `magazine-feeds.js`, `article-tools.js`) are 100% inlined directly into `<script type='text/javascript'>//<![CDATA[ ... //]]></script>` at the base of `<body>`.
+  - The theme XML file (`validation-news-magzine.xml` and `news-magazine-theme.xml`) is now completely self-contained, working instantly offline or behind restrictive firewalls/adblockers with zero external asset latency.
+
+- **Root Cause Fix for Empty Content & "no-items section" in Blogger Layout & Live Views:**
+  - **Raw Comments Stripped from `<b:section>`:** Removed all raw HTML comments (`<!-- Widget 1... -->`, etc.) placed directly inside `<b:section id='sidebar'>`. In Blogger Layout v3 DTD schema, raw comment nodes between widgets inside `<b:section>` cause the parser to drop child `<b:widget>` elements, leading to empty sections.
+  - **Restored Widget `<b:includable id='body'>`:** Replaced the global `<b:includable id='body'>` override in `<b:defaultmarkups>` with `<b:includable id='globalNewsHelper'>`. Overriding `id='body'` in `<b:defaultmarkup type='Common'>` had previously replaced native widget bodies with empty comments across Blogger's runtime.
+  - **Eliminated Duplicate HTML/XML IDs:** Resolved duplicate identifiers where `<header id='masthead'>` collided with `<b:section id='masthead'>`, `<div id='trending-bar'>` collided with `<b:section id='trending-bar'>`, and `<div id='comments'>` collided with `<b:includable id='comments'>`. Renamed wrappers to `#site-masthead`, `#site-trending-bar`, and `#comments-section`.
+  - **Standardized Section Permissions:** Updated `showaddelement` from `'yes'` to `'true'` (standard boolean literal in Blogger Layout v3 specification).
+  - **Removed Restrictive Widget Caps:** Removed `maxwidgets='1'` from `masthead` and `main` sections, preventing Blogger's Layout engine from locking or hiding gadgets.
+
+- **Defensive Image Resizing & Post Dispatcher Hardening:**
+  - Hardened thumbnail rendering in `featuredLeadPost`, `postCard`, and `singlePost` with safe `data:post.featuredImage.isResizable ? resizeImage(...) : data:post.featuredImage` guards, preventing template evaluation failures on external or non-resizable images.
+  - Streamlined `Blog1`'s `main` view dispatcher into clear `data:view.isSingleItem` (Post/Page) vs `b:else` (Multiple items: Homepage, Archive, Search, Label, Index) so posts render unconditionally under all views and mobile redirects.
+  - Hardened pre-rendered editorial fallback content in Left Rail (`HTML1`), Breaking News (`HTML0`), Sidebar (`PopularPosts1`, `Label2`, `HTML3`, `HTML4`), Category Blocks (`HTML5`, `HTML6`), and Footer to ensure rich visual rendering immediately even without client-side JavaScript execution.
+
+---
+
 ## [1.3.0] - 2026-11-16
 
 ### Reference Engine Integration & Native Widget Pattern Hardening

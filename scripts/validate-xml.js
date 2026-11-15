@@ -167,22 +167,12 @@ for (const vt of voidTags) {
 }
 assertCheck('CHECK 7: XHTML Self-Closing Void Tags', voidTagsValid, 'All <link/>, <meta/>, <img/>, <input/> properly terminated');
 
-// 8. jsDelivr CDN URLs Resolution to Local Repository Assets
-const cdnRegex = /https:\/\/cdn\.jsdelivr\.net\/gh\/iamjaydatt2006\/validation-news-magzine@v1\.3\.0\/([a-zA-Z0-9_\-./]+)/g;
-let cdnMatch;
-let cdnUrlsCount = 0;
-let cdnUrlsValid = true;
+// 8. Standalone Zero-CDN Architecture (Zero External CSS / JS Dependencies)
+const hasCdnLinks = /href=['"]https:\/\/cdn\.jsdelivr\.net/i.test(content) || /src=['"]https:\/\/cdn\.jsdelivr\.net/i.test(content);
+const hasInlineSkin = content.includes('<b:skin>') && content.includes('/* Core Tokens & Reset */') && content.includes('/* Components & Grid System */') && content.includes('/* Post & Archive View */');
+const hasInlineJs = content.includes('// Core Interactions') && content.includes('// Magazine Feeds') && content.includes('// Article Tools');
 
-while ((cdnMatch = cdnRegex.exec(content)) !== null) {
-  cdnUrlsCount++;
-  const assetRelPath = cdnMatch[1];
-  const localAssetPath = path.join(ROOT_DIR, assetRelPath);
-  if (!fs.existsSync(localAssetPath)) {
-    console.error(`CDN asset 404: ${assetRelPath} not found at ${localAssetPath}`);
-    cdnUrlsValid = false;
-  }
-}
-assertCheck(`CHECK 8: jsDelivr CDN Asset Mapping (${cdnUrlsCount} URLs)`, cdnUrlsValid && cdnUrlsCount > 0, 'All v1.3.0 CDN endpoints resolve to existing files');
+assertCheck('CHECK 8: Standalone Zero-CDN Architecture (0 external CDN links, 100% inlined CSS and JS)', !hasCdnLinks && hasInlineSkin && hasInlineJs, 'Completely self-contained standalone theme XML with zero external CDN dependencies');
 
 // 9. Blogger Layout v3 <b:defaultmarkups> Verification
 const hasDefaultMarkups = content.includes('<b:defaultmarkups>') && content.includes('</b:defaultmarkups>');
@@ -234,12 +224,12 @@ for sec in sections:
     sec_id = sec.attrib.get('id', '')
     perm = sec.attrib.get('showaddelement', '')
     cls = sec.attrib.get('class', '')
-    if perm != 'yes' or not cls:
+    if perm not in ('true', 'yes') or not cls:
         invalid.append({'id': sec_id, 'showaddelement': perm, 'class': cls})
 print(json.dumps({'count': len(sections), 'invalid': invalid}))
 "`;
 const secPermResult = JSON.parse(execSync(pySectionPermCheck, { stdio: ['pipe', 'pipe', 'pipe'] }).toString());
-assertCheck(`CHECK 11: Section showaddelement Permissions & Classes (${secPermResult.count} sections)`, secPermResult.invalid.length === 0, secPermResult.invalid.length === 0 ? `All ${secPermResult.count} sections have showaddelement="yes" and semantic class attributes` : `Invalid sections: ${JSON.stringify(secPermResult.invalid)}`);
+assertCheck(`CHECK 11: Section showaddelement Permissions & Classes (${secPermResult.count} sections)`, secPermResult.invalid.length === 0, secPermResult.invalid.length === 0 ? `All ${secPermResult.count} sections have valid showaddelement ("true") and semantic class attributes` : `Invalid sections: ${JSON.stringify(secPermResult.invalid)}`);
 
 // 12. Blogger Layout Wireframe (<b:template-skin>)
 const tmplSkinMatch = content.match(/<b:template-skin>([\s\S]*?)<\/b:template-skin>/i);
