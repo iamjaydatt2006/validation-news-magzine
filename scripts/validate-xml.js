@@ -15,7 +15,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const XML_FILE = path.join(ROOT_DIR, 'dist/validation-news-magzine.xml');
 
 console.log('===============================================================');
-console.log('VALIDATION NEWS MAGZINE THEME - STRICT XML AUDIT SUITE (v1.2.1)');
+console.log('VALIDATION NEWS MAGZINE THEME - STRICT XML AUDIT SUITE (v1.3.0)');
 console.log('===============================================================\n');
 
 if (!fs.existsSync(XML_FILE)) {
@@ -168,7 +168,7 @@ for (const vt of voidTags) {
 assertCheck('CHECK 7: XHTML Self-Closing Void Tags', voidTagsValid, 'All <link/>, <meta/>, <img/>, <input/> properly terminated');
 
 // 8. jsDelivr CDN URLs Resolution to Local Repository Assets
-const cdnRegex = /https:\/\/cdn\.jsdelivr\.net\/gh\/iamjaydatt2006\/validation-news-magzine@v1\.2\.1\/([a-zA-Z0-9_\-./]+)/g;
+const cdnRegex = /https:\/\/cdn\.jsdelivr\.net\/gh\/iamjaydatt2006\/validation-news-magzine@v1\.3\.0\/([a-zA-Z0-9_\-./]+)/g;
 let cdnMatch;
 let cdnUrlsCount = 0;
 let cdnUrlsValid = true;
@@ -182,7 +182,7 @@ while ((cdnMatch = cdnRegex.exec(content)) !== null) {
     cdnUrlsValid = false;
   }
 }
-assertCheck(`CHECK 8: jsDelivr CDN Asset Mapping (${cdnUrlsCount} URLs)`, cdnUrlsValid && cdnUrlsCount > 0, 'All v1.2.1 CDN endpoints resolve to existing files');
+assertCheck(`CHECK 8: jsDelivr CDN Asset Mapping (${cdnUrlsCount} URLs)`, cdnUrlsValid && cdnUrlsCount > 0, 'All v1.3.0 CDN endpoints resolve to existing files');
 
 // 9. Blogger Layout v3 <b:defaultmarkups> Verification
 const hasDefaultMarkups = content.includes('<b:defaultmarkups>') && content.includes('</b:defaultmarkups>');

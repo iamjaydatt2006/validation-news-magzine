@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.0] - 2026-11-16
+
+### Reference Engine Integration & Native Widget Pattern Hardening
+- **Reference Template Architecture Adoption (`reference-templates/1.xml`):**
+  - Aligned root `<html>` attributes with production specifications: added `b:templateUrl='indie.xml'`, `b:templateVersion='1.3.0'`, and `expr:lang='data:blog.locale.language'`.
+  - Injected complete native `<b:widget-settings>` across all 18 widgets including `Label1`, `Label2`, `Label3` (`sorting: ALPHA`, `display: LIST`, `showType: ALL`), `HTML0`, `HTML1`, `HTML3`, `HTML4`, `HTML5`, `HTML6`, `HTML7` (`content`), `Header1` (`sectionWidth: 1200`), `PageList1` (`pageListJson`, `homeTitle`), `Blog1`, and `PopularPosts1` (`numItemsToShow: 5`, `timeRange: ALL_TIME`).
+  - Strengthened `<b:template-skin>` wireframe for `body#layout` to mirror the verified layout container styles in `reference-templates/1.xml`, ensuring active Edit pencil icons and "+ Add a Gadget" buttons across all 13 sections.
+
+- **Primary Navigation & Desk Expansion:**
+  - Expanded `PageList1` fallback navigation links to 10 canonical editorial desks: Home, India, World, Politics, Business, Technology, Education, Entertainment, Sports, and Maharashtra.
+  - Mirrored full 10-desk directory inside mobile slide-over navigation drawer alongside red Live coverage beacon.
+
+- **Ranked Most Read Dispatches (`01`, `02`, `03`...):**
+  - Formatted popular posts ranking with CSS counter decimal-leading-zero and `<b:eval>` formatting, styling numerals in prominent bold editorial red.
+
+- **Comprehensive Social Sharing & Post Enhancements:**
+  - Verified dynamic share bar (WhatsApp, X, Facebook, Telegram, Copy Link) with clean SVG iconography.
+  - Verified `rel='tag'` on post label links and Schema.org `BreadcrumbList` breadcrumbs.
+  - Implemented responsive Blogger comment form iframe within `commentPicker`.
+
+---
+
 ## [1.2.1] - 2026-11-16
 
 ### Critical Bug Fixes & Native Widget Restoration

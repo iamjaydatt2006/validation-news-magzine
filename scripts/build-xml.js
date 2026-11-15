@@ -3,7 +3,7 @@
  * Compiles the standalone Blogger XML theme with Critical CSS + Layout Wireframe + jsDelivr CDN integration.
  * Adheres strictly to Blogger Layout v3 and Widget v2 specifications.
  * @package ValidationNewsMagzine
- * @version 1.2.1
+ * @version 1.3.0
  * @author Jaydatta Khodave
  * @license MIT
  */
@@ -242,7 +242,7 @@ body#layout footer#site-footer .section {
 
 const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr' xmlns:og='http://ogp.me/ns#'>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.3.0' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale.language' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr' xmlns:og='http://ogp.me/ns#'>
 <head>
   <meta charset='UTF-8'/>
   <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
@@ -254,8 +254,8 @@ const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,700&amp;display=swap' rel='stylesheet'/>
 
   <!-- jsDelivr CDN Modular Non-Blocking Stylesheets (v1.2.0 Release) -->
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/css/components.css' rel='stylesheet'/>
-  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/css/post.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/css/components.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/css/post.css' rel='stylesheet'/>
 
   <!-- Dynamic Document Title (Zero b:eval Chaining) -->
   <title>
@@ -439,9 +439,9 @@ ${layoutSkinCss}
   </b:defaultmarkups>
 
   <!-- jsDelivr CDN Deferred JavaScript Modules (v1.2.0 Release) -->
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/js/core.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/js/magazine-feeds.js'></script>
-  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.2.1/assets/js/article-tools.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/js/core.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/js/magazine-feeds.js'></script>
+  <script defer='defer' src='https://cdn.jsdelivr.net/gh/iamjaydatt2006/validation-news-magzine@v1.3.0/assets/js/article-tools.js'></script>
 </head>
 
 <body expr:class='(data:view.isHomepage ? "is-homepage" : "") + (data:view.isPost ? " is-post" : "") + (data:view.isPage ? " is-page" : "") + (data:view.isMultipleItems and not data:view.isHomepage ? " is-archive" : "") + (data:view.isError ? " is-error" : "")' itemscope='itemscope' itemtype='http://schema.org/WebPage'>
@@ -564,12 +564,15 @@ ${layoutSkinCss}
                   </b:loop>
                 <b:else/>
                   <a class='nav-link-item active' expr:href='data:blog.homepageUrl.canonical'>Home</a>
-                  <a class='nav-link-item' href='/search/label/World'>World</a>
-                  <a class='nav-link-item' href='/search/label/Business'>Business</a>
-                  <a class='nav-link-item' href='/search/label/Tech'>Tech</a>
-                  <a class='nav-link-item' href='/search/label/Sports'>Sports</a>
-                  <a class='nav-link-item' href='/search/label/Health'>Health</a>
-                  <a class='nav-link-item' href='/search/label/Opinion'>Opinion</a>
+                  <a class='nav-link-item' expr:href='data:blog.homepageUrl.canonical + "search/label/India"'>India</a>
+                  <a class='nav-link-item' expr:href='data:blog.homepageUrl.canonical + "search/label/World"'>World</a>
+                  <a class='nav-link-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Politics"'>Politics</a>
+                  <a class='nav-link-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Business"'>Business</a>
+                  <a class='nav-link-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Technology"'>Technology</a>
+                  <a class='nav-link-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Education"'>Education</a>
+                  <a class='nav-link-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Entertainment"'>Entertainment</a>
+                  <a class='nav-link-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Sports"'>Sports</a>
+                  <a class='nav-link-item' expr:href='data:blog.homepageUrl.canonical + "search/label/Maharashtra"'>Maharashtra</a>
                 </b:if>
               </b:includable>
             </b:widget>
@@ -602,6 +605,13 @@ ${layoutSkinCss}
         </span>
         <b:section class='trending' id='trending-bar' maxwidgets='5' name='Trending Topics' showaddelement='yes'>
           <b:widget id='Label1' locked='false' title='Trending Topics' type='Label' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+              <b:widget-setting name='display'>LIST</b:widget-setting>
+              <b:widget-setting name='selectedLabelsList'/>
+              <b:widget-setting name='showType'>ALL</b:widget-setting>
+              <b:widget-setting name='showFreqNumbers'>false</b:widget-setting>
+            </b:widget-settings>
             <b:includable id='main'>
               <div class='trending-list'>
                 <b:if cond='data:labels'>
@@ -638,6 +648,9 @@ ${layoutSkinCss}
         <div class='breaking-ticker-track'>
           <b:section class='breaking-news' id='breaking-bar' maxwidgets='2' name='Breaking News Bar' showaddelement='yes'>
             <b:widget id='HTML0' locked='false' title='Breaking News Ticker' type='HTML' version='2' visible='true'>
+              <b:widget-settings>
+                <b:widget-setting name='content'/>
+              </b:widget-settings>
               <b:includable id='main'>
                 <div class='breaking-ticker-content' id='breaking-ticker-content'>
                   <b:if cond='data:content'>
@@ -703,6 +716,9 @@ ${layoutSkinCss}
           </div>
           <b:section class='left-rail' id='left-rail' maxwidgets='5' name='Left Rail Fast Dispatches' showaddelement='yes'>
             <b:widget id='HTML1' locked='false' title='Fast Dispatches' type='HTML' version='2' visible='true'>
+              <b:widget-settings>
+                <b:widget-setting name='content'/>
+              </b:widget-settings>
               <b:includable id='main'>
                 <div class='briefs-container' data-label='latest' data-rail-label='latest' id='rail-briefs-stream'>
                   <b:if cond='data:content'>
@@ -1319,6 +1335,13 @@ ${layoutSkinCss}
 
             <!-- Widget 3: Categories -->
             <b:widget id='Label2' locked='false' title='Categories' type='Label' version='2' visible='true'>
+              <b:widget-settings>
+                <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+                <b:widget-setting name='display'>LIST</b:widget-setting>
+                <b:widget-setting name='selectedLabelsList'/>
+                <b:widget-setting name='showType'>ALL</b:widget-setting>
+                <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+              </b:widget-settings>
               <b:includable id='main'>
                 <div>
                   <div class='sidebar-box-header'>
@@ -1348,6 +1371,9 @@ ${layoutSkinCss}
 
             <!-- Widget 4: Multimedia Showcase -->
             <b:widget id='HTML3' locked='false' title='Featured Videos' type='HTML' version='2' visible='true'>
+              <b:widget-settings>
+                <b:widget-setting name='content'/>
+              </b:widget-settings>
               <b:includable id='main'>
                 <b:if cond='data:content'>
                   <data:content/>
@@ -1372,6 +1398,9 @@ ${layoutSkinCss}
 
             <!-- Widget 5: Newsletter Morning Dispatch -->
             <b:widget id='HTML4' locked='false' title='Morning Dispatch' type='HTML' version='2' visible='true'>
+              <b:widget-settings>
+                <b:widget-setting name='content'/>
+              </b:widget-settings>
               <b:includable id='main'>
                 <b:if cond='data:content'>
                   <data:content/>
@@ -1403,6 +1432,9 @@ ${layoutSkinCss}
       <b:section class='home-sections' id='home-category-blocks' maxwidgets='5' name='Homepage Modular Category Blocks' showaddelement='yes'>
         
         <b:widget id='HTML5' locked='false' title='Business and Markets Desk' type='HTML' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='content'/>
+          </b:widget-settings>
           <b:includable id='main'>
             <div class='modular-news-block' data-block-label='Business' data-label='Business'>
               <div class='sidebar-box-header'>
@@ -1434,6 +1466,9 @@ ${layoutSkinCss}
         </b:widget>
 
         <b:widget id='HTML6' locked='false' title='Technology and Innovation Desk' type='HTML' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='content'/>
+          </b:widget-settings>
           <b:includable id='main'>
             <div class='modular-news-block' data-block-label='Technology' data-label='Technology'>
               <div class='sidebar-box-header'>
@@ -1498,6 +1533,13 @@ ${layoutSkinCss}
         <!-- Col 2: Categories / News Desks Section -->
         <b:section class='footer-categories' id='footer-categories' maxwidgets='5' name='Footer News Desks' showaddelement='yes'>
           <b:widget id='Label3' locked='false' title='News Desks' type='Label' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+              <b:widget-setting name='display'>LIST</b:widget-setting>
+              <b:widget-setting name='selectedLabelsList'/>
+              <b:widget-setting name='showType'>ALL</b:widget-setting>
+              <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+            </b:widget-settings>
             <b:includable id='main'>
               <div>
                 <h4 class='footer-col-title'><data:title/></h4>
@@ -1555,6 +1597,9 @@ ${layoutSkinCss}
         <!-- Col 4: Newsletter and Syndication Section -->
         <b:section class='footer-newsletter' id='footer-newsletter' maxwidgets='5' name='Footer Newsletter &amp; Legal' showaddelement='yes'>
           <b:widget id='HTML7' locked='false' title='Syndication &amp; Feeds' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'/>
+            </b:widget-settings>
             <b:includable id='main'>
               <div>
                 <h4 class='footer-col-title'>Syndication &amp; Feeds</h4>
@@ -1612,14 +1657,17 @@ ${layoutSkinCss}
       </button>
     </div>
     <ul class='drawer-links-stack'>
-      <li><a href='/'>Home</a></li>
-      <li><a href='/search/label/World'>World News</a></li>
-      <li><a href='/search/label/Business'>Business and Finance</a></li>
-      <li><a href='/search/label/Tech'>Technology</a></li>
-      <li><a href='/search/label/Sports'>Sports</a></li>
-      <li><a href='/search/label/Health'>Health and Wellness</a></li>
-      <li><a href='/search/label/Opinion'>Opinion and Columns</a></li>
-      <li><a href='/search/label/Live' style='color: var(--accent-red);'>Live Coverage</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical'>Home</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/India"'>India</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/World"'>World News</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/Politics"'>Politics</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/Business"'>Business and Finance</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/Technology"'>Technology</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/Education"'>Education</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/Entertainment"'>Entertainment</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/Sports"'>Sports</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/Maharashtra"'>Maharashtra</a></li>
+      <li><a expr:href='data:blog.homepageUrl.canonical + "search/label/Live"' style='color: var(--accent-red); font-weight: 700;'>&#9679; Live Coverage</a></li>
     </ul>
     <div style='margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border-hairline);'>
       <p style='font-size: 0.75rem; color: var(--text-muted);'>Independent News Portal &#8212; Real-Time Dispatches</p>
